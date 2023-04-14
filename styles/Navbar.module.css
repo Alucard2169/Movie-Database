@@ -1,0 +1,39 @@
+.navbar{
+    display: flex;
+    padding: .5rem 2rem;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.pfpContainer{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.pfpContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.authButton{
+    border: 2px #2CEC65 solid;
+    padding: .4rem 1rem;
+    border-radius: 5px;
+    background-color: transparent;
+    color: #2CEC65;
+    cursor: pointer;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+transition: all 200ms ease-in-out;
+}
+
+
+.authButton:hover{
+    background-color: #2CEC65;
+    color: white;
+}

@@ -1,0 +1,36 @@
+.searchBar{
+    width: 10rem;
+}
+
+.searchBar label{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.searchBar label .icon{
+    position: absolute;
+    font-size: 1.5rem;
+    padding-left: .3rem;
+}
+
+.searchBar label input{
+    background-color: #2CEC65;
+    padding: .5rem 1rem .5rem 2.2rem;
+    font-size: 1rem;
+    border: none;
+    color: white;
+    letter-spacing: 1px;
+    border-radius: 100px;
+    font-weight: 500;
+    transition: all 100ms ease-in-out;
+}
+
+
+
+
+.searchBar label input:focus-visible{
+    color: #2CEC65;
+    background-color: transparent;
+    outline: 1px #2CEC65 solid;
+}
