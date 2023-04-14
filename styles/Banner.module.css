@@ -20,3 +20,27 @@
 .banner .text span{
     font-weight: 300;
 }
+
+
+.banner .logo{
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+}
+
+.banner .logo p{
+    font-size: 1rem;
+}
+
+.banner .logo a{
+    background-color: white;
+    padding: .5rem 1rem;
+    border-radius: 10px;
+}
+
+.banner .logo a img{
+    width : 4rem;
+    height: 4rem;
+}
+
