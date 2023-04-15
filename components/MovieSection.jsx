@@ -1,11 +1,5 @@
 import Link from "next/link";
 import movieSectionStyle from "../styles/MovieSection.module.css";
-import { Roboto_Flex } from "@next/font/google";
-
-const roboto_flex = Roboto_Flex({
-  subsets: ["latin"],
-  weight: ["300", "500", "700", "800"],
-});
 
 const MovieSection = ({ data }) => {
   const { images, result } = data;
@@ -14,17 +8,11 @@ const MovieSection = ({ data }) => {
   const { poster_sizes } = images;
 
   return (
-    <div
-      className={`${movieSectionStyle.movieSection} ${roboto_flex.className}`}
-    >
+    <div className={movieSectionStyle.movieSection}>
       <h2>Popular Now In Movies</h2>
       <div className={movieSectionStyle.movies}>
         {result.map((movie) => (
-          <Link
-            href={`/movie/${movie.id}`}
-            as={`/movie/${movie.title}`}
-            key={movie.id}
-          >
+          <Link href={`/movie/${movie.id}`} key={movie.id}>
             <div className={movieSectionStyle.movieCard}>
               <div className={movieSectionStyle.imageSection}>
                 <img

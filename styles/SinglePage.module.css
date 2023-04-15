@@ -1,0 +1,86 @@
+.singlePage {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.singlePage .moviePoster {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65%;
+  z-index: -1;
+}
+.singlePage .moviePoster img {
+  width: 100%;
+  height: 100%;
+  -o-object-position: center;
+     object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  filter: brightness(0.5);
+}
+.singlePage .movieDetails {
+  position: relative;
+  height: 100vh;
+  z-index: 1;
+  margin-top: 23%;
+  /* Adjust as needed */
+  background-color: transparent;
+  background-image: linear-gradient(180deg, transparent 0%, #05161e 10%, #05161e 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.singlePage .movieDetails .info {
+  padding: 0 5rem;
+  width: 100%;
+  z-index: 200;
+  top: -4rem;
+  /* Change from -5rem to 0 */
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.singlePage .movieDetails .info .top {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.singlePage .movieDetails .info .top .topDetails {
+  display: flex;
+  justify-content: space-between;
+  min-width: 100%;
+}
+.singlePage .movieDetails .info .top .topDetails .left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.singlePage .movieDetails .info .top .topDetails .left .directors {
+  display: flex;
+  gap: 1rem;
+}
+.singlePage .movieDetails .info .top .topDetails .left .directors span {
+  color: white;
+}
+.singlePage .movieDetails .info .top .topDetails .left .name h1 {
+  font-size: 2rem;
+  color: white;
+}
+.singlePage .movieDetails .info .top .topDetails .left .geners ul {
+  display: flex;
+  gap: 1rem;
+}
+.singlePage .movieDetails .info .top .topDetails .left .geners ul li {
+  background-color: rgba(82, 82, 82, 0.5);
+  border: 1px white solid;
+  border-radius: 5px;
+  padding: 0.2rem 0.5rem;
+  color: white;
+  font-size: 0.9rem;
+}
+.singlePage .movieDetails .lower {
+  padding: 0 5rem;
+}/*# sourceMappingURL=SinglePage.module.css.map */
