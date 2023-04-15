@@ -1,10 +1,20 @@
 import singlePageDesign from "../../styles/SinglePage.module.css";
+import { AiOutlineGlobal } from "react-icons/ai";
 
 const SingleMoviePage = ({ data, images, cast, crew }) => {
   console.log(data);
 
-  const { backdrop_path, title, overview, genres, release_date, runtime } =
-    data;
+  const {
+    adult,
+    backdrop_path,
+    title,
+    overview,
+    homepage,
+    genres,
+    release_date,
+    runtime,
+    budget,
+  } = data;
   const { base_url, backdrop_sizes } = images;
 
   return (
@@ -39,23 +49,22 @@ const SingleMoviePage = ({ data, images, cast, crew }) => {
                 </div>
               </div>
               <aside>
-                <span>Share</span>
+                {homepage && (
+                  <a href={homepage} target="_blank">
+                    <AiOutlineGlobal className={singlePageDesign.icons} />
+                  </a>
+                )}
               </aside>
             </section>
 
-            <div className="coreDetails">
-              <div className="trailer"></div>
-              <div className="rating">
-                <span>RATING</span>
-                <p>PG</p>
-              </div>
+            <div className={singlePageDesign.coreDetails}>
               <div className="date">
                 <span>RELEASE</span>
                 <p>{release_date}</p>
               </div>
               <div className="buget">
                 <span>BUGET</span>
-                <p>$130M</p>
+                <p>{"$" + (budget / 1000000).toFixed(1) + "M"}</p>
               </div>
               <div className="length">
                 <span>LENGTH</span>
@@ -65,7 +74,7 @@ const SingleMoviePage = ({ data, images, cast, crew }) => {
           </section>
           <section className={singlePageDesign.lower}>
             <article>
-              <h4>Description</h4>
+              <h3>Description</h3>
               <p>{overview}</p>
             </article>
           </section>

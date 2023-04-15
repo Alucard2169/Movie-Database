@@ -24,7 +24,7 @@
   position: relative;
   height: 100vh;
   z-index: 1;
-  margin-top: 23%;
+  margin-top: 22%;
   /* Adjust as needed */
   background-color: transparent;
   background-image: linear-gradient(180deg, transparent 0%, #05161e 10%, #05161e 100%);
@@ -46,7 +46,7 @@
 .singlePage .movieDetails .info .top {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 }
 .singlePage .movieDetails .info .top .topDetails {
   display: flex;
@@ -81,6 +81,60 @@
   color: white;
   font-size: 0.9rem;
 }
-.singlePage .movieDetails .lower {
-  padding: 0 5rem;
+.singlePage .movieDetails .info .top .topDetails .icons {
+  font-size: 1.5rem;
+  color: white;
+}
+.singlePage .movieDetails .info .top .topDetails .icons:hover {
+  color: #2CEC65;
+}
+.singlePage .movieDetails .info .top .coreDetails {
+  display: flex;
+  gap: 1rem;
+}
+.singlePage .movieDetails .info .top .coreDetails div {
+  width: 15rem;
+  height: 8rem;
+  background-color: rgba(82, 82, 82, 0.2);
+  border: 1px white solid;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  position: relative;
+  transition: all 200ms ease-in-out;
+}
+.singlePage .movieDetails .info .top .coreDetails div span {
+  position: absolute;
+  left: 1rem;
+  justify-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgb(166, 166, 166);
+  writing-mode: vertical-rl;
+}
+.singlePage .movieDetails .info .top .coreDetails div p {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+}
+.singlePage .movieDetails .info .top .coreDetails div:hover {
+  background-color: #2CEC65;
+}
+.singlePage .movieDetails .info .top .coreDetails div:hover span,
+.singlePage .movieDetails .info .top .coreDetails div:hover p {
+  color: black;
+}
+.singlePage .movieDetails .lower article {
+  width: 60%;
+}
+.singlePage .movieDetails .lower article h3 {
+  color: rgb(82, 82, 82);
+  margin-bottom: 1rem;
+}
+.singlePage .movieDetails .lower article p {
+  color: white;
+  line-height: 25px;
 }/*# sourceMappingURL=SinglePage.module.css.map */
