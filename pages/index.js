@@ -12,7 +12,7 @@ export default function Home({ images, result }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps = async () => {
   const imageResponse = await fetch(
     `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
   );
@@ -34,4 +34,4 @@ export async function getServerSideProps() {
   return {
     props: { images, result },
   };
-}
+};
