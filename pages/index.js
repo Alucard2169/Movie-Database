@@ -1,12 +1,13 @@
 import Banner from "@/components/Banner";
 import MovieSection from "@/components/MovieSection";
-
+import homeStyle from "../styles/Home.module.css";
 export default function Home({ images, result }) {
   return (
-    <div>
+    <div className={homeStyle.home}>
       <Banner />
 
       {/* send movies result as a prop to the MovieSection component */}
+      <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
       <MovieSection data={{ images, result }} />
     </div>
   );

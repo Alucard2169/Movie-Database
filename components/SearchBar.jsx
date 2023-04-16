@@ -1,14 +1,17 @@
 import searchBarStyle from "../styles/SearchBar.module.css";
+import { useRouter } from "next/router";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
 
 const SearchBar = () => {
+  const router = useRouter();
   const [movie, setMovie] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(movie);
+    router.push(`/movie/name/${movie}`);
     setMovie("");
   };
 

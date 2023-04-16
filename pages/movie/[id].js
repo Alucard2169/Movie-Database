@@ -1,11 +1,8 @@
 import singlePageDesign from "../../styles/SinglePage.module.css";
 import { AiOutlineGlobal } from "react-icons/ai";
 
-const SingleMoviePage = ({ data, images, cast, crew }) => {
-  console.log(data);
-
+const SingleMoviePage = ({ data, images, castResult, crew }) => {
   const {
-    adult,
     backdrop_path,
     title,
     overview,
@@ -15,16 +12,24 @@ const SingleMoviePage = ({ data, images, cast, crew }) => {
     runtime,
     budget,
   } = data;
-  const { base_url, backdrop_sizes } = images;
+
+  const { base_url, backdrop_sizes, profile_sizes } = images;
 
   return (
     <div className={singlePageDesign.singlePage}>
-      <div className={singlePageDesign.moviePoster}>
-        <img
-          src={`${base_url}${backdrop_sizes[3]}${backdrop_path}`}
-          alt={title}
-        />
-      </div>
+      {!backdrop_path && (
+        <div className={singlePageDesign.notAvailable}>
+          <p>Image Not Available</p>
+        </div>
+      )}
+      {backdrop_path && (
+        <div className={singlePageDesign.moviePoster}>
+          <img
+            src={`${base_url}${backdrop_sizes[3]}${backdrop_path}`}
+            alt={title}
+          />
+        </div>
+      )}
       <div className={singlePageDesign.movieDetails}>
         <div className={singlePageDesign.info}>
           <section className={singlePageDesign.top}>
@@ -64,7 +69,11 @@ const SingleMoviePage = ({ data, images, cast, crew }) => {
               </div>
               <div className="buget">
                 <span>BUGET</span>
-                <p>{"$" + (budget / 1000000).toFixed(1) + "M"}</p>
+                <p>
+                  {budget
+                    ? `${"$" + (budget / 1000000).toFixed(1) + "M"}`
+                    : "N/A"}
+                </p>
               </div>
               <div className="length">
                 <span>LENGTH</span>
@@ -73,9 +82,27 @@ const SingleMoviePage = ({ data, images, cast, crew }) => {
             </div>
           </section>
           <section className={singlePageDesign.lower}>
-            <article>
+            <article className={singlePageDesign.description}>
               <h3>Description</h3>
               <p>{overview}</p>
+            </article>
+
+            <article className={singlePageDesign.cast}>
+              <h3>Notable Cast</h3>
+              <ul>
+                {castResult.map((people) => (
+                  <li>
+                    <img
+                      src={`${base_url}${profile_sizes[1]}${people.profile_path}`}
+                      alt={people.name}
+                    />
+                    <div className="profileLower">
+                      <h5>{people.name}</h5>
+                      <h6>{people.character}</h6>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </article>
           </section>
         </div>
@@ -94,8 +121,8 @@ export const getServerSideProps = async (context) => {
   );
 
   const peopleData = await peopleResponse.json();
-
   const cast = peopleData.cast;
+  const castResult = cast.splice(0, 5);
   const crew = peopleData.crew;
 
   const imageResponse = await fetch(
@@ -114,7 +141,7 @@ export const getServerSideProps = async (context) => {
     props: {
       data,
       images,
-      cast,
+      castResult,
       crew,
     },
   };
