@@ -31,7 +31,7 @@ export const getServerSideProps = async (context) => {
 
   try {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.API_KEY}&language=en-US&query=${name}&page=1&include_adult=false`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.API_KEY}&language=en-US&query=${name}&page=1&include_adult=false&certification_country=IN&certification=PG`
     );
 
     if (!response.ok) {

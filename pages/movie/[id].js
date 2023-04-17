@@ -2,6 +2,8 @@ import singlePageDesign from "../../styles/SinglePage.module.css";
 import { AiOutlineGlobal } from "react-icons/ai";
 
 const SingleMoviePage = ({ data, images, castResult, crew }) => {
+  console.log(data);
+
   const {
     backdrop_path,
     title,
@@ -11,6 +13,7 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
     release_date,
     runtime,
     budget,
+    tagline,
   } = data;
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
@@ -48,10 +51,13 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                 <div className={singlePageDesign.geners}>
                   <ul>
                     {genres.map((gener) => (
-                      <li> {gener.name}</li>
+                      <li key={gener.id}> {gener.name}</li>
                     ))}
                   </ul>
                 </div>
+                {tagline && (
+                  <p className={singlePageDesign.tagline}>{tagline}</p>
+                )}
               </div>
               <aside>
                 {homepage && (

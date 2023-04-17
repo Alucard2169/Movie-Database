@@ -1,14 +1,15 @@
 .singlePage {
-    display: flex;
-    flex-direction: column;
     position: relative;
+    background-color: #05161e;
+    z-index: -1;
+    height: 100%;
 
     .moviePoster {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 65%;
+        height: 100%;
         z-index: -1;
 
         img {
@@ -21,14 +22,37 @@
         }
     }
 
+    .notAvailable {
+        background-color: #05161e;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 65%;
+        z-index: -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        p {
+            background-color: black;
+            color: red;
+            margin-top: -5%;
+            padding: .5rem 1rem .5rem 1rem;
+            border-radius: 10px 5px;
+        }
+    }
+
     .movieDetails {
-        position: relative;
-        min-height: 100vh;
-        z-index: 1;
+        position: absolute;
+        width: 100%;
+        height: fit-content;
+        z-index: 10;
+        padding-bottom: 2rem;
         margin-top: 22%;
         /* Adjust as needed */
-        background-color: transparent;
-        background-image: linear-gradient(180deg, transparent 0%, #05161e 10%, #05161e 100%);
+        background: linear-gradient(180deg, rgba(5, 22, 30, 0.02) 0%, rgba(5, 22, 30, 0) 0.1%, #05161E 13.02%);
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
@@ -36,10 +60,6 @@
         .info {
             padding: 0 5rem;
             width: 100%;
-            z-index: 200;
-            top: -4rem;
-            /* Change from -5rem to 0 */
-            position: absolute;
             display: flex;
             flex-direction: column;
             gap: 2rem;
@@ -91,6 +111,16 @@
                                 }
                             }
 
+                        }
+
+                        .tagline {
+                            margin: 1rem 0;
+                            background-color: #2CEC65;
+                            color: #05161e;
+                            border-radius: 10px 5px;
+                            padding: .5rem;
+                            width: fit-content;
+                            font-size: 1.2rem;
                         }
                     }
 
@@ -159,6 +189,7 @@
         }
 
         .lower {
+
             .description {
                 width: 60%;
                 margin-bottom: 2rem;

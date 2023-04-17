@@ -1,7 +1,8 @@
 
 
 .movieSection{
-    margin-inline:auto;
+    display: flex;
+    justify-content: center;
     padding: 2rem;
     background-color: #040e13;
 }
@@ -10,11 +11,12 @@
 .movieSection .movies{
      margin-inline:auto;
     padding: 2rem 0;
-    width: 90%;
+    width: 95%;
+    height: fit-content;
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(4,1fr);
-    gap: 4rem;
+    grid-template-rows: auto;
+    gap: 2rem;
 } 
 
 .movieCard{
@@ -29,7 +31,7 @@
 
 .movieCard .imageSection{
     width: 15rem;
-    height: 23rem;
+    height: 22rem;
     position: relative;
 }
 
@@ -53,7 +55,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: cover;
 }
 
 .movieCard .imageSection .rating{

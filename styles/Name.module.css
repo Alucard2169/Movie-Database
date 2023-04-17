@@ -1,6 +1,7 @@
 .page{
 background-color: #040e13;
 min-height: 100vh;
+border: 1px red solid;
 display: flex;
 }
 
