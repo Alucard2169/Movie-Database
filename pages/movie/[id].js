@@ -1,9 +1,8 @@
+import { useState } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
 import { AiOutlineGlobal } from "react-icons/ai";
 
 const SingleMoviePage = ({ data, images, castResult, crew }) => {
-  console.log(data);
-
   const {
     backdrop_path,
     title,
