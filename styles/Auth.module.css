@@ -51,6 +51,12 @@
   border: none;
   outline: 1px gray solid;
 }
+.backdrop form label .passIcon {
+  position: absolute;
+  top: 30%;
+  right: 5%;
+  cursor: pointer;
+}
 .backdrop form .error {
   margin-top: 5%;
   color: red;

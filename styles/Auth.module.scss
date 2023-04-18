@@ -57,6 +57,13 @@
                     outline: 1px gray solid;
                 }
             }
+
+            .passIcon {
+                position: absolute;
+                top: 30%;
+                right: 5%;
+                cursor: pointer;
+            }
         }
 
         .error {

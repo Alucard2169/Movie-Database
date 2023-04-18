@@ -2,6 +2,7 @@ import { AuthFormContext } from "@/context/authFormContext";
 import authStyle from "../styles/Auth.module.css";
 import { useContext, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
+import { AiOutlineEye } from "react-icons/ai";
 
 const Auth = () => {
   const { formState, setFormState } = useContext(AuthFormContext);
@@ -11,6 +12,7 @@ const Auth = () => {
     password: false,
     email: false,
   });
+  const [passState, setPassState] = useState("password");
 
   const handleFocus = (e) => {
     setFocus((prevFocusState) => ({
@@ -33,6 +35,10 @@ const Auth = () => {
     }
   };
 
+  const handlePassToogle = () => {
+    setPassState(passState === "password" ? "text" : "password");
+  };
+
   const handleState = () => {
     setState(state === "login" ? "signup" : "login");
   };
@@ -40,11 +46,7 @@ const Auth = () => {
   const handleCloseBtn = () => {
     setFormState(false);
     setState("login");
-    setFocus({
-      username: false,
-      password: false,
-      email: false,
-    });
+    setPassState("password");
   };
 
   return (
@@ -94,12 +96,16 @@ const Auth = () => {
             Password
           </span>
           <input
-            type="password"
+            type={passState}
             id="password"
             onFocus={(e) => handleFocus(e)}
             onBlur={(e) => handleBlur(e)}
             name="password"
             required
+          />
+          <AiOutlineEye
+            onClick={handlePassToogle}
+            className={authStyle.passIcon}
           />
         </label>
 
