@@ -49,25 +49,38 @@ const Auth = () => {
     setPassState("password");
   };
 
-  const handleForm = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+    try {
+      const formData = {
+        username: e.target.username.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+      };
 
-    const formData = {
-      username: e.target.username.value,
-      password: e.target.password.value,
-    };
+      const response = await fetch("http://localhost:3000/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const response = await fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+      const data = await response.json();
 
-    const data = await response.json();
+      if (data.code === 11000) {
+        let obj = data.keyPattern;
+        throw new Error(`${Object.keys(obj)[0]} already exists`);
+      }
 
-    console.log(data);
+      console.log(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -76,7 +89,7 @@ const Auth = () => {
         formState ? `${authStyle.display}` : null
       }`}
     >
-      <form onSubmit={handleForm}>
+      <form onSubmit={state === "login" ? handleLogin : handleSignup}>
         <RxCross1 className={authStyle.icon} onClick={handleCloseBtn} />
         {state === "login" ? <h2>Login</h2> : <h2>Sign Up</h2>}
 
