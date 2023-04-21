@@ -3,7 +3,6 @@ import authStyle from "../styles/Auth.module.css";
 import { useContext, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { AiOutlineEye } from "react-icons/ai";
-import { login } from "@/pages/api/login";
 
 const Auth = () => {
   const { formState, setFormState } = useContext(AuthFormContext);
@@ -53,17 +52,17 @@ const Auth = () => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    // const formData = {
-    //   username: e.target.username.value,
-    //   password: e.target.password.value,
-    // };
+    const formData = {
+      username: e.target.username.value,
+      password: e.target.password.value,
+    };
 
     const response = await fetch("http://localhost:3000/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify(formData),
+      body: JSON.stringify(formData),
     });
 
     const data = await response.json();

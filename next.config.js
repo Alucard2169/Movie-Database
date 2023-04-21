@@ -6,6 +6,7 @@ const nextConfig = {
       sizeLimit: "1mb",
     },
   },
+  output: "standalone",
 };
 
 module.exports = nextConfig;
