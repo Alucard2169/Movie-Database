@@ -5,14 +5,15 @@ export default async function handler(req, res) {
 
   try {
     const data = await signUp({ username, email, password });
-
-    if (data.code === 11000) {
-      let obj = data.keyPattern;
-      throw new Error(`${Object.keys(obj)[0]} already exists`);
-    }
     res.status(201).json(data);
   } catch (error) {
     console.log(error); // Log the error to the console
-    res.status(500).json({ error: error.message }); // Return the error message in the response
+
+    if (error.code === 11000) {
+      let obj = error.keyPattern;
+      res.status(400).json({ error: `${Object.keys(obj)[0]} already exists` }); // Return a 400 Bad Request error with the error message
+    } else {
+      res.status(500).json({ error: error.message }); // Return a 500 Internal Server Error with the error message
+    }
   }
 }

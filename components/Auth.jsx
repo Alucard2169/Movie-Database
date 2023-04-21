@@ -13,6 +13,11 @@ const Auth = () => {
     email: false,
   });
   const [passState, setPassState] = useState("password");
+  const [error, setError] = useState(null);
+
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const handleFocus = (e) => {
     setFocus((prevFocusState) => ({
@@ -47,15 +52,21 @@ const Auth = () => {
     setFormState(false);
     setState("login");
     setPassState("password");
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setError(null);
+    setFocus({ username: false, email: false, password: false });
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
     try {
       const formData = {
-        username: e.target.username.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
+        username,
+        email,
+        password,
       };
 
       const response = await fetch("http://localhost:3000/api/signup", {
@@ -68,14 +79,21 @@ const Auth = () => {
 
       const data = await response.json();
 
-      if (data.code === 11000) {
-        let obj = data.keyPattern;
-        throw new Error(`${Object.keys(obj)[0]} already exists`);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error(data.message);
       }
 
-      console.log(data);
+      if (data.code === 11000) {
+        let obj = Object.keys(data.keyPattern)[0];
+        throw new Error(`${obj} already exists`);
+      }
+
+      setUsername("");
+      setEmail("");
+      setPassword("");
     } catch (error) {
-      console.error(error.message);
+      setPassword("");
+      setError(error.message);
     }
   };
 
@@ -101,11 +119,12 @@ const Auth = () => {
             type="text"
             id="username"
             name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             onFocus={(e) => handleFocus(e)}
             onBlur={(e) => handleBlur(e)}
             required
           />
-          <p className={authStyle.error}></p>
         </label>
 
         {state === "signup" ? (
@@ -117,11 +136,12 @@ const Auth = () => {
               type="email"
               id="email"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               onFocus={(e) => handleFocus(e)}
               onBlur={(e) => handleBlur(e)}
               required
             />
-            <p className={authStyle.error}></p>
           </label>
         ) : null}
 
@@ -132,6 +152,8 @@ const Auth = () => {
           <input
             type={passState}
             id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             onFocus={(e) => handleFocus(e)}
             onBlur={(e) => handleBlur(e)}
             name="password"
@@ -142,6 +164,8 @@ const Auth = () => {
             className={authStyle.passIcon}
           />
         </label>
+
+        {error && <p className={authStyle.error}>{error}</p>}
 
         <input type="submit" value="Submit" />
 
