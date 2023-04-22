@@ -98,8 +98,34 @@ const Auth = () => {
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
+    try {
+      const formData = {
+        username,
+        password,
+      };
+
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.user) {
+        setUser(data.user);
+        handleCloseBtn();
+      } else {
+        setError("User not found, try Sign Up");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

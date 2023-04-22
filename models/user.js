@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { connectToDatabase } from "@/libs/database";
 
 const userSchema = new mongoose.Schema({
   username: {
