@@ -1,11 +1,10 @@
 import Banner from "@/components/Banner";
 import MovieSection from "@/components/MovieSection";
 import homeStyle from "../styles/Home.module.css";
-import Auth from "@/components/Auth";
+
 export default function Home({ images, result }) {
   return (
     <div className={homeStyle.home}>
-      <Auth />
       <Banner />
       {/* send movies result as a prop to the MovieSection component */}
       <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
