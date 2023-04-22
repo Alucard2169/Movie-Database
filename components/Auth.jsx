@@ -3,8 +3,10 @@ import authStyle from "../styles/Auth.module.css";
 import { useContext, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { AiOutlineEye } from "react-icons/ai";
+import { userContext } from "@/context/userContext";
 
 const Auth = () => {
+  const { setUser } = useContext(userContext);
   const { formState, setFormState } = useContext(AuthFormContext);
   const [state, setState] = useState("login");
   const [focus, setFocus] = useState({
@@ -15,9 +17,9 @@ const Auth = () => {
   const [passState, setPassState] = useState("password");
   const [error, setError] = useState(null);
 
-  const [username, setUsername] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFocus = (e) => {
     setFocus((prevFocusState) => ({
@@ -80,17 +82,16 @@ const Auth = () => {
       const data = await response.json();
 
       if (response.status < 200 || response.status >= 300) {
-        throw new Error(data.message);
+        throw new Error(data.error);
+      } else {
+        // set user context
+        setUser(data.user);
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        // close the form
+        handleCloseBtn();
       }
-
-      if (data.code === 11000) {
-        let obj = Object.keys(data.keyPattern)[0];
-        throw new Error(`${obj} already exists`);
-      }
-
-      setUsername("");
-      setEmail("");
-      setPassword("");
     } catch (error) {
       setPassword("");
       setError(error.message);
