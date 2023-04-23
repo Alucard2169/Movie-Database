@@ -134,7 +134,7 @@ const Auth = () => {
         formState ? `${authStyle.display}` : null
       }`}
     >
-      <form onSubmit={state === "login" ? handleLogin : handleSignup}>
+      <form>
         <RxCross1 className={authStyle.icon} onClick={handleCloseBtn} />
         {state === "login" ? <h2>Login</h2> : <h2>Sign Up</h2>}
 
@@ -194,7 +194,11 @@ const Auth = () => {
 
         {error && <p className={authStyle.error}>{error}</p>}
 
-        <input type="submit" value="Submit" />
+        {state === "login" ? (
+          <input type="submit" value="Submit" onClick={handleLogin} />
+        ) : (
+          <input type="submit" value="Submit" onClick={handleSignup} />
+        )}
 
         {state === "login" ? (
           <p className={authStyle.asideLink}>
