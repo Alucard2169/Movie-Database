@@ -4,16 +4,22 @@ import userPfp from "../assets/userPFP.webp";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthFormContext } from "@/context/authFormContext";
 import { userContext } from "@/context/userContext";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const { user, setUser } = useContext(userContext);
   const { setFormState } = useContext(AuthFormContext);
+  const [displayState, setDisplayState] = useState(false);
 
   const handleLoginBtn = () => {
     setFormState(true);
+  };
+
+  const handleUserMenu = () => {
+    setDisplayState(displayState ? false : true);
   };
 
   const handleLogoutBtn = async () => {
@@ -40,13 +46,15 @@ const Navbar = () => {
       ) : (
         <div className={navbarStyle.right}>
           <div className={user.images}>
-            <div className={navbarStyle.userPfp}>
+            <div className={navbarStyle.userPfp} onClick={handleUserMenu}>
               <Image src={userPfp} alt="user profile pic" />
             </div>
           </div>
           <button className={navbarStyle.authButton} onClick={handleLogoutBtn}>
             Logout
           </button>
+
+          <UserMenu state={displayState} logoutFnc={handleLogoutBtn} />
         </div>
       )}
     </nav>
