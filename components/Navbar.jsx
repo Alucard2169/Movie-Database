@@ -1,5 +1,6 @@
 import navbarStyle from "../styles/Navbar.module.css";
 import profilePic from "../assets/pfp.webp";
+import userPfp from "../assets/userPFP.webp";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
@@ -37,9 +38,16 @@ const Navbar = () => {
           Login
         </button>
       ) : (
-        <button className={navbarStyle.authButton} onClick={handleLogoutBtn}>
-          Logout
-        </button>
+        <div className={navbarStyle.right}>
+          <div className={user.images}>
+            <div className={navbarStyle.userPfp}>
+              <Image src={userPfp} alt="user profile pic" />
+            </div>
+          </div>
+          <button className={navbarStyle.authButton} onClick={handleLogoutBtn}>
+            Logout
+          </button>
+        </div>
       )}
     </nav>
   );
