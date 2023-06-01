@@ -2,6 +2,7 @@ import { User } from "@/models/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { setCookie } from "cookies-next";
+
 export default async function handler(req, res) {
   const { username, password } = req.body;
 
@@ -22,7 +23,7 @@ export default async function handler(req, res) {
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
-      const data = { username: user.username, email: user.email };
+      const data = { username: user.username, email: user.email, id: user._id };
       const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET);
 
       setCookie("token", token, {

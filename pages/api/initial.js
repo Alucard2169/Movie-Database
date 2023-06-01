@@ -14,7 +14,11 @@ export default async function handler(req, res) {
       if (!userData) {
         throw new Error("User doesn't exist in database, try Signing up");
       }
-      const user = { username: userData.username, email: userData.email };
+      const user = {
+        username: userData.username,
+        email: userData.email,
+        id: data._id,
+      };
       res.status(200).json({ user });
     } else {
       throw new Error("Unauthorized action");

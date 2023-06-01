@@ -43,7 +43,7 @@ export default async function handler(req, res) {
         sameSite: "strict",
       });
 
-      const user = { username: data.username, email: data.email };
+      const user = { username: data.username, email: data.email, id: data._id };
       res.status(200).json({ user });
     }
   } catch (error) {

@@ -109,11 +109,17 @@
   width: fit-content;
   font-size: 1.2rem;
 }
-.singlePage .movieDetails .info .top .topDetails .icons {
+.singlePage .movieDetails .info .top .topDetails aside {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+.singlePage .movieDetails .info .top .topDetails aside .icons {
   font-size: 1.5rem;
   color: white;
+  cursor: pointer;
 }
-.singlePage .movieDetails .info .top .topDetails .icons:hover {
+.singlePage .movieDetails .info .top .topDetails aside .icons:hover {
   color: #2CEC65;
 }
 .singlePage .movieDetails .info .top .coreDetails {

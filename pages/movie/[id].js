@@ -1,6 +1,7 @@
 import { useState } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
-import { AiOutlineGlobal } from "react-icons/ai";
+import { AiOutlineGlobal, AiFillHeart } from "react-icons/ai";
+import { BiListPlus } from "react-icons/bi";
 
 const SingleMoviePage = ({ data, images, castResult, crew }) => {
   const {
@@ -59,6 +60,8 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                 )}
               </div>
               <aside>
+                <AiFillHeart className={singlePageDesign.icons} />
+                <BiListPlus className={singlePageDesign.icons} />
                 {homepage && (
                   <a href={homepage} target="_blank">
                     <AiOutlineGlobal className={singlePageDesign.icons} />

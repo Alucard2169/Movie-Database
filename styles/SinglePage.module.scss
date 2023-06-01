@@ -124,14 +124,22 @@
                         }
                     }
 
-                    .icons {
-                        font-size: 1.5rem;
-                        color: white;
+                    aside {
+                        display: flex;
+                        gap: 1.5rem;
+                        align-items: baseline;
 
-                        &:hover {
-                            color: #2CEC65
+                        .icons {
+                            font-size: 1.5rem;
+                            color: white;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: #2CEC65
+                            }
                         }
                     }
+
 
                 }
 
