@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
 import { AiOutlineGlobal, AiFillHeart } from "react-icons/ai";
 import { BiListPlus } from "react-icons/bi";
+import { userContext } from "@/context/userContext";
 
 const SingleMoviePage = ({ data, images, castResult, crew }) => {
+  const { user } = useContext(userContext);
   const {
+    imdb_id,
     backdrop_path,
     title,
     overview,
@@ -17,6 +20,22 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
   } = data;
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
+
+  const handleAdd = async (type) => {
+    const id = imdb_id;
+
+    const response = await fetch("http://localhost:3000/api/addList", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, userId: user.id, type }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+  };
 
   return (
     <div className={singlePageDesign.singlePage}>
@@ -60,8 +79,14 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                 )}
               </div>
               <aside>
-                <AiFillHeart className={singlePageDesign.icons} />
-                <BiListPlus className={singlePageDesign.icons} />
+                <AiFillHeart
+                  className={singlePageDesign.icons}
+                  onClick={() => handleAdd("favorite")}
+                />
+                <BiListPlus
+                  className={singlePageDesign.icons}
+                  onClick={() => handleAdd("list")}
+                />
                 {homepage && (
                   <a href={homepage} target="_blank">
                     <AiOutlineGlobal className={singlePageDesign.icons} />

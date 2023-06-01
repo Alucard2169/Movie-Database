@@ -1,14 +1,20 @@
 import mongoose from "mongoose";
 
-const movieScheme = new mongoose.Schema({
-  favorite: {
-    type: Object,
+const movieSchema = new mongoose.Schema({
+  movieId: {
+    type: String,
+    required: true,
   },
-  list: {
-    type: Object,
+  userID: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
   },
 });
 
-const Movie = mongoose.models.Movie || mongoose.model("Movie", movieScheme);
+const Movie = mongoose.models.Movie || mongoose.model("Movie", movieSchema);
 
 export { Movie };

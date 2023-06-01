@@ -23,9 +23,13 @@ export default async function handler(req, res) {
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
-      const data = { username: user.username, email: user.email, id: user._id };
-      const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET);
+      // if password matches, set up a new token using user's id
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
+      // make a seperate data object to send as a response
+      const data = { username: user.username, email: user.email, id: user._id };
+
+      // set the token
       setCookie("token", token, {
         req,
         res,
@@ -35,6 +39,8 @@ export default async function handler(req, res) {
         httpOnly: true,
         sameSite: "strict",
       });
+
+      //send response
       res.status(200).json({ user: data });
     }
   } catch (err) {
