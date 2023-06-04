@@ -92,14 +92,18 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
               </div>
               <aside>
                 {status && <p className={singlePageDesign.show}>{status}</p>}
-                <AiFillHeart
-                  className={singlePageDesign.icons}
-                  onClick={() => handleAdd("favorite")}
-                />
-                <BiListPlus
-                  className={singlePageDesign.icons}
-                  onClick={() => handleAdd("list")}
-                />
+                {user && (
+                  <>
+                    <AiFillHeart
+                      className={singlePageDesign.icons}
+                      onClick={() => handleAdd("favorite")}
+                    />
+                    <BiListPlus
+                      className={singlePageDesign.icons}
+                      onClick={() => handleAdd("list")}
+                    />
+                  </>
+                )}
                 {homepage && (
                   <a href={homepage} target="_blank">
                     <AiOutlineGlobal className={singlePageDesign.icons} />
