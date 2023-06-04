@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
 import { AiOutlineGlobal, AiFillHeart } from "react-icons/ai";
 import { BiListPlus } from "react-icons/bi";
@@ -6,6 +6,7 @@ import { userContext } from "@/context/userContext";
 
 const SingleMoviePage = ({ data, images, castResult, crew }) => {
   const { user } = useContext(userContext);
+  const [status, setStatus] = useState(null);
   const {
     imdb_id,
     backdrop_path,
@@ -32,10 +33,21 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
       body: JSON.stringify({ id, userId: user.id, type }),
     });
 
-    const data = await response.json();
-
-    console.log(data);
+    if (response.ok) {
+      setStatus("Movie Added");
+    } else {
+      const data = await response.json();
+      setStatus(data.error);
+    }
   };
+
+  useEffect(() => {
+    if (status) {
+      setTimeout(() => {
+        setStatus(null);
+      }, 4000);
+    }
+  }, [status]);
 
   return (
     <div className={singlePageDesign.singlePage}>
@@ -79,6 +91,7 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                 )}
               </div>
               <aside>
+                {status && <p className={singlePageDesign.show}>{status}</p>}
                 <AiFillHeart
                   className={singlePageDesign.icons}
                   onClick={() => handleAdd("favorite")}

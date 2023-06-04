@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     padding: 2rem;
+    width:  100%;
     background-color: #040e13;
 }
 
@@ -11,7 +12,7 @@
 .movieSection .movies{
      margin-inline:auto;
     padding: 2rem 0;
-    width: 95%;
+    width: 100%;
     height: fit-content;
     display: grid;
     grid-template-columns: repeat(4,1fr);
@@ -20,6 +21,7 @@
 } 
 
 .movieCard{
+    position: relative;
     width :100%;
     height: 100%;
     display: flex;
@@ -29,12 +31,26 @@
     border-bottom: 1px white solid;
 }
 
-.movieCard .imageSection{
-    width: 15rem;
-    height: 22rem;
-    position: relative;
+
+.icon{
+    position:relative;
+    font-size: 1.5rem;
+    color: #2CEC65;
+    cursor: pointer;
 }
 
+
+.movieCard .imageSection {
+  max-width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.movieCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 
 .movieCard .imageSection::before{
@@ -51,12 +67,7 @@
     color: white;
 }
 
-.movieCard img{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+
 
 .movieCard .imageSection .rating{
     width:4rem;

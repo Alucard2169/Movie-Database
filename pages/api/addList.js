@@ -5,7 +5,11 @@ export default async function handler(req, res) {
 
   try {
     // Check if the movie already exists in the database
-    let existingMovie = await Movie.findOne({ movieId: id, userID: userId });
+    let existingMovie = await Movie.findOne({
+      movieId: id,
+      userID: userId,
+      type: type,
+    });
 
     if (existingMovie) {
       throw new Error("Movie Already exists");
@@ -24,6 +28,6 @@ export default async function handler(req, res) {
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 }

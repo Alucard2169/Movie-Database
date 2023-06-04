@@ -114,6 +114,14 @@
   gap: 1.5rem;
   align-items: baseline;
 }
+.singlePage .movieDetails .info .top .topDetails aside .show {
+  background-color: #2CEC65;
+  color: #05161E;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
 .singlePage .movieDetails .info .top .topDetails aside .icons {
   font-size: 1.5rem;
   color: white;

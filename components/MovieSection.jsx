@@ -1,18 +1,53 @@
 import Link from "next/link";
 import movieSectionStyle from "../styles/MovieSection.module.css";
+import { AiFillDelete } from "react-icons/ai";
 
-const MovieSection = ({ data }) => {
+const MovieSection = ({ data, showDeleteButton, onMovieDeleted }) => {
   const { images, result } = data;
+
+  let handleMovieDeleted;
+  if (onMovieDeleted) {
+    handleMovieDeleted = onMovieDeleted.handleMovieDeleted;
+  }
 
   const { base_url } = images;
   const { poster_sizes } = images;
+
+  const handleDeleteBtn = async (movieId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/deleteMovie?movieId=${movieId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      // Perform your delete logic based on the 'type' value
+      if (data.success) {
+        onMovieDeleted.handleMovieDeleted(movieId);
+        // Delete was successful
+        // Perform additional actions or update the UI
+      } else {
+        alert("process failed, try again");
+        // Delete failed
+        // Handle the error or display an error message
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={movieSectionStyle.movieSection}>
       <div className={movieSectionStyle.movies}>
         {result.map((movie) => (
-          <Link href={`/movie/${movie.id}`} key={movie.id}>
-            <div className={movieSectionStyle.movieCard}>
+          <div className={movieSectionStyle.movieCard} key={movie.id}>
+            <Link href={`/movie/${movie.id}`}>
               <div className={movieSectionStyle.imageSection}>
                 {!movie.poster_path && <p>Image not available</p>}
                 {movie.poster_path && (
@@ -26,13 +61,19 @@ const MovieSection = ({ data }) => {
                 </span>
               </div>
               <h3>{movie.title}</h3>
-              <div className={movieSectionStyle.lower}>
-                <span className={movieSectionStyle.year}>
-                  {movie.release_date.slice(0, 4)}
-                </span>
-              </div>
+            </Link>
+            <div className={movieSectionStyle.lower}>
+              <span className={movieSectionStyle.year}>
+                {movie.release_date.slice(0, 4)}
+              </span>
+              {showDeleteButton ? (
+                <AiFillDelete
+                  className={movieSectionStyle.icon}
+                  onClick={() => handleDeleteBtn(movie._id)}
+                />
+              ) : null}
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

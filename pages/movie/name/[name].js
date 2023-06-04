@@ -12,7 +12,7 @@ const MovieByName = ({ images, result, error }) => {
 
   return (
     <div className={nameStyle.page}>
-      <MovieSection data={{ images, result }} />
+      <MovieSection data={{ images, result }} showDeleteButton={false} />
     </div>
   );
 };

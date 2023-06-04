@@ -8,7 +8,7 @@ export default function Home({ images, result }) {
       <Banner />
       {/* send movies result as a prop to the MovieSection component */}
       <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
-      <MovieSection data={{ images, result }} />
+      <MovieSection data={{ images, result }} showDeleteButton={false} />
     </div>
   );
 }

@@ -129,6 +129,14 @@
                         gap: 1.5rem;
                         align-items: baseline;
 
+                        .show {
+                            background-color: #2CEC65;
+                            color: #05161E;
+                            width: fit-content;
+                            padding: .5rem;
+                            border-radius: 10px;
+                        }
+
                         .icons {
                             font-size: 1.5rem;
                             color: white;

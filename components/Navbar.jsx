@@ -54,7 +54,11 @@ const Navbar = () => {
             Logout
           </button>
 
-          <UserMenu state={displayState} logoutFnc={handleLogoutBtn} />
+          <UserMenu
+            state={displayState}
+            stateHandle={setDisplayState}
+            logoutFnc={handleLogoutBtn}
+          />
         </div>
       )}
     </nav>
