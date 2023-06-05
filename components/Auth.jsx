@@ -121,7 +121,8 @@ const Auth = () => {
         setUser(data.user);
         handleCloseBtn();
       } else {
-        setError("User not found, try Sign Up");
+        console.log(data);
+        setError(data.error);
       }
     } catch (err) {
       console.log(err);
