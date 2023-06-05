@@ -3,6 +3,7 @@ import singlePageDesign from "../../styles/SinglePage.module.css";
 import { AiOutlineGlobal, AiFillHeart } from "react-icons/ai";
 import { BiListPlus } from "react-icons/bi";
 import { userContext } from "@/context/userContext";
+import Image from "next/image";
 
 const SingleMoviePage = ({ data, images, castResult, crew }) => {
   const { user } = useContext(userContext);
@@ -58,9 +59,11 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
       )}
       {backdrop_path && (
         <div className={singlePageDesign.moviePoster}>
-          <img
+          <Image
             src={`${base_url}${backdrop_sizes[3]}${backdrop_path}`}
             alt={title}
+            width={3800}
+            height={2200}
           />
         </div>
       )}
@@ -72,7 +75,7 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                 <div className={singlePageDesign.directors}>
                   {crew.map((people) =>
                     people.job === "Director" ? (
-                      <span>{people.name}</span>
+                      <span key={people.id}>{people.name}</span>
                     ) : null
                   )}
                 </div>
@@ -141,10 +144,12 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
               <h3>Notable Cast</h3>
               <ul>
                 {castResult.map((people) => (
-                  <li>
-                    <img
+                  <li key={people.id}>
+                    <Image
                       src={`${base_url}${profile_sizes[1]}${people.profile_path}`}
                       alt={people.name}
+                      width={100}
+                      height={100}
                     />
                     <div className="profileLower">
                       <h5>{people.name}</h5>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import movieSectionStyle from "../styles/MovieSection.module.css";
 import { AiFillDelete } from "react-icons/ai";
+import Image from "next/image";
 
 const MovieSection = ({ data, showDeleteButton, onMovieDeleted }) => {
   const { images, result } = data;
@@ -51,9 +52,11 @@ const MovieSection = ({ data, showDeleteButton, onMovieDeleted }) => {
               <div className={movieSectionStyle.imageSection}>
                 {!movie.poster_path && <p>Image not available</p>}
                 {movie.poster_path && (
-                  <img
+                  <Image
                     src={`${base_url}/${poster_sizes[6]}/${movie.poster_path}`}
                     alt={movie.title}
+                    width={500}
+                    height={800}
                   />
                 )}
                 <span className={movieSectionStyle.rating}>
