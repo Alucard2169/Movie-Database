@@ -25,7 +25,7 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
   const handleAdd = async (type) => {
     const id = imdb_id;
 
-    const response = await fetch("http://localhost:3000/api/addList", {
+    const response = await fetch(`${window.location.origin}/api/addList`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -71,7 +71,7 @@ const Auth = () => {
         password,
       };
 
-      const response = await fetch("http://localhost:3000/api/signup", {
+      const response = await fetch(`${window.location.origin}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const Auth = () => {
         password,
       };
 
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`${window.location.origin}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -8,7 +8,7 @@ export const UserContextProvider = ({ children }) => {
 
   const initial = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/initial");
+      const response = await fetch(`${window.location.origin}/api/initial`);
 
       const data = await response.json();
       console.log(data);

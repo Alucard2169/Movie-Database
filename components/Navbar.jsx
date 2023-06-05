@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const handleLogoutBtn = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/logout");
+      const response = await fetch(`${window.location.origin}/api/logout`);
       const data = await response.json();
       console.log(data);
       setUser(null);

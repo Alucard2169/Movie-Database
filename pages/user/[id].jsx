@@ -31,7 +31,7 @@ const Profile = ({ images }) => {
     const fetchMovies = async (user) => {
       if (user) {
         const response = await fetch(
-          `http://localhost:3000/api/getMovie?id=${user.id}`
+          `${window.location.origin}/api/getMovie?id=${user.id}`
         );
         const data = await response.json();
 

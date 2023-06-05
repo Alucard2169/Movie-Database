@@ -16,7 +16,7 @@ const MovieSection = ({ data, showDeleteButton, onMovieDeleted }) => {
   const handleDeleteBtn = async (movieId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/deleteMovie?movieId=${movieId}`,
+        `${window.location.origin}/api/deleteMovie?movieId=${movieId}`,
         {
           method: "DELETE",
           headers: {
