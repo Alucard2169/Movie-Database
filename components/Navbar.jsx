@@ -8,8 +8,10 @@ import { useContext, useState } from "react";
 import { AuthFormContext } from "@/context/authFormContext";
 import { userContext } from "@/context/userContext";
 import UserMenu from "./UserMenu";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
+  const router = useRouter();
   const { user, setUser } = useContext(userContext);
   const { setFormState } = useContext(AuthFormContext);
   const [displayState, setDisplayState] = useState(false);
@@ -26,8 +28,10 @@ const Navbar = () => {
     try {
       const response = await fetch(`${window.location.origin}/api/logout`);
       const data = await response.json();
-      console.log(data);
-      setUser(null);
+      if (response.ok) {
+        setUser(null);
+        router.push("/");
+      }
     } catch (error) {
       console.log(error);
     }

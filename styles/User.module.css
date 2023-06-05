@@ -10,7 +10,7 @@
     position: fixed;
     box-shadow: 0 0 20px 1px rgb(105, 105, 105);
     background-color: #2CEC65;
-    height: fit-content;
+    width: 20%;    height: fit-content;
     padding: 2rem;
 border-radius: 20px;
     display: flex;
@@ -31,7 +31,9 @@ border-radius: 20px;
     flex-direction: column;
     gap: 1.5rem;
 }
-
+.info h4{
+    word-wrap: break-word;
+}
 .total{
     display: flex;
     flex-direction: column;
@@ -44,6 +46,7 @@ border-radius: 20px;
 }
 
 .total p span{
+
     background-color: black;
     color: #2CEC65;
     padding: .5rem;
@@ -52,7 +55,7 @@ border-radius: 20px;
 .list{
     z-index: 1000;
     margin-left: auto;
-    width: 80%;
+    width: 75%;
     height: auto;
     border-radius: 20px;
 }
