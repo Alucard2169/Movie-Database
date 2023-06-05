@@ -1,7 +1,6 @@
 import MovieSection from "@/components/MovieSection";
 import nameStyle from "../../../styles/Name.module.css";
 const MovieByName = ({ images, result, error }) => {
-  console.log(result);
   if (error) {
     return (
       <div className={nameStyle.page}>

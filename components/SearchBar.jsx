@@ -10,7 +10,7 @@ const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(movie);
+
     router.push(`/movie/name/${movie}`);
     setMovie("");
   };

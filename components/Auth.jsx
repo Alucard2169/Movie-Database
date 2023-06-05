@@ -121,7 +121,6 @@ const Auth = () => {
         setUser(data.user);
         handleCloseBtn();
       } else {
-        console.log(data);
         setError(data.error);
       }
     } catch (err) {
