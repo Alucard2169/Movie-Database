@@ -82,10 +82,10 @@ const Profile = ({ images }) => {
 
         <div className={userStyle.total}>
           <p>
-            Favorite : <span>{favoriteMovies.length}</span>
+            Favorite: <span>{favoriteMovies.length}</span>
           </p>
           <p>
-            List : <span>{listMovies.length}</span>
+            List: <span>{listMovies.length}</span>
           </p>
         </div>
       </div>

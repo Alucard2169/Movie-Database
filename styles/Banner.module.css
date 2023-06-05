@@ -44,3 +44,31 @@
     height: 4rem;
 }
 
+
+@media only screen and (max-width: 500px) {
+    .banner{
+        height: 8rem;
+        padding: 1rem;
+    }
+
+    .banner .text{
+        gap: .5rem;
+    }
+
+    .banner .text h1{
+        font-size: 1.5rem;
+    }
+
+    .banner .text span{
+        font-size: .8rem;
+    }
+
+    .banner .logo{
+        padding: .5rem;
+        gap: .5rem;
+    }
+    .banner .logo p{
+    font-size: .8rem;
+}
+
+}

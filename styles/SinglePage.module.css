@@ -212,4 +212,122 @@
 .singlePage .movieDetails .lower .cast ul li div h6 {
   margin-top: 0.5rem;
   color: rgb(82, 82, 82);
+}
+
+@media only screen and (max-width: 800px) {
+  .singlePage .moviePoster {
+    height: 70%;
+  }
+  .singlePage .movieDetails {
+    margin-top: 40%;
+  }
+  .singlePage .movieDetails .info {
+    padding: 0 1rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .directors {
+    gap: 1.5rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .directors span {
+    font-size: 1rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .name h1 {
+    font-size: 1.5rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .tagline {
+    font-size: 1rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails aside {
+    position: relative;
+    flex-direction: column;
+  }
+  .singlePage .movieDetails .info .top .coreDetails div {
+    width: 10rem;
+    height: 5rem;
+  }
+  .singlePage .movieDetails .info .top .coreDetails div span {
+    left: 0.2rem;
+  }
+  .singlePage .movieDetails .info .top .coreDetails div p {
+    font-size: 1rem;
+  }
+  .singlePage .movieDetails .lower {
+    margin-top: 10%;
+  }
+  .singlePage .movieDetails .lower .description {
+    width: 100%;
+  }
+  .singlePage .movieDetails .lower .description p {
+    font-size: 0.9rem;
+  }
+  .singlePage .movieDetails .lower .cast h3 {
+    color: rgb(82, 82, 82);
+    margin-bottom: 0.5rem;
+  }
+  .singlePage .movieDetails .lower .cast ul {
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .singlePage .moviePoster {
+    height: 50%;
+  }
+  .singlePage .movieDetails {
+    margin-top: 50%;
+  }
+  .singlePage .movieDetails .info {
+    padding: 0 1rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .directors {
+    display: flex;
+    gap: 1rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .directors span {
+    font-size: 1rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .name h1 {
+    font-size: 1.5rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails .left .tagline {
+    font-size: 0.8rem;
+  }
+  .singlePage .movieDetails .info .top .topDetails aside {
+    position: relative;
+    flex-direction: column;
+  }
+  .singlePage .movieDetails .info .top .topDetails aside .show {
+    position: absolute;
+    top: -60%;
+    right: 5%;
+    background-color: #2CEC65;
+    color: #05161E;
+    border-radius: 10px;
+  }
+  .singlePage .movieDetails .info .top .coreDetails div {
+    width: 10rem;
+    height: 5rem;
+  }
+  .singlePage .movieDetails .info .top .coreDetails div span {
+    left: 0.2rem;
+  }
+  .singlePage .movieDetails .info .top .coreDetails div p {
+    font-size: 0.9rem;
+  }
+  .singlePage .movieDetails .lower {
+    margin-top: 10%;
+  }
+  .singlePage .movieDetails .lower .description {
+    width: 100%;
+  }
+  .singlePage .movieDetails .lower .description p {
+    font-size: 0.9rem;
+  }
+  .singlePage .movieDetails .lower .cast h3 {
+    color: rgb(82, 82, 82);
+    margin-bottom: 0.5rem;
+  }
+  .singlePage .movieDetails .lower .cast ul {
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
 }/*# sourceMappingURL=SinglePage.module.css.map */

@@ -50,6 +50,7 @@ border-radius: 20px;
     border-radius: 100px;
 }
 .list{
+    z-index: 1000;
     margin-left: auto;
     width: 80%;
     height: auto;
@@ -80,4 +81,107 @@ border-radius: 20px;
 .active{
     background-color: black !important;
     color: #2CEC65 !important;
+}
+
+@media only screen and (max-width: 1000px) {
+     .userPage{
+      
+   
+    flex-direction: column;
+
+    }
+
+    .userPage .userDetails{
+        position: relative;
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.userPage .userDetails img{
+    width: 5rem; 
+    height: 5rem;
+    
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-right: auto;
+}
+
+.info h2{
+    font-size: 1.2rem;
+}
+.info h4{
+    font-size: .9rem;
+}
+
+.total p{
+    font-size: .9rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.total p span{
+    padding: .3rem;
+    width: fit-content;
+}
+.list{
+    width: 100%;
+}
+}
+
+
+@media  only screen and (max-width: 500px) {
+    .userPage{
+      
+   
+    flex-direction: column;
+
+    }
+
+    .userPage .userDetails{
+        position: relative;
+    padding: 1rem;
+    flex-direction: row;
+
+}
+
+.userPage .userDetails img{
+    width: 5rem; 
+    height: 5rem;
+    
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.info h2{
+    font-size: 1.2rem;
+}
+.info h4{
+    font-size: .9rem;
+}
+
+.total p{
+    font-size: .9rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.total p span{
+    padding: .3rem;
+    width: fit-content;
+}
+.list{
+    width: 100%;
+}
+
 }

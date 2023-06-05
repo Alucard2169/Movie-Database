@@ -104,13 +104,13 @@
   display: flex;
 }
 
-@media only screen and (max-width: 900px) {
-  .backdrop .authComponent {
+@media only screen and (max-width: 800px) {
+  .backdrop form {
     width: 50%;
   }
 }
-@media only screen and (max-width: 400px) {
-  .backdrop .authComponent {
-    width: 90%;
+@media only screen and (max-width: 500px) {
+  .backdrop form {
+    width: 80%;
   }
 }/*# sourceMappingURL=Auth.module.css.map */

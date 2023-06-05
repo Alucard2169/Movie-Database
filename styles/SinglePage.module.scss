@@ -266,3 +266,253 @@
 
     }
 }
+
+@media only screen and (max-width: 800px) {
+    .singlePage {
+
+        .moviePoster {
+
+            height: 70%;
+        }
+
+        .movieDetails {
+
+            margin-top: 40%;
+
+
+            .info {
+                padding: 0 1rem;
+
+
+                .top {
+
+                    .topDetails {
+
+
+                        .left {
+
+
+                            .directors {
+
+                                gap: 1.5rem;
+
+                                span {
+                                    font-size: 1rem;
+
+                                }
+                            }
+
+                            .name {
+                                h1 {
+                                    font-size: 1.5rem;
+
+                                }
+                            }
+
+
+
+                            .tagline {
+
+                                font-size: 1rem;
+                            }
+                        }
+
+                        aside {
+                            position: relative;
+
+                            flex-direction: column;
+                        }
+
+
+                    }
+
+                    .coreDetails {
+
+                        div {
+                            width: 10rem;
+                            height: 5rem;
+
+                            span {
+
+                                left: .2rem;
+                            }
+
+                            p {
+                                font-size: 1rem;
+
+                            }
+
+                        }
+                    }
+                }
+
+
+
+
+            }
+
+            .lower {
+                margin-top: 10%;
+
+                .description {
+                    width: 100%;
+
+
+
+
+                    p {
+
+                        font-size: .9rem;
+                    }
+                }
+
+                .cast {
+                    h3 {
+                        color: rgb(82, 82, 82);
+                        margin-bottom: .5rem;
+                    }
+
+                    ul {
+
+                        flex-wrap: wrap;
+                        gap: 3rem;
+                    }
+                }
+
+            }
+
+        }
+    }
+}
+
+
+
+@media only screen and (max-width : 500px) {
+    .singlePage {
+
+        .moviePoster {
+
+            height: 50%;
+        }
+
+        .movieDetails {
+
+            margin-top: 50%;
+
+
+            .info {
+                padding: 0 1rem;
+
+
+                .top {
+
+                    .topDetails {
+
+
+                        .left {
+
+
+                            .directors {
+                                display: flex;
+                                gap: 1rem;
+
+                                span {
+                                    font-size: 1rem;
+
+                                }
+                            }
+
+                            .name {
+                                h1 {
+                                    font-size: 1.5rem;
+
+                                }
+                            }
+
+
+
+                            .tagline {
+
+                                font-size: .8rem;
+                            }
+                        }
+
+                        aside {
+                            position: relative;
+
+                            .show {
+
+                                position: absolute;
+                                top: -60%;
+                                right: 5%;
+                                background-color: #2CEC65;
+                                color: #05161E;
+
+
+                                border-radius: 10px;
+                            }
+
+                            flex-direction: column;
+                        }
+
+
+                    }
+
+                    .coreDetails {
+
+                        div {
+                            width: 10rem;
+                            height: 5rem;
+
+                            span {
+
+                                left: .2rem;
+                            }
+
+                            p {
+                                font-size: .9rem;
+
+                            }
+
+                        }
+                    }
+                }
+
+
+
+
+            }
+
+            .lower {
+                margin-top: 10%;
+
+                .description {
+                    width: 100%;
+
+
+
+
+                    p {
+
+                        font-size: .9rem;
+                    }
+                }
+
+                .cast {
+                    h3 {
+                        color: rgb(82, 82, 82);
+                        margin-bottom: .5rem;
+                    }
+
+                    ul {
+
+                        flex-wrap: wrap;
+                        gap: 3rem;
+                    }
+                }
+
+            }
+
+        }
+    }
+}

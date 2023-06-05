@@ -10,6 +10,7 @@
     align-items: center;
 
 
+
     form {
         position: relative;
         padding: 3rem;
@@ -123,19 +124,21 @@
     display: flex;
 }
 
-
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 800px) {
     .backdrop {
-        .authComponent {
+        form {
             width: 50%;
         }
     }
 }
 
-@media only screen and (max-width: 400px) {
+
+@media only screen and (max-width: 500px) {
     .backdrop {
-        .authComponent {
-            width: 90%;
+
+
+        form {
+            width: 80%;
         }
     }
 }

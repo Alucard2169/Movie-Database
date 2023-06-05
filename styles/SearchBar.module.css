@@ -34,3 +34,15 @@
     background-color: transparent;
     outline: 1px #2CEC65 solid;
 }
+
+@media only screen and (max-width: 500px) {
+    .searchBar{
+    width: 12rem;
+
+    border-radius: 1px red solid;
+}
+
+.searchBar label input{
+    width: 100%;
+}
+}
