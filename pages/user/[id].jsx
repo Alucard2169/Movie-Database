@@ -132,7 +132,7 @@ export default Profile;
 export const getServerSideProps = async (context) => {
   try {
     const imageResponse = await fetch(
-      `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
+      `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
     );
     const imageData = await imageResponse.json();
 
