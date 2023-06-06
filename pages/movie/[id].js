@@ -147,8 +147,8 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
               <h3>Notable Cast</h3>
               <ul>
                 {castResult.map((people) => (
-                  <Link href={`/people/${people.id}`}>
-                    <li key={people.id}>
+                  <li key={people.id}>
+                    <Link href={`/people/${people.id}`}>
                       <Image
                         src={`${base_url}${profile_sizes[1]}${people.profile_path}`}
                         alt={people.name}
@@ -159,8 +159,8 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                         <h5>{people.name}</h5>
                         <h6>{people.character}</h6>
                       </div>
-                    </li>
-                  </Link>
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </article>
