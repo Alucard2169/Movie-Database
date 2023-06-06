@@ -21,6 +21,8 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
     tagline,
   } = data;
 
+  console.log(castResult);
+
   const { base_url, backdrop_sizes, profile_sizes } = images;
 
   const handleAdd = async (type) => {

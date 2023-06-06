@@ -4,8 +4,10 @@ import Image from "next/image";
 import { useContext, useState, useEffect } from "react";
 import userPfp from "@/assets/userPFP.webp";
 import MovieSection from "@/components/MovieSection";
+import { useRouter } from "next/router";
 
 const Profile = ({ images }) => {
+  const router = useRouter();
   const { user } = useContext(userContext);
   const [choice, setChoice] = useState("favorite");
   const [favoriteMovies, setFavoriteMovies] = useState([]);
@@ -26,6 +28,12 @@ const Profile = ({ images }) => {
     const list = data.filter((movie) => movie.type === "list");
     setListMovies(list);
   };
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  }, [router, user]);
 
   useEffect(() => {
     const fetchMovies = async (user) => {
