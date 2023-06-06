@@ -1,9 +1,11 @@
+import peopleStyle from "@/styles/People.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const PeoplePage = ({ images, peopleData }) => {
   //   const router = useRouter();
-
+  const [showFullBio, setShowFullBio] = useState(false);
   //   const { id } = router.query;
   const {
     name,
@@ -22,31 +24,42 @@ const PeoplePage = ({ images, peopleData }) => {
 
   const { base_url, profile_sizes } = images;
 
+  const handleReadMore = () => {
+    setShowFullBio(!showFullBio);
+  };
+  const truncatedBio = biography.split(" ").slice(0, 150).join(" ");
+
   return (
-    <div key={id || imdb_id}>
-      <section className="top">
-        <div className="impInfo">
-          <div className="imageSect">
-            <Image
-              src={`${base_url}/${profile_sizes[3]}/${profile_path}`}
-              alt={`${name} image`}
-              width={550}
-              height={800}
-            />
-          </div>
-          <article>
+    <div className={peopleStyle.peoplePage} key={id || imdb_id}>
+      <div className={peopleStyle.top}>
+        <div className={peopleStyle.imageSect}>
+          <Image
+            src={`${base_url}/${profile_sizes[3]}/${profile_path}`}
+            alt={`${name} image`}
+            width={600}
+            height={600}
+          />
+        </div>
+        <section>
+          <div>
             <h1>
               {name} (<span>{known_for_department}</span>)
             </h1>
             <span>{gender === 1 ? "Female" : "Male"}</span>
             <p>D.O.B: {birthday}</p>
-            {deathday && <p>D.O.D: {deathday}</p>}
-          </article>
-        </div>
-        <article>
-          <p className="about">{biography}</p>
-        </article>
-      </section>
+            {deathday && <p className={peopleStyle.dod}>D.O.D: {deathday}</p>}
+          </div>
+          <p className={peopleStyle.about}>
+            {showFullBio ? `${biography}` : `${truncatedBio}...`}
+            <button
+              onClick={handleReadMore}
+              className={peopleStyle.readMoreBtn}
+            >
+              {showFullBio ? `Show Less` : `Read More`}
+            </button>
+          </p>
+        </section>
+      </div>
     </div>
   );
 };
