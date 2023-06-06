@@ -90,6 +90,7 @@
 }
 .singlePage .movieDetails .info .top .topDetails .left .geners ul {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 .singlePage .movieDetails .info .top .topDetails .left .geners ul li {
@@ -328,7 +329,10 @@
     margin-bottom: 0.5rem;
   }
   .singlePage .movieDetails .lower .cast ul {
-    flex-wrap: wrap;
-    gap: 3rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: baseline;
   }
 }/*# sourceMappingURL=SinglePage.module.css.map */

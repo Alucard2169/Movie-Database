@@ -100,6 +100,7 @@
                         .geners {
                             ul {
                                 display: flex;
+                                flex-wrap: wrap;
                                 gap: 1rem;
 
                                 li {
@@ -230,6 +231,7 @@
 
                 ul {
                     display: flex;
+
                     gap: 2rem;
                     align-items: center;
 
@@ -500,15 +502,19 @@
                 }
 
                 .cast {
+
                     h3 {
                         color: rgb(82, 82, 82);
                         margin-bottom: .5rem;
                     }
 
                     ul {
+                        width: 100%;
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 2rem;
+                        align-items: baseline;
 
-                        flex-wrap: wrap;
-                        gap: 3rem;
                     }
                 }
 
