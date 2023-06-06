@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     } else if (!validator.isEmail(email)) {
       throw new Error("Must be a valid email");
     } else if (!validator.isStrongPassword(password)) {
-      throw new Error("Password not strong enough");
+      throw new Error("Password not strong enough ");
     } else {
       await connectToDatabase();
 

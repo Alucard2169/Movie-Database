@@ -74,6 +74,27 @@
 .backdrop form .signBtn:disabled {
   background-color: #e68764;
 }
+.backdrop .passReq {
+  display: none;
+  position: absolute;
+  padding: 1rem;
+  background-color: white;
+  right: 15%;
+  border-radius: 10px;
+}
+.backdrop .passReq h4 {
+  font-size: 1rem;
+  margin-bottom: 5%;
+}
+.backdrop .passReq ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+.backdrop .passReq ul li {
+  list-style: circle;
+}
 
 .error {
   margin-top: 5%;
@@ -100,6 +121,11 @@
   font-size: 0.6rem !important;
 }
 
+.show {
+  display: flex !important;
+  flex-direction: column;
+}
+
 .display {
   display: flex;
 }
@@ -112,5 +138,24 @@
 @media only screen and (max-width: 500px) {
   .backdrop form {
     width: 80%;
+    padding: 2rem;
+    min-height: 50%;
+  }
+  .backdrop .passReq {
+    top: 78%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: 80%;
+    padding: 0.8rem;
+  }
+  .backdrop .passReq h4 {
+    font-size: 0.9rem;
+  }
+  .backdrop .passReq ul {
+    gap: 0.5rem;
+  }
+  .backdrop .passReq ul li {
+    font-size: 0.8rem;
   }
 }/*# sourceMappingURL=Auth.module.css.map */

@@ -216,6 +216,21 @@ const Auth = () => {
           </p>
         )}
       </form>
+
+      <aside
+        className={`${authStyle.passReq} ${
+          focus.password ? authStyle.show : null
+        }`}
+      >
+        <h4>Password must have</h4>
+        <ul>
+          <li>Minimum length: 8 characters.</li>
+          <li>Include at least 1 uppercase letter.</li>
+          <li>Include at least 1 lowercase letter.</li>
+          <li>Include at least 1 number.</li>
+          <li>Include at least 1 special character.</li>
+        </ul>
+      </aside>
     </div>
   );
 };
