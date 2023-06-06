@@ -136,17 +136,21 @@
   }
 }
 @media only screen and (max-width: 500px) {
+  .backdrop {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+  }
   .backdrop form {
-    margin-top: -30%;
     width: 80%;
     padding: 2rem;
     min-height: 50%;
   }
   .backdrop .passReq {
-    top: 70%;
-    left: 0;
-    right: 0;
+    position: relative;
     margin-inline: auto;
+    margin-left: 25%;
     width: 80%;
     padding: 0.8rem;
   }
