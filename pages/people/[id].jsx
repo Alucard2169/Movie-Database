@@ -1,12 +1,13 @@
+import Credits from "@/components/Credits";
 import peopleStyle from "@/styles/People.module.css";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
-const PeoplePage = ({ images, peopleData }) => {
+const PeoplePage = ({ images, peopleData, creditData }) => {
   //   const router = useRouter();
   const [showFullBio, setShowFullBio] = useState(false);
   //   const { id } = router.query;
+  console.log(images);
   const {
     name,
     biography,
@@ -60,6 +61,10 @@ const PeoplePage = ({ images, peopleData }) => {
           </p>
         </section>
       </div>
+      <div className={peopleStyle.movies}>
+        <h2>Known For</h2>
+        <Credits data={{ images, creditData }} />
+      </div>
     </div>
   );
 };
@@ -83,10 +88,17 @@ export const getServerSideProps = async (context) => {
     );
     const peopleData = await peopleResponse.json();
 
+    // get credits
+    const creditResponse = await fetch(
+      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+    );
+    const creditData = await creditResponse.json();
+
     return {
       props: {
         images,
         peopleData,
+        creditData,
       },
     };
   } catch (error) {

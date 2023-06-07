@@ -11,8 +11,7 @@ const MovieSection = ({ data, showDeleteButton, onMovieDeleted }) => {
     handleMovieDeleted = onMovieDeleted.handleMovieDeleted;
   }
 
-  const { base_url } = images;
-  const { poster_sizes } = images;
+  const { base_url, poster_sizes } = images;
 
   const handleDeleteBtn = async (movieId) => {
     try {

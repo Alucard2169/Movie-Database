@@ -237,30 +237,33 @@
 
 
                     li {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: .5rem;
+                        a {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: .5rem;
 
-                        img {
-                            width: 3rem;
-                            height: 3rem;
-                            border-radius: 100px;
-                            object-fit: cover;
-                        }
-
-                        div {
-                            text-align: center;
-
-                            h5 {
-                                color: white;
+                            img {
+                                width: 3rem;
+                                height: 3rem;
+                                border-radius: 100px;
+                                object-fit: cover;
                             }
 
-                            h6 {
-                                margin-top: .5rem;
-                                color: rgb(82, 82, 82)
+                            div {
+                                text-align: center;
+
+                                h5 {
+                                    color: white;
+                                }
+
+                                h6 {
+                                    margin-top: .5rem;
+                                    color: rgb(82, 82, 82)
+                                }
                             }
                         }
+
                     }
                 }
             }

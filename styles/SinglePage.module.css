@@ -192,26 +192,26 @@
   gap: 2rem;
   align-items: center;
 }
-.singlePage .movieDetails .lower .cast ul li {
+.singlePage .movieDetails .lower .cast ul li a {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
-.singlePage .movieDetails .lower .cast ul li img {
+.singlePage .movieDetails .lower .cast ul li a img {
   width: 3rem;
   height: 3rem;
   border-radius: 100px;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.singlePage .movieDetails .lower .cast ul li div {
+.singlePage .movieDetails .lower .cast ul li a div {
   text-align: center;
 }
-.singlePage .movieDetails .lower .cast ul li div h5 {
+.singlePage .movieDetails .lower .cast ul li a div h5 {
   color: white;
 }
-.singlePage .movieDetails .lower .cast ul li div h6 {
+.singlePage .movieDetails .lower .cast ul li a div h6 {
   margin-top: 0.5rem;
   color: rgb(82, 82, 82);
 }

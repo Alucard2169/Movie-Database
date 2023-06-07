@@ -3,6 +3,7 @@
   background-color: #05161E;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
 }
 .peoplePage .top {
   padding: 2rem;
@@ -73,4 +74,15 @@
 }
 .peoplePage .top section .about .readMoreBtn:hover {
   background-color: #1AAD45;
-}/*# sourceMappingURL=people.module.css.map */
+}
+.peoplePage .movies {
+  padding: 2rem;
+}
+.peoplePage .movies h2 {
+  background-color: #2CEC65;
+  color: #05161E;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 10px;
+}/*# sourceMappingURL=People.module.css.map */
