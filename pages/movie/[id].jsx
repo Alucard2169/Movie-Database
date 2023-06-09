@@ -24,11 +24,13 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
     tagline,
   } = data;
 
+  const trailer = trailerData.filter(
+    (a) => a.type === "Trailer" || a.type === "Teaser"
+  );
+
   const handleTrailerVisibility = () => {
-    console.log("helo");
     setTailerVisibility((prevData) => !prevData);
   };
-  console.log(castResult);
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
 
@@ -102,21 +104,23 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
                   <p className={singlePageDesign.tagline}>{tagline}</p>
                 )}
               </div>
-              <div className={singlePageDesign.trailer}>
-                <span>
-                  <AiFillPlayCircle
-                    onClick={handleTrailerVisibility}
-                    className={singlePageDesign.trailerIcon}
-                  />
-                  Play Trailer
-                </span>
-                {trailerVisibility ? (
-                  <TrailerBox
-                    data={trailerData.results}
-                    handleMethod={handleTrailerVisibility}
-                  />
-                ) : null}
-              </div>
+              {trailer.length > 0 ? (
+                <div className={singlePageDesign.trailer}>
+                  <span>
+                    <AiFillPlayCircle
+                      onClick={handleTrailerVisibility}
+                      className={singlePageDesign.trailerIcon}
+                    />
+                    Play Trailer
+                  </span>
+                  {trailerVisibility ? (
+                    <TrailerBox
+                      data={trailer}
+                      handleMethod={handleTrailerVisibility}
+                    />
+                  ) : null}
+                </div>
+              ) : null}
               <aside>
                 {status && <p className={singlePageDesign.show}>{status}</p>}
                 {user && (
@@ -223,7 +227,8 @@ export const getServerSideProps = async (context) => {
     `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
 
-  const trailerData = await trailerResponse.json();
+  const trailerD = await trailerResponse.json();
+  const trailerData = trailerD.results;
 
   return {
     props: {
