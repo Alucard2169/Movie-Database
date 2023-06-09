@@ -11,7 +11,12 @@
         width: 45%;
 
         h3 {
-            color: white;
+            color: #2CEC65;
+            background-color: black;
+            width: fit-content;
+            padding: .5rem;
+            border-radius: 10px;
+            outline: 5px white solid;
         }
 
         .container {
@@ -21,6 +26,8 @@
 
 
             .card {
+                min-height: 100%;
+
                 a {
                     display: flex;
                     justify-content: space-between;
@@ -68,6 +75,18 @@
 
 
             }
+
+
+        }
+
+        button {
+            color: #05161E;
+            background-color: #2CEC65;
+            border: none;
+            padding: .5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
         }
     }
 }

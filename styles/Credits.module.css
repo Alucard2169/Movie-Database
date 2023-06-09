@@ -12,13 +12,23 @@
 }
 .creditsContainer .cast h3,
 .creditsContainer .crew h3 {
-  color: white;
+  color: #2CEC65;
+  background-color: black;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0.5rem;
+  border-radius: 10px;
+  outline: 5px white solid;
 }
 .creditsContainer .cast .container,
 .creditsContainer .crew .container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+}
+.creditsContainer .cast .container .card,
+.creditsContainer .crew .container .card {
+  min-height: 100%;
 }
 .creditsContainer .cast .container .card a,
 .creditsContainer .crew .container .card a {
@@ -61,4 +71,14 @@
   width: fit-content;
   font-size: 0.8rem;
   margin-left: auto;
+}
+.creditsContainer .cast button,
+.creditsContainer .crew button {
+  color: #05161E;
+  background-color: #2CEC65;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
 }/*# sourceMappingURL=Credits.module.css.map */

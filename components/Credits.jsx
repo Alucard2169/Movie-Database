@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Image from "next/image";
 import creditStyle from "@/styles/Credits.module.css";
 import Link from "next/link";
@@ -8,12 +9,34 @@ const Credits = ({ data }) => {
   const { base_url, poster_sizes } = images;
   const { cast, crew } = creditData;
   console.log(cast);
+
+  const [visibleCast, setVisibleCast] = useState(10);
+  const [visibleCrew, setVisibleCrew] = useState(10);
+
+  const truncatedCast = cast.slice(0, visibleCast);
+  const truncatedCrew = crew.slice(0, visibleCrew);
+
+  const handleViewMoreCast = () => {
+    setVisibleCast(cast.length);
+  };
+
+  const handleViewMoreCrew = () => {
+    setVisibleCrew(crew.length);
+  };
+
+  const handleViewLessCast = () => {
+    setVisibleCast(10);
+  };
+
+  const handleViewLessCrew = () => {
+    setVisibleCrew(10);
+  };
   return (
     <div className={creditStyle.creditsContainer}>
       <div className={creditStyle.cast}>
         <h3>Cast</h3>
         <div className={creditStyle.container}>
-          {cast.map((role) => (
+          {truncatedCast.map((role) => (
             <div className={creditStyle.card} key={role.id}>
               <Link href={`/movie/${role.id}`}>
                 <div className={creditStyle.movieSect}>
@@ -38,13 +61,19 @@ const Credits = ({ data }) => {
             </div>
           ))}
         </div>
+        {visibleCast < cast.length && (
+          <button onClick={handleViewMoreCast}>View More</button>
+        )}
+        {visibleCast === cast.length && (
+          <button onClick={handleViewLessCast}>View Less</button>
+        )}
       </div>
 
       {crew.length > 0 ? (
         <div className={creditStyle.crew}>
           <h3>Crew</h3>
           <div className={creditStyle.container}>
-            {crew.map((role) => (
+            {truncatedCrew.map((role) => (
               <div className={creditStyle.card} key={role.id}>
                 <Link href={`/movie/${role.id}`}>
                   <div className={creditStyle.movieSect}>
@@ -70,6 +99,12 @@ const Credits = ({ data }) => {
               </div>
             ))}
           </div>
+          {visibleCrew < crew.length && (
+            <button onClick={handleViewMoreCrew}>View More</button>
+          )}
+          {visibleCrew === crew.length && (
+            <button onClick={handleViewLessCrew}>View Less</button>
+          )}
         </div>
       ) : null}
     </div>
