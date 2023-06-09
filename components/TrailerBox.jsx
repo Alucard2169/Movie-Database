@@ -1,7 +1,7 @@
 import trailerBoxStyle from "@/styles/trailerBox.module.css";
 
 const TrailerBox = ({ data, handleMethod }) => {
-  const trailerData = data.filter((a) => a.name === "Official Trailer");
+  const trailerData = data.filter((a) => a.type === "Trailer");
 
   return (
     <div className={trailerBoxStyle.backdrop} onClick={handleMethod}>
