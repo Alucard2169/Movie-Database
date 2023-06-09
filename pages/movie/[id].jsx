@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
-import { AiOutlineGlobal, AiFillHeart } from "react-icons/ai";
+import { AiOutlineGlobal, AiFillHeart, AiFillPlayCircle } from "react-icons/ai";
 import { BiListPlus } from "react-icons/bi";
 import { userContext } from "@/context/userContext";
 import Image from "next/image";
 import Link from "next/link";
+import TrailerBox from "@/components/TrailerBox";
 
-const SingleMoviePage = ({ data, images, castResult, crew }) => {
+const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
   const { user } = useContext(userContext);
   const [status, setStatus] = useState(null);
+  const [trailerVisibility, setTailerVisibility] = useState(false);
   const {
     imdb_id,
     backdrop_path,
@@ -22,6 +24,10 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
     tagline,
   } = data;
 
+  const handleTrailerVisibility = () => {
+    console.log("helo");
+    setTailerVisibility((prevData) => !prevData);
+  };
   console.log(castResult);
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
@@ -95,6 +101,21 @@ const SingleMoviePage = ({ data, images, castResult, crew }) => {
                 {tagline && (
                   <p className={singlePageDesign.tagline}>{tagline}</p>
                 )}
+              </div>
+              <div className={singlePageDesign.trailer}>
+                <span>
+                  <AiFillPlayCircle
+                    onClick={handleTrailerVisibility}
+                    className={singlePageDesign.trailerIcon}
+                  />
+                  Play Trailer
+                </span>
+                {trailerVisibility ? (
+                  <TrailerBox
+                    data={trailerData.results}
+                    handleMethod={handleTrailerVisibility}
+                  />
+                ) : null}
               </div>
               <aside>
                 {status && <p className={singlePageDesign.show}>{status}</p>}
@@ -177,7 +198,7 @@ export const getServerSideProps = async (context) => {
   const { id } = context.query;
 
   const peopleResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.API_KEY}&language=en-US`
+    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
   );
 
   const peopleData = await peopleResponse.json();
@@ -186,16 +207,23 @@ export const getServerSideProps = async (context) => {
   const crew = peopleData.crew;
 
   const imageResponse = await fetch(
-    `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
+    `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
   const imageData = await imageResponse.json();
 
   const images = imageData.images;
 
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.API_KEY}&language=en-US`
+    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
   );
   const data = await response.json();
+
+  // get the trailer
+  const trailerResponse = await fetch(
+    `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+  );
+
+  const trailerData = await trailerResponse.json();
 
   return {
     props: {
@@ -203,6 +231,7 @@ export const getServerSideProps = async (context) => {
       images,
       castResult,
       crew,
+      trailerData,
     },
   };
 };

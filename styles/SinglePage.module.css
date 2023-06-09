@@ -111,6 +111,28 @@
   width: fit-content;
   font-size: 1.2rem;
 }
+.singlePage .movieDetails .info .top .topDetails .trailer {
+  margin-left: 5%;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+.singlePage .movieDetails .info .top .topDetails .trailer span {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+.singlePage .movieDetails .info .top .topDetails .trailer span .trailerIcon {
+  font-size: 3rem;
+  color: white;
+  transition: all 200ms ease-in-out;
+}
+.singlePage .movieDetails .info .top .topDetails .trailer span:hover .trailerIcon {
+  border-radius: 100px;
+  box-shadow: 0 0 20px white;
+}
 .singlePage .movieDetails .info .top .topDetails aside {
   display: flex;
   gap: 1.5rem;

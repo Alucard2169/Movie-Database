@@ -126,6 +126,39 @@
                         }
                     }
 
+                    .trailer {
+
+                        margin-left: 5%;
+                        margin-right: auto;
+                        display: flex;
+                        align-items: center;
+
+                        span {
+                            display: flex;
+                            gap: 1rem;
+                            align-items: center;
+                            cursor: pointer;
+
+
+                            .trailerIcon {
+                                font-size: 3rem;
+                                color: white;
+                                transition: all 200ms ease-in-out;
+                            }
+
+                            color: white;
+
+                            &:hover {
+                                .trailerIcon {
+                                    border-radius: 100px;
+                                    box-shadow: 0 0 20px white;
+                                }
+                            }
+                        }
+
+
+                    }
+
                     aside {
                         display: flex;
                         gap: 1.5rem;
