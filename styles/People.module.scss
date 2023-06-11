@@ -105,3 +105,30 @@
         }
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .peoplePage {
+        width: 100%;
+
+        .top {
+            padding: 2rem 1rem;
+            flex-direction: column;
+
+            .imageSect {
+                width: 50%;
+            }
+
+            section {
+                width: 100%;
+
+                p {
+                    font-size: .9rem;
+                }
+            }
+        }
+
+        .movies {
+            padding: 1rem;
+        }
+    }
+}

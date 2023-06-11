@@ -81,4 +81,36 @@
   border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .creditsContainer {
+    gap: 1rem;
+  }
+  .creditsContainer .cast,
+  .creditsContainer .crew {
+    width: 50%;
+  }
+  .creditsContainer .cast h3,
+  .creditsContainer .crew h3 {
+    padding: 0.2rem;
+  }
+  .creditsContainer .cast .container,
+  .creditsContainer .crew .container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+  .creditsContainer .cast .container .card,
+  .creditsContainer .crew .container .card {
+    min-height: 5rem;
+  }
+  .creditsContainer .cast .container .card .movieSect img,
+  .creditsContainer .crew .container .card .movieSect img {
+    width: 3rem;
+    height: 5rem;
+  }
+  .creditsContainer .cast .container .card .actorSect .character,
+  .creditsContainer .crew .container .card .actorSect .character {
+    padding: 0.1rem;
+  }
 }/*# sourceMappingURL=Credits.module.css.map */

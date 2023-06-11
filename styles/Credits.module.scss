@@ -90,3 +90,43 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 500px) {
+    .creditsContainer {
+
+        gap: 1rem;
+
+        .cast,
+        .crew {
+            width: 50%;
+
+            h3 {
+                padding: .2rem;
+            }
+
+            .container {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 1rem;
+
+                .card {
+
+                    min-height: 5rem;
+
+                    .movieSect {
+                        img {
+                            width: 3rem;
+                            height: 5rem;
+                        }
+                    }
+
+                    .actorSect {
+                        .character {
+                            padding: .1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

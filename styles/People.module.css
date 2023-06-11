@@ -85,4 +85,26 @@
   width: fit-content;
   padding: 0.5rem;
   border-radius: 10px;
-}/*# sourceMappingURL=People.module.css.map */
+}
+
+@media only screen and (max-width: 500px) {
+  .peoplePage {
+    width: 100%;
+  }
+  .peoplePage .top {
+    padding: 2rem 1rem;
+    flex-direction: column;
+  }
+  .peoplePage .top .imageSect {
+    width: 50%;
+  }
+  .peoplePage .top section {
+    width: 100%;
+  }
+  .peoplePage .top section p {
+    font-size: 0.9rem;
+  }
+  .peoplePage .movies {
+    padding: 1rem;
+  }
+}/*# sourceMappingURL=people.module.css.map */
