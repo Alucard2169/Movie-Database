@@ -1,38 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Movie Database Documentation
 
-## Getting Started
+Welcome to the documentation for the Movie Database project. This documentation will guide you through the features and usage of the application, which provides a list of popular movies to browse, movie details, trailers, cast information, and user authentication.
 
-First, run the development server:
+## Table of Contents
+1. Introduction
+2. Features
+3. Technologies Used
+4. Getting Started
+5. Usage
+6. API Integration
+7. User Authentication
+8. Database Configuration
+9. Screenshots
+10. Contributions
+11. License
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 1. Introduction
+The Movie Database is a web application built with Next.js that allows users to browse a list of popular movies, view movie details, watch trailers, explore cast information, and manage a personalized list of favorite movies. The application utilizes TheMovieDatabase API for fetching movie data and MongoDB for storing user information and favorite movies.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. Features
+The Movie Database offers the following features:
+- Browse popular movies
+- View movie details, including synopsis, release date, and ratings
+- Watch movie trailers
+- Explore cast information and their past works
+- User registration and login using validator and Bcrypt
+- Authentication with JWT (JSON Web Tokens)
+- Add movies to the user's favorite list
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 3. Technologies Used
+The following technologies are used in the Movie Database project:
+- Next.js: A React framework for server-side rendering and building web applications
+- TheMovieDatabase API: Provides movie data and trailers
+- MongoDB: A NoSQL database for storing user information and favorite movies
+- Validator: A library for input validation
+- Bcrypt: A library for password hashing
+- JSON Web Tokens (JWT): Used for authentication and authorization
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## 4. Getting Started
+To get started with the Movie Database project, follow these steps:
+1. Clone the repository: `git clone https://github.com/Alucard2169/Movie-Database.git`
+2. Install the dependencies: `npm install`
+3. Set up environment variables for API keys, database connection, and JWT secret.
+4. Start the development server: `npm run dev`
+5. Access the application at `http://localhost:3000`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## 5. Usage
+Once the application is running, you can:
+- Browse the list of popular movies on the homepage.
+- Click on a movie to view its details, including synopsis, release date, and ratings.
+- Watch the movie trailer.
+- Explore the cast members and their past works.
+- Register a new user account or log in with an existing account.
+- Add movies to your favorite list.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 6. API Integration
+The Movie Database integrates with TheMovieDatabase API to fetch movie data and trailers. To set up the API integration, follow these steps:
+1. Obtain an API key from TheMovieDatabase website (https://www.themoviedb.org/).
+2. Set the API key as an environment variable in your development environment.
 
-## Learn More
+## 7. User Authentication
+The application provides user authentication using validator, Bcrypt, and JWT. User registration and login are available. To configure the authentication:
+1. Set up a MongoDB database connection.
+2. Set the MongoDB connection URL as an environment variable.
+3. Configure the JWT secret as an environment variable.
 
-To learn more about Next.js, take a look at the following resources:
+## 8. Database Configuration
+The Movie Database uses MongoDB for storing user information and favorite movies. To configure the database:
+1. Set up a MongoDB database either locally or using a cloud-based service.
+2. Set the MongoDB connection URL as an environment variable.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 9. Screenshots
+Here is a screenshot of the Movie Database application:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Movie Database Screenshot](https://github.com/Alucard2169/Movie-Database/blob/main/screenshot1.png)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Movie database screenshot](https://github.com/Alucard2169/Movie-Database/blob/main/screenshot2.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 10. Contributions
+Contributions to the Movie Database project are welcome. If you would like to contribute, please follow the guidelines outlined in the repository's CONTRIBUTING file.
+
+## 11. License
+The Movie Database project is released under the [MIT License](https://opensource.org/licenses/MIT).
