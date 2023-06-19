@@ -11,6 +11,7 @@ const MovieSection = ({ data, showDeleteButton, onMovieDeleted }) => {
         {result.map((movie) => (
           <MovieCard
             data={{ movie, images, showDeleteButton, onMovieDeleted }}
+            key={movie.id}
           />
         ))}
       </div>

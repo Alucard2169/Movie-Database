@@ -42,7 +42,7 @@ const MovieCard = ({ data }) => {
   };
 
   return (
-    <div className={cardStyle.movieCard} key={movie.id}>
+    <div className={cardStyle.movieCard}>
       <Link href={`/movie/${movie.id}`}>
         <div className={cardStyle.imageSection}>
           {!movie.poster_path && <p>Image not available</p>}
