@@ -8,12 +8,10 @@ const HomePageMovieSect = ({ data }) => {
 
   const handleLeftScroll = () => {
     scrollRef.current.scrollLeft -= 400;
-    console.log(scrollRef.current.scrollLeft);
   };
 
   const handleRightScroll = () => {
     scrollRef.current.scrollLeft += 400;
-    console.log(scrollRef.current.scrollRight);
   };
 
   return (

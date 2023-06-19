@@ -1,19 +1,30 @@
 import Banner from "@/components/Banner";
 import homeStyle from "../styles/Home.module.css";
+import { AiFillCaretRight } from "react-icons/ai";
 import HomePageMovieSect from "@/components/HomepageMovieSect";
+import Link from "next/link";
 
 export default function Home({ images, result, topRatedMoviesResult }) {
   return (
     <div className={homeStyle.home}>
       <Banner />
-      {/* send movies result as a prop to the MovieSection component */}
       <section>
-        <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
+        <div className={homeStyle.top}>
+          <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
+          <Link href={`/movie/theme/popular`}>
+            <AiFillCaretRight className={homeStyle.icon} />
+          </Link>
+        </div>
         <HomePageMovieSect data={{ images, result }} />
       </section>
       <hr />
       <section>
-        <h2 className={homeStyle.heading}>Top Rated In Movies</h2>
+        <div className={homeStyle.top}>
+          <h2 className={homeStyle.heading}>Top Rated In Movies</h2>
+          <Link href={`/movie/theme/top_rated`}>
+            <AiFillCaretRight className={homeStyle.icon} />
+          </Link>
+        </div>
         <HomePageMovieSect data={{ images, result: topRatedMoviesResult }} />
       </section>
     </div>
