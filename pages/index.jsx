@@ -3,10 +3,14 @@ import homeStyle from "../styles/Home.module.css";
 import { AiFillCaretRight } from "react-icons/ai";
 import HomePageMovieSect from "@/components/HomepageMovieSect";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Home({ images, result, topRatedMoviesResult }) {
   return (
     <div className={homeStyle.home}>
+      <Head>
+        <title>Movie Database | Home</title>
+      </Head>
       <Banner />
       <section>
         <div className={homeStyle.top}>

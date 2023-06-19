@@ -1,5 +1,6 @@
 import Credits from "@/components/Credits";
 import peopleStyle from "@/styles/People.module.css";
+import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -32,6 +33,9 @@ const PeoplePage = ({ images, peopleData, creditData }) => {
 
   return (
     <div className={peopleStyle.peoplePage} key={id || imdb_id}>
+      <Head>
+        <title>Movie Database | {name}</title>
+      </Head>
       <div className={peopleStyle.top}>
         <div className={peopleStyle.imageSect}>
           <Image

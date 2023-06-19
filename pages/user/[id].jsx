@@ -75,6 +75,9 @@ const Profile = ({ images }) => {
 
   return (
     <div className={userStyle.userPage}>
+      <Head>
+        <title>Movie Database | {user.username}</title>
+      </Head>
       <div className={userStyle.userDetails}>
         <Image src={userPfp} alt="user profile pic" />
         <div className={userStyle.info}>

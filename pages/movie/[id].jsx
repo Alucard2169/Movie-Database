@@ -6,6 +6,7 @@ import { userContext } from "@/context/userContext";
 import Image from "next/image";
 import Link from "next/link";
 import TrailerBox from "@/components/TrailerBox";
+import Head from "next/head";
 
 const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
   const { user } = useContext(userContext);
@@ -63,6 +64,9 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
 
   return (
     <div className={singlePageDesign.singlePage}>
+      <Head>
+        <title>Movie Database | {title}</title>
+      </Head>
       {!backdrop_path && (
         <div className={singlePageDesign.notAvailable}>
           <p>Image Not Available</p>

@@ -1,6 +1,7 @@
 import MovieSection from "@/components/MovieSection";
 import nameStyle from "../../../styles/Name.module.css";
-const MovieByName = ({ images, result, error }) => {
+import Head from "next/head";
+const MovieByName = ({ images, result, error, name }) => {
   if (error) {
     return (
       <div className={nameStyle.page}>
@@ -11,6 +12,9 @@ const MovieByName = ({ images, result, error }) => {
 
   return (
     <div className={nameStyle.page}>
+      <Head>
+        <title>Movie Database | {name}</title>
+      </Head>
       <MovieSection data={{ images, result }} showDeleteButton={false} />
     </div>
   );
@@ -51,6 +55,7 @@ export const getServerSideProps = async (context) => {
       props: {
         images,
         result: results,
+        name,
       },
     };
   } catch (error) {
