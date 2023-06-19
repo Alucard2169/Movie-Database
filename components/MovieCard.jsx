@@ -4,10 +4,10 @@ import { AiFillDelete } from "react-icons/ai";
 import Image from "next/image";
 
 const MovieCard = ({ data }) => {
-  console.log(data);
   const { movie, images, showDeleteButton, onMovieDeleted } = data;
   const { base_url, poster_sizes } = images;
   let handleMovieDeleted;
+
   if (onMovieDeleted) {
     handleMovieDeleted = onMovieDeleted.handleMovieDeleted;
   }

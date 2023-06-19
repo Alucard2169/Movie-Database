@@ -1,0 +1,57 @@
+.homeSection{
+    width: 100%;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+}
+
+.homeSection .icon{
+    color:white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.homeSection .left{
+    margin-right:2%;
+}
+
+.homeSection .right{
+    margin-left: 2%;
+}
+
+.homeSection .inner{
+    display: grid;
+    grid-template-columns: repeat(20,12rem);
+    gap: 2rem;
+    overflow-x: scroll; 
+    overflow-y: hidden;  
+    width:90%;
+    scrollbar-width: thin;
+    scroll-behavior:smooth;
+}
+
+/* For Chrome, Safari, and Opera */
+
+/* Hide the scrollbar track */
+.homeSection .inner::-webkit-scrollbar {
+  width: none;
+}
+
+/* Hide the scrollbar thumb */
+.homeSection .inner::-webkit-scrollbar-thumb {
+  background-color: #2CEC65;
+}
+
+/* Hide the scrollbar on hover */
+.homeSection .inner::-webkit-scrollbar-thumb:hover {
+  background-color: #2CEC65;
+}
+
+
+@media only screen and (max-width:500px) {
+    .homeSection .inner{
+        grid-template-columns: repeat(20,8rem);
+    }
+}

@@ -1,6 +1,6 @@
 import Banner from "@/components/Banner";
-import MovieSection from "@/components/MovieSection";
 import homeStyle from "../styles/Home.module.css";
+import HomePageMovieSect from "@/components/HomepageMovieSect";
 
 export default function Home({ images, result, topRatedMoviesResult }) {
   return (
@@ -9,15 +9,12 @@ export default function Home({ images, result, topRatedMoviesResult }) {
       {/* send movies result as a prop to the MovieSection component */}
       <section>
         <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
-        <MovieSection data={{ images, result }} showDeleteButton={false} />
+        <HomePageMovieSect data={{ images, result }} />
       </section>
       <hr />
       <section>
         <h2 className={homeStyle.heading}>Top Rated In Movies</h2>
-        <MovieSection
-          data={{ images, result: topRatedMoviesResult }}
-          showDeleteButton={false}
-        />
+        <HomePageMovieSect data={{ images, result: topRatedMoviesResult }} />
       </section>
     </div>
   );
@@ -36,9 +33,6 @@ export const getServerSideProps = async () => {
   );
   const movieData = await movieResponse.json();
 
-  // remove last 3 movie objects from the results array (personal choice)
-  movieData.results.splice(-4);
-
   // store the remaining array in result variable
   const result = movieData.results;
 
@@ -47,7 +41,7 @@ export const getServerSideProps = async () => {
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=1`
   );
   const topRatedMoviesData = await topRatedMovies.json();
-  topRatedMoviesData.results.splice(-4);
+
   const topRatedMoviesResult = topRatedMoviesData.results;
 
   return {
