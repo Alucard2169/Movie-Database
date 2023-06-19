@@ -1,4 +1,5 @@
 import userStyle from "@/styles/User.module.css";
+import Head from "next/head";
 import { userContext } from "@/context/userContext";
 import Image from "next/image";
 import { useContext, useState, useEffect } from "react";
@@ -76,7 +77,7 @@ const Profile = ({ images }) => {
   return (
     <div className={userStyle.userPage}>
       <Head>
-        <title>Movie Database | {user.username}</title>
+        <title>Movie Database | {user && user.username}</title>
       </Head>
       <div className={userStyle.userDetails}>
         <Image src={userPfp} alt="user profile pic" />
