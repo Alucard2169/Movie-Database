@@ -19,14 +19,14 @@ const SearchBar = () => {
     <form className={searchBarStyle.searchBar} onSubmit={handleSubmit}>
       <label htmlFor="search">
         <AiOutlineSearch className={searchBarStyle.icon} />
-        <input
-          type="text"
-          id="search"
-          name="search"
-          value={movie}
-          onChange={(e) => setMovie(e.target.value)}
-        />
       </label>
+      <input
+        type="text"
+        id="search"
+        name="search"
+        value={movie}
+        onChange={(e) => setMovie(e.target.value)}
+      />
     </form>
   );
 };
