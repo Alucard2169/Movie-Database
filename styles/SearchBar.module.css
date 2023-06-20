@@ -30,7 +30,7 @@
 
 
 
-.searchBar label input:focus-visible{
+.searchBar  input:focus-visible{
     color: #2CEC65;
     background-color: transparent;
     outline: 1px #2CEC65 solid;
