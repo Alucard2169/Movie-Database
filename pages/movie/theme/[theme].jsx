@@ -2,6 +2,7 @@ import themeStyle from "@/styles/Theme.module.css";
 import { useEffect, useRef, useState } from "react";
 import MovieSection from "@/components/MovieSection";
 import nameStyle from "../../../styles/Name.module.css";
+import Head from "next/head";
 
 const MovieByName = ({ images, initialResult, error, theme }) => {
   const [result, setResult] = useState(initialResult);
@@ -52,6 +53,9 @@ const MovieByName = ({ images, initialResult, error, theme }) => {
 
   return (
     <div className={nameStyle.page}>
+      <Head>
+        <title>Movie Database | {theme}</title>
+      </Head>
       <MovieSection data={{ images, result }} showDeleteButton={false} />
       {loading && (
         <div className={themeStyle.center}>
