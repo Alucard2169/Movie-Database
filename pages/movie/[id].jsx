@@ -31,9 +31,10 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
     tagline,
   } = data;
 
-  const trailer = trailerData.filter(
-    (a) => a.type === "Trailer" || a.type === "Teaser"
-  );
+  let trailer = trailerData.filter((a) => a.type === "Trailer");
+  if (trailer.length === 0) {
+    trailer = trailerData.filter((a) => a.type === "Teaser");
+  }
 
   const handleTrailerVisibility = () => {
     setTailerVisibility((prevData) => !prevData);
