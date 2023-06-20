@@ -21,6 +21,7 @@ The Movie Database is a web application built with Next.js that allows users to 
 ## 2. Features
 The Movie Database offers the following features:
 - Browse popular movies
+- Infinity Scroll
 - View movie details, including synopsis, release date, and ratings
 - Watch movie trailers
 - Explore cast information and their past works
