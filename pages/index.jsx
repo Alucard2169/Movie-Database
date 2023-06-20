@@ -15,7 +15,7 @@ export default function Home({ images, result, topRatedMoviesResult }) {
       <section>
         <div className={homeStyle.top}>
           <h2 className={homeStyle.heading}>Popular Now In Movies</h2>
-          <Link href={`/movie/theme/popular`}>
+          <Link href={`/movie/theme/popular`} aria-label="all Popular movies">
             <AiFillCaretRight className={homeStyle.icon} />
           </Link>
         </div>
@@ -25,7 +25,10 @@ export default function Home({ images, result, topRatedMoviesResult }) {
       <section>
         <div className={homeStyle.top}>
           <h2 className={homeStyle.heading}>Top Rated In Movies</h2>
-          <Link href={`/movie/theme/top_rated`}>
+          <Link
+            href={`/movie/theme/top_rated`}
+            aria-label="all Top rated movies"
+          >
             <AiFillCaretRight className={homeStyle.icon} />
           </Link>
         </div>
