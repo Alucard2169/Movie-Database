@@ -208,6 +208,18 @@
 .singlePage .movieDetails .lower .cast h3 {
   color: rgb(82, 82, 82);
   margin-bottom: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.singlePage .movieDetails .lower .cast h3 .icon {
+  color: #2CEC65;
+  cursor: pointer;
+  transform: scale(1.5);
+  transition: transform 100ms ease-in-out;
+}
+.singlePage .movieDetails .lower .cast h3 .icon:hover {
+  transform: scale(1.1);
 }
 .singlePage .movieDetails .lower .cast ul {
   display: flex;

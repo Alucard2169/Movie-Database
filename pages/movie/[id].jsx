@@ -1,6 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
-import { AiOutlineGlobal, AiFillHeart, AiFillPlayCircle } from "react-icons/ai";
+import {
+  AiOutlineGlobal,
+  AiFillHeart,
+  AiFillPlayCircle,
+  AiFillCaretRight,
+} from "react-icons/ai";
 import { BiListPlus } from "react-icons/bi";
 import { userContext } from "@/context/userContext";
 import Image from "next/image";
@@ -12,6 +17,7 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
   const [status, setStatus] = useState(null);
   const [trailerVisibility, setTailerVisibility] = useState(false);
   const {
+    id,
     imdb_id,
     backdrop_path,
     title,
@@ -169,7 +175,12 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
             </article>
 
             <article className={singlePageDesign.cast}>
-              <h3>Notable Cast</h3>
+              <h3>
+                View Full Cast{" "}
+                <Link href={`/people/cast/${id}`}>
+                  <AiFillCaretRight className={singlePageDesign.icon} />
+                </Link>
+              </h3>
               <ul>
                 {castResult.map((people) => (
                   <li key={people.id}>
@@ -201,6 +212,7 @@ export default SingleMoviePage;
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
 
+  // get people
   const peopleResponse = await fetch(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
   );
@@ -237,6 +249,7 @@ export const getServerSideProps = async (context) => {
       castResult,
       crew,
       trailerData,
+      id,
     },
   };
 };

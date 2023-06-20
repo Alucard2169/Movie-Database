@@ -26,15 +26,19 @@
 
 
             .card {
-                min-height: 100%;
+
 
                 a {
+                    min-height: 100%;
+
                     display: flex;
                     justify-content: space-between;
                     gap: 1rem;
                     padding: .5rem;
                     border-radius: 10px;
                     border: 1px #2CEC65 solid;
+
+
 
 
                     .movieSect {
@@ -71,11 +75,11 @@
                             margin-left: auto;
                         }
                     }
+
+
+
                 }
-
-
             }
-
 
         }
 
@@ -92,7 +96,7 @@
 }
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 800px) {
     .creditsContainer {
 
         gap: 1rem;

@@ -11,15 +11,15 @@ const PeoplePage = ({ images, peopleData, creditData }) => {
   const {
     name,
     biography,
-    also_known_as,
+
     birthday,
     deathday,
     gender,
-    homepage,
+
     id,
     imdb_id,
     known_for_department,
-    place_of_birth,
+
     profile_path,
   } = peopleData;
 
@@ -63,7 +63,7 @@ const PeoplePage = ({ images, peopleData, creditData }) => {
       </div>
       <div className={peopleStyle.movies}>
         <h2>Known For</h2>
-        <Credits data={{ images, creditData }} />
+        <Credits data={{ images, creditData, type: "person" }} />
       </div>
     </div>
   );

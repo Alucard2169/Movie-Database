@@ -26,12 +26,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
-.creditsContainer .cast .container .card,
-.creditsContainer .crew .container .card {
-  min-height: 100%;
-}
 .creditsContainer .cast .container .card a,
 .creditsContainer .crew .container .card a {
+  min-height: 100%;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -83,7 +80,7 @@
   cursor: pointer;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 800px) {
   .creditsContainer {
     gap: 1rem;
   }

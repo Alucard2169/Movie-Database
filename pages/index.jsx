@@ -43,7 +43,6 @@ export const getServerSideProps = async () => {
     `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&page=1`
   );
   const movieData = await movieResponse.json();
-
   // store the remaining array in result variable
   const result = movieData.results;
 
