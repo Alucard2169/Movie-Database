@@ -34,20 +34,19 @@ const Profile = ({ images }) => {
   useEffect(() => {
     if (!user) {
       router.push("/");
+      return;
     }
-  }, [router, user]);
 
-  useEffect(() => {
     const fetchMovies = async (user) => {
-      if (user) {
+      try {
         const response = await fetch(
           `${window.location.origin}/api/getMovie?id=${user.id}`
         );
         const data = await response.json();
 
         if (data && data.length > 0) {
-          let movies = await Promise.all(
-            data.map(async (code) => {
+          const moviePromises = data.map(async (code) => {
+            try {
               const movieResponse = await fetch(
                 `https://api.themoviedb.org/3/find/${code.movieId}?external_source=imdb_id&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
               );
@@ -59,21 +58,29 @@ const Profile = ({ images }) => {
                 movieData.movie_results.length > 0
               ) {
                 const movieResult = movieData.movie_results[0];
-                const result = { ...movieResult, ...code };
-                return result;
+                return { ...movieResult, ...code };
               }
-            })
-          );
+            } catch (error) {
+              console.error("Error fetching movie data:", error);
+            }
+          });
+
+          const movieResults = await Promise.allSettled(moviePromises);
+          const movies = movieResults
+            .filter((result) => result.status === "fulfilled")
+            .map((result) => result.value);
 
           filterMovies(movies);
         } else {
-          console.log("no movies");
+          console.log("No movies found");
         }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
     };
 
     fetchMovies(user);
-  }, [user]);
+  }, [router, user, filterMovies]);
 
   return (
     <div className={userStyle.userPage}>

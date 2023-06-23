@@ -6,21 +6,30 @@ import jwt from "jsonwebtoken";
 export default async function handler(req, res) {
   try {
     await connectToDatabase();
+
     // Get the token from the browser
     const token = getCookie("token", { req, res });
 
     if (!token) {
-      throw new Error("Unauthorized action");
+      return res.status(401).json({ error: "Unauthorized action" });
     }
 
     // Verify the token and extract the userId
-    const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+    let userId;
+    try {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      userId = decodedToken.userId;
+    } catch (error) {
+      return res.status(401).json({ error: "Invalid token" });
+    }
 
     // Find the user in the database by their _id
     const userData = await User.findOne({ _id: userId });
 
     if (!userData) {
-      throw new Error("User doesn't exist in the database, try signing up");
+      return res.status(404).json({
+        error: "User doesn't exist in the database, try signing up",
+      });
     }
 
     const user = {
@@ -31,8 +40,8 @@ export default async function handler(req, res) {
 
     // Send back the response
     res.status(200).json({ user });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
