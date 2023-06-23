@@ -6,6 +6,7 @@ import { useContext, useState, useEffect } from "react";
 import userPfp from "@/assets/userPFP.webp";
 import MovieSection from "@/components/MovieSection";
 import { useRouter } from "next/router";
+import { getImageDetails } from "@/libs/cacheImage";
 
 const Profile = ({ images }) => {
   const router = useRouter();
@@ -135,12 +136,7 @@ export default Profile;
 
 export const getServerSideProps = async (context) => {
   try {
-    const imageResponse = await fetch(
-      `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-    );
-    const imageData = await imageResponse.json();
-
-    const images = imageData.images;
+    const images = await getImageDetails();
 
     return {
       props: {

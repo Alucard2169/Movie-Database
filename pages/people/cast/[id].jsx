@@ -1,5 +1,6 @@
 import casteStyle from "@/styles/Cast.module.css";
 import Credits from "@/components/Credits";
+import { getImageDetails } from "@/libs/cacheImage";
 
 const FullCast = ({ images, cast, crew }) => {
   return (
@@ -14,12 +15,7 @@ export default FullCast;
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
 
-  const imageResponse = await fetch(
-    `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
-  );
-  const imageData = await imageResponse.json();
-
-  const images = imageData.images;
+  const images = await getImageDetails();
 
   // get people
   const peopleResponse = await fetch(

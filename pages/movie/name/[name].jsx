@@ -1,6 +1,7 @@
 import MovieSection from "@/components/MovieSection";
 import nameStyle from "../../../styles/Name.module.css";
 import Head from "next/head";
+import { getImageDetails } from "@/libs/cacheImage";
 const MovieByName = ({ images, result, error, name }) => {
   if (error) {
     return (
@@ -25,12 +26,7 @@ export default MovieByName;
 export const getServerSideProps = async (context) => {
   const { name } = context.query;
 
-  const imageResponse = await fetch(
-    `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
-  );
-  const imageData = await imageResponse.json();
-
-  const images = imageData.images;
+  const images = await getImageDetails();
 
   try {
     const response = await fetch(

@@ -4,6 +4,7 @@ import { AiFillCaretRight } from "react-icons/ai";
 import HomePageMovieSect from "@/components/HomepageMovieSect";
 import Link from "next/link";
 import Head from "next/head";
+import { getImageDetails } from "../libs/cacheImage";
 
 export default function Home({ images, result, topRatedMoviesResult }) {
   return (
@@ -39,12 +40,7 @@ export default function Home({ images, result, topRatedMoviesResult }) {
 }
 
 export const getServerSideProps = async () => {
-  const imageResponse = await fetch(
-    `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
-  );
-  const imageData = await imageResponse.json();
-
-  const images = imageData.images;
+  const images = await getImageDetails();
 
   const movieResponse = await fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&page=1`

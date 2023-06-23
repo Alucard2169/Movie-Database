@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import TrailerBox from "@/components/TrailerBox";
 import Head from "next/head";
+import { getImageDetails } from "@/libs/cacheImage";
 
 const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
   const { user } = useContext(userContext);
@@ -227,12 +228,7 @@ export const getServerSideProps = async (context) => {
   const castResult = cast.splice(0, 5);
   const crew = peopleData.crew;
 
-  const imageResponse = await fetch(
-    `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-  );
-  const imageData = await imageResponse.json();
-
-  const images = imageData.images;
+  const images = await getImageDetails();
 
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`

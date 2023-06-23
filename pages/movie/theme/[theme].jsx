@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import MovieSection from "@/components/MovieSection";
 import nameStyle from "../../../styles/Name.module.css";
 import Head from "next/head";
+import { getImageDetails } from "@/libs/cacheImage";
 
 const MovieByName = ({ images, initialResult, error, theme }) => {
   const [result, setResult] = useState(initialResult);
@@ -82,12 +83,7 @@ export const getServerSideProps = async (context) => {
   const { theme } = context.query;
 
   try {
-    const imageResponse = await fetch(
-      `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-    );
-    const imageData = await imageResponse.json();
-
-    const images = imageData.images;
+    const images = await getImageDetails();
 
     const movieResponse = await fetch(
       `https://api.themoviedb.org/3/movie/${theme}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=1`

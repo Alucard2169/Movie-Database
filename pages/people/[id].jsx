@@ -3,6 +3,7 @@ import peopleStyle from "@/styles/People.module.css";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
+import { getImageDetails } from "@/libs/cacheImage";
 
 const PeoplePage = ({ images, peopleData, creditData }) => {
   //   const router = useRouter();
@@ -12,15 +13,12 @@ const PeoplePage = ({ images, peopleData, creditData }) => {
   const {
     name,
     biography,
-
     birthday,
     deathday,
     gender,
-
     id,
     imdb_id,
     known_for_department,
-
     profile_path,
   } = peopleData;
 
@@ -78,13 +76,7 @@ export default PeoplePage;
 export const getServerSideProps = async (context) => {
   const { id } = context.query;
   try {
-    // get image data
-    const imageResponse = await fetch(
-      `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-    );
-    const imageData = await imageResponse.json();
-
-    const images = imageData.images;
+    const images = await getImageDetails();
 
     // get people data
     const peopleResponse = await fetch(
