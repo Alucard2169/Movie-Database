@@ -68,12 +68,13 @@ border-radius: 20px;
 
 .list .top button{
     border: none;
-    background-color: #2CEC65;
+    background-color: black;
     padding: .5rem 1rem;
-    color: black;
+    color: #2CEC65;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .list .top button:hover{
@@ -82,8 +83,8 @@ border-radius: 20px;
 }
 
 .active{
-    background-color: black !important;
-    color: #2CEC65 !important;
+    color:  black !important;
+    background-color:#2CEC65 !important;
 }
 
 @media only screen and (max-width: 1000px) {
