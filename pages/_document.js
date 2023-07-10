@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, meta, NextScript } from "next/document";
 
 export default function Document() {
   return (
@@ -8,6 +8,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,500,700&display=swap"
           rel="stylesheet"
         />
+        <meta name="theme-color" content="#040e13" />
       </Head>
       <body>
         <Main />

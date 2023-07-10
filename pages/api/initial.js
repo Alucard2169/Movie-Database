@@ -8,10 +8,10 @@ export default async function handler(req, res) {
     await connectToDatabase();
 
     // Get the token from the browser
-    const token = getCookie("token", { req, res });
+    const token = getCookie("token", { req });
 
     if (!token) {
-      return res.status(401).json({ error: "Unauthorized action" });
+      return;
     }
 
     // Verify the token and extract the userId
@@ -35,13 +35,13 @@ export default async function handler(req, res) {
     const user = {
       username: userData.username,
       email: userData.email,
-      id: userData._id,
+      id: userData._id.toString(),
     };
 
     // Send back the response
-    res.status(200).json({ user });
+    return res.status(200).json({ user });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
