@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,Suspense,lazy } from "react";
 import singlePageDesign from "../../styles/SinglePage.module.css";
 import {
   AiOutlineGlobal,
@@ -13,8 +13,11 @@ import Link from "next/link";
 import TrailerBox from "@/components/TrailerBox";
 import Head from "next/head";
 import { getImageDetails } from "@/libs/cacheImage";
+import Reviews from "@/components/Reviews";
 
-const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
+const LazyBanner = lazy(()=>import('@/components/LazyBanner'))
+
+const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsData }) => {
   const { user } = useContext(userContext);
   const [status, setStatus] = useState(null);
   const [trailerVisibility, setTailerVisibility] = useState(false);
@@ -40,6 +43,8 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
   const handleTrailerVisibility = () => {
     setTailerVisibility((prevData) => !prevData);
   };
+
+
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
 
@@ -82,12 +87,22 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
       )}
       {backdrop_path && (
         <div className={singlePageDesign.moviePoster}>
-          <Image
-            src={`${base_url}${backdrop_sizes[3]}${backdrop_path}`}
-            alt={title}
-            width={3800}
-            height={2200}
-          />
+          <Suspense
+            fallback={
+              <div>
+                <p>Loading...</p>
+              </div>
+            }
+          >
+            <LazyBanner
+              data={{
+                src: `${base_url}${backdrop_sizes[3]}${backdrop_path}`,
+                alt: title,
+                width: 3800,
+                height: 2200,
+              }}
+            />
+          </Suspense>
         </div>
       )}
       <div className={singlePageDesign.movieDetails}>
@@ -207,6 +222,14 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData }) => {
               </ul>
             </article>
           </section>
+          <section className={singlePageDesign.reviews}>
+            <h2>Reviews</h2>
+            <div className={singlePageDesign.reviewContainer}>
+              {reviewsData.map((review) => (
+                <Reviews data={{ review, images }} />
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -243,6 +266,13 @@ export const getServerSideProps = async (context) => {
   const trailerD = await trailerResponse.json();
   const trailerData = trailerD.results;
 
+
+
+  //get reviews
+  const reviewsResponse = await fetch(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
+  const reviewsD = await reviewsResponse.json();
+  const reviewsData = reviewsD.results;
+
   return {
     props: {
       data,
@@ -251,6 +281,7 @@ export const getServerSideProps = async (context) => {
       crew,
       trailerData,
       id,
+      reviewsData,
     },
   };
 };
