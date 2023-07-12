@@ -37,3 +37,5 @@ next-env.d.ts
 
 # root env
 .env
+# Local Netlify folder
+.netlify

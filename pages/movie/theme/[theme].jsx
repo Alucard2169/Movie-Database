@@ -42,7 +42,7 @@ const MovieByName = ({ images, initialResult, error, theme }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading]);
+  }, [fetchMovies]); // Include fetchMovies in the dependency array
 
   if (error) {
     return (

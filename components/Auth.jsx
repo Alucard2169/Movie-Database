@@ -8,6 +8,7 @@ import { userContext } from "@/context/userContext";
 const Auth = () => {
   const { setUser } = useContext(userContext);
   const { formState, setFormState } = useContext(AuthFormContext);
+  console.log(formState)
   const [state, setState] = useState("login");
   const [focus, setFocus] = useState({
     username: false,
