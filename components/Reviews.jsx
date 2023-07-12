@@ -4,8 +4,9 @@ import Image from 'next/image';
 import { BiLinkExternal } from 'react-icons/bi'
 
 const Reviews = ({ data }) => {
-const { review, images } = data;
-const { author, author_details, content, url } = review;
+  const { review, images } = data;
+ 
+const { author, author_details, content, url,id } = review;
 const { name, username, avatar_path } = author_details;
 const [showFullContent, setShowFullContent] = useState(false);
 
@@ -14,7 +15,7 @@ setShowFullContent(!showFullContent);
 };
 
 return (
-  <div className={reviewCardStyle.card}>
+  <div className={reviewCardStyle.card} key={id}>
     <div className={reviewCardStyle.top}>
       <div className={reviewCardStyle.name}>
         <div className={reviewCardStyle.img}>
