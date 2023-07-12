@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { setCookie } from "cookies-next";
 
 export default async function handler(req, res) {
-  const { username, password } = req.body;
+  const { username, password,remember } = req.body;
 
   try {
     if (!username || !password) {
@@ -23,22 +23,23 @@ export default async function handler(req, res) {
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
-      // if password matches, set up a new token using user's id
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-
+      
       // make a seperate data object to send as a response
       const data = { username: user.username, email: user.email, id: user._id };
-
-      // set the token
-      setCookie("token", token, {
-        req,
-        res,
-        maxAge: 4 * 24 * 60 * 60, // 4 days in seconds
-        path: "/",
-        secure: process.env.NODE_ENV === "production", // Set to true in production
-        httpOnly: true,
-        sameSite: "strict",
-      });
+      if (remember) {
+        // if password matches, set up a new token using user's id
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        // set the token
+        setCookie("token", token, {
+          req,
+          res,
+          maxAge: 4 * 24 * 60 * 60, // 4 days in seconds
+          path: "/",
+          secure: process.env.NODE_ENV === "production", // Set to true in production
+          httpOnly: true,
+          sameSite: "strict",
+        });
+      }
 
       //send response
       res.status(200).json({ user: data });

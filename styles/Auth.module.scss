@@ -68,7 +68,23 @@
             }
         }
 
+.rememberBtn{
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    gap: 1rem;
+    font-size: .9rem;
+    
+    input{
+        width: 1rem;
+        height: 1rem;
+    }
+    
 
+
+        color: black;
+
+}
 
         p {
             width: 100%;

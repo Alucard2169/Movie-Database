@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { setCookie } from "cookies-next";
 export default async function handler(req, res) {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password,remember } = req.body;
 
     if (!username || !email || !password) {
       throw new Error("username, email and password are required");
@@ -31,17 +31,19 @@ export default async function handler(req, res) {
       const data = new User({ username, email, password: hashPassword });
       await data.save();
 
-      const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET);
-      // Set cookie with a max age of 4 days
-      setCookie("token", token, {
-        req,
-        res,
-        maxAge: 4 * 24 * 60 * 60, // 4 days in seconds
-        path: "/",
-        secure: process.env.NODE_ENV === "production", // Set to true in production
-        httpOnly: true,
-        sameSite: "strict",
-      });
+      if (remember) {
+        const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET);
+        // Set cookie with a max age of 4 days
+        setCookie("token", token, {
+          req,
+          res,
+          maxAge: 4 * 24 * 60 * 60, // 4 days in seconds
+          path: "/",
+          secure: process.env.NODE_ENV === "production", // Set to true in production
+          httpOnly: true,
+          sameSite: "strict",
+        });
+     }
 
       const user = { username: data.username, email: data.email, id: data._id };
       res.status(200).json({ user });

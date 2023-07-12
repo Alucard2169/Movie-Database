@@ -57,6 +57,18 @@
   right: 5%;
   cursor: pointer;
 }
+.backdrop form .rememberBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: black;
+}
+.backdrop form .rememberBtn input {
+  width: 1rem;
+  height: 1rem;
+}
 .backdrop form p {
   width: 100%;
   text-align: left;

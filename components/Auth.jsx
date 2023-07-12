@@ -21,6 +21,7 @@ const Auth = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [remember,setRemember] = useState(false)
 
   const handleFocus = (e) => {
     setFocus((prevFocusState) => ({
@@ -72,6 +73,7 @@ const Auth = () => {
         username,
         email,
         password,
+        remember,
       };
 
       const response = await fetch(`${window.location.origin}/api/signup`, {
@@ -110,6 +112,7 @@ const Auth = () => {
       const formData = {
         username,
         password,
+        remember,
       };
 
       const response = await fetch(`${window.location.origin}/api/login`, {
@@ -134,6 +137,10 @@ const Auth = () => {
          setError(error.message);
     }
   };
+
+  const handleRememeber = () => {
+    setRemember(!remember)
+  }
 
   return (
     <div
@@ -198,6 +205,9 @@ const Auth = () => {
             className={authStyle.passIcon}
           />
         </label>
+        <label htmlFor="remember" className={authStyle.rememberBtn}>
+          <input type="checkbox" id="remember" checked={remember} onClick={handleRememeber}/>Remember me
+        </label>
 
         {error && <p className={authStyle.error}>{error}</p>}
 
@@ -206,14 +216,14 @@ const Auth = () => {
             type="submit"
             value="Submit"
             onClick={handleLogin}
-            className={isLoading ? `disable` : null}
+            className={isLoading ? `${authStyle.disable}` : null}
           />
         ) : (
           <input
             type="submit"
             value="Submit"
             onClick={handleSignup}
-            className={isLoading ? `disable` : null}
+            className={isLoading ? `${authStyle.disable}` : null}
           />
         )}
 
