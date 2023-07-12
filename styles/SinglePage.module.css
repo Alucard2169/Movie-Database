@@ -384,4 +384,13 @@
     gap: 2rem;
     align-items: baseline;
   }
+  .singlePage .movieDetails .reviews {
+    width: 100%;
+  }
+  .singlePage .movieDetails .reviews .reviewContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
 }/*# sourceMappingURL=SinglePage.module.css.map */

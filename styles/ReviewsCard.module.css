@@ -64,4 +64,10 @@
   padding: 0.5rem;
   font-weight: 900;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  .card p {
+    font-size: 0.9rem;
+  }
 }/*# sourceMappingURL=ReviewsCard.module.css.map */
