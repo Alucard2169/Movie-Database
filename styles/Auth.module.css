@@ -162,4 +162,8 @@
   .backdrop .passReq ul li {
     font-size: 0.8rem;
   }
+}
+.disable {
+  background-color: #0079d3 !important;
+  pointer-events: none !important;
 }/*# sourceMappingURL=Auth.module.css.map */

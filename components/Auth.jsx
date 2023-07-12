@@ -8,7 +8,7 @@ import { userContext } from "@/context/userContext";
 const Auth = () => {
   const { setUser } = useContext(userContext);
   const { formState, setFormState } = useContext(AuthFormContext);
-  console.log(formState)
+
   const [state, setState] = useState("login");
   const [focus, setFocus] = useState({
     username: false,
@@ -17,7 +17,7 @@ const Auth = () => {
   });
   const [passState, setPassState] = useState("password");
   const [error, setError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,6 +52,7 @@ const Auth = () => {
   };
 
   const handleCloseBtn = () => {
+    setIsLoading(false)
     setFormState(false);
     setState("login");
     setPassState("password");
@@ -66,6 +67,7 @@ const Auth = () => {
     e.preventDefault();
 
     try {
+      setIsLoading(true)
       const formData = {
         username,
         email,
@@ -84,6 +86,7 @@ const Auth = () => {
 
       if (response.status < 200 || response.status >= 300) {
         throw new Error(data.error);
+        setIsLoading(false)
       } else {
         // set user context
         setUser(data.user);
@@ -95,13 +98,14 @@ const Auth = () => {
       }
     } catch (error) {
       setPassword("");
+      setIsLoading(false)
       setError(error.message);
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true)
     try {
       const formData = {
         username,
@@ -122,10 +126,12 @@ const Auth = () => {
         setUser(data.user);
         handleCloseBtn();
       } else {
+        setIsLoading(false)
         setError(data.error);
       }
     } catch (err) {
-      console.log(err);
+      setIsLoading(false)
+         setError(error.message);
     }
   };
 
@@ -196,9 +202,19 @@ const Auth = () => {
         {error && <p className={authStyle.error}>{error}</p>}
 
         {state === "login" ? (
-          <input type="submit" value="Submit" onClick={handleLogin} />
+          <input
+            type="submit"
+            value="Submit"
+            onClick={handleLogin}
+            className={isLoading ? `disable` : null}
+          />
         ) : (
-          <input type="submit" value="Submit" onClick={handleSignup} />
+          <input
+            type="submit"
+            value="Submit"
+            onClick={handleSignup}
+            className={isLoading ? `disable` : null}
+          />
         )}
 
         {state === "login" ? (
