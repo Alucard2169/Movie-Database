@@ -32,10 +32,7 @@ const Profile = ({ images }) => {
   };
 
   useEffect(() => {
-    if (!user) {
-      router.push("/");
-      return;
-    }
+   
 
     const fetchMovies = async (user) => {
       try {
@@ -88,13 +85,13 @@ const Profile = ({ images }) => {
         <title>Movie Database | {user && user.username}</title>
       </Head>
       <div className={userStyle.userDetails}>
-        <Image src={userPfp} alt="user profile pic" />
         <div className={userStyle.info}>
+        <Image src={userPfp} alt="user profile pic" />
           {user ? (
-            <>
+            <div>
               <h2 className="username">{user.username}</h2>
               <h4>{user.email}</h4>
-            </>
+            </div>
           ) : (
             <p>Loading user data...</p>
           )}
