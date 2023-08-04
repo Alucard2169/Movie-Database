@@ -1,35 +1,33 @@
 import { User } from "@/models/user";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { setCookie } from "cookies-next";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
-  const { username, password,remember } = req.body;
+  const { username, password, remember } = req.body;
 
   try {
     if (!username || !password) {
       throw new Error("username and password are required");
     }
 
-    // check if user is in database using username
-    const users = await User.find({ username });
+    // Find a single user directly using findOne
+    const user = await User.findOne({ username }).select(
+      "username email password"
+    );
 
-    if (users.length === 0) {
+    if (!user) {
       throw new Error("user not found");
     }
 
-    const user = users[0];
-    // verify password
+    // Verify password
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {
-      
-      // make a seperate data object to send as a response
-      const data = { username: user.username, email: user.email, id: user._id };
+      // If password matches, set up a new token using user's id
       if (remember) {
-        // if password matches, set up a new token using user's id
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-        // set the token
+        // Set the token
         setCookie("token", token, {
           req,
           res,
@@ -41,8 +39,13 @@ export default async function handler(req, res) {
         });
       }
 
-      //send response
-      res.status(200).json({ user: data });
+      // Return only the required user data
+      const userData = {
+        username: user.username,
+        email: user.email,
+        id: user._id,
+      };
+      res.status(200).json({ user: userData });
     } else {
       throw new Error("Incorrect Password");
     }

@@ -1,12 +1,12 @@
-import userStyle from "@/styles/User.module.css";
-import Head from "next/head";
-import { userContext } from "@/context/userContext";
-import Image from "next/image";
-import { useContext, useState, useEffect } from "react";
 import userPfp from "@/assets/userPFP.webp";
 import MovieSection from "@/components/MovieSection";
-import { useRouter } from "next/router";
+import { userContext } from "@/context/userContext";
 import { getImageDetails } from "@/libs/cacheImage";
+import userStyle from "@/styles/User.module.css";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 
 const Profile = ({ images }) => {
   const router = useRouter();

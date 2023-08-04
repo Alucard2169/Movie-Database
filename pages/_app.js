@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
 import { AuthFormContextProvider } from "@/context/authFormContext";
-
 import { UserContextProvider } from "@/context/userContext";
 import "@/styles/globals.css";
 import { Roboto_Flex } from "@next/font/google";
