@@ -29,7 +29,7 @@ const HomePageMovieSect = ({ data,type }) => {
       <div className={homeMovieStyle.inner} ref={scrollRef}>
        {type === 'movies' ?  result.map((movie) => (
           <MovieCard data={{ movie, images }} key={movie.id} />
-       )) : result.map((people) => <PeopleCard data={{ people, images }} />)}
+       )) : result.map((people) => <PeopleCard data={{ people, images }} key={people.id}/>)}
       </div>
       <AiFillCaretRight
         onClick={handleRightScroll}
