@@ -1,23 +1,23 @@
-import navbarStyle from "../styles/Navbar.module.css";
-import profilePic from "../assets/pfp.webp";
-import userPfp from "../assets/userPFP.webp";
+import { userContext } from "@/context/userContext";
 import Image from "next/image";
 import Link from "next/link";
-import SearchBar from "./SearchBar";
-import { useContext, useState } from "react";
-import { AuthFormContext } from "@/context/authFormContext";
-import { userContext } from "@/context/userContext";
-import UserMenu from "./UserMenu";
 import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import profilePic from "../assets/pfp.webp";
+import userPfp from "../assets/userPFP.webp";
+import navbarStyle from "../styles/Navbar.module.css";
+import SearchBar from "./SearchBar";
+import UserMenu from "./UserMenu";
 
-const Navbar = () => {
+const Navbar = ({ data }) => {
+  
+  const { authFormState, setAuthFormState } = data;
   const router = useRouter();
   const { user, setUser } = useContext(userContext);
-  const { setFormState } = useContext(AuthFormContext);
   const [displayState, setDisplayState] = useState(false);
 
-  const handleLoginBtn = () => {
-    setFormState(true);
+  const handleSignUpBtn = () => {
+setAuthFormState(true)
   };
 
   const handleUserMenu = () => {
@@ -44,8 +44,8 @@ const Navbar = () => {
       </Link>
       <SearchBar />
       {user === null ? (
-        <button className={navbarStyle.authButton} onClick={handleLoginBtn}>
-          Login
+        <button className={navbarStyle.authButton} onClick={handleSignUpBtn}>
+          SignUp
         </button>
       ) : (
         <div className={navbarStyle.right}>

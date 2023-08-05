@@ -1,20 +1,20 @@
-import { AuthFormContext } from "@/context/authFormContext";
-import authStyle from "../styles/Auth.module.css";
-import { useContext, useState } from "react";
-import { RxCross1 } from "react-icons/rx";
-import { AiOutlineEye } from "react-icons/ai";
 import { userContext } from "@/context/userContext";
+import { useContext, useState } from "react";
+import { AiOutlineEye } from "react-icons/ai";
+import { RxCross1 } from "react-icons/rx";
+import authStyle from "../styles/Auth.module.css";
 
-const Auth = () => {
+const Auth = ({data}) => {
+    const { authFormState, setAuthFormState } = data;
   const { setUser } = useContext(userContext);
-  const { formState, setFormState } = useContext(AuthFormContext);
 
-  const [state, setState] = useState("login");
+
   const [focus, setFocus] = useState({
     username: false,
     password: false,
     email: false,
   });
+
   const [passState, setPassState] = useState("password");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,14 +48,11 @@ const Auth = () => {
     setPassState(passState === "password" ? "text" : "password");
   };
 
-  const handleState = () => {
-    setState(state === "login" ? "signup" : "login");
-  };
+  
 
   const handleCloseBtn = () => {
+    setAuthFormState(false)
     setIsLoading(false)
-    setFormState(false);
-    setState("login");
     setPassState("password");
     setUsername("");
     setEmail("");
@@ -88,7 +85,6 @@ const Auth = () => {
 
       if (response.status < 200 || response.status >= 300) {
         throw new Error(data.error);
-        setIsLoading(false)
       } else {
         // set user context
         setUser(data.user);
@@ -105,38 +101,38 @@ const Auth = () => {
     }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLoading(true)
-    try {
-      const formData = {
-        username,
-        password,
-        remember,
-      };
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true)
+  //   try {
+  //     const formData = {
+  //       username,
+  //       password,
+  //       remember,
+  //     };
 
-      const response = await fetch(`${window.location.origin}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  //     const response = await fetch(`${window.location.origin}/api/login`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (data.user) {
-        setUser(data.user);
-        handleCloseBtn();
-      } else {
-        setIsLoading(false)
-        setError(data.error);
-      }
-    } catch (err) {
-      setIsLoading(false)
-         setError(error.message);
-    }
-  };
+  //     if (data.user) {
+  //       setUser(data.user);
+  //       handleCloseBtn();
+  //     } else {
+  //       setIsLoading(false)
+  //       setError(data.error);
+  //     }
+  //   } catch (err) {
+  //     setIsLoading(false)
+  //        setError(error.message);
+  //   }
+  // };
 
   const handleRememeber = () => {
     setRemember(!remember)
@@ -145,13 +141,13 @@ const Auth = () => {
   return (
     <div
       className={`${authStyle.backdrop} ${
-        formState ? `${authStyle.display}` : null
+        authFormState ? `${authStyle.display}` : null
       }`}
     >
       <form>
         <RxCross1 className={authStyle.icon} onClick={handleCloseBtn} />
-        {state === "login" ? <h2>Login</h2> : <h2>Sign Up</h2>}
-
+        <h2>Sign Up</h2>
+        <p>Already a User? login</p>
         <label htmlFor="username">
           <span className={focus.username ? authStyle.spanAnimation : null}>
             Username
@@ -168,23 +164,21 @@ const Auth = () => {
           />
         </label>
 
-        {state === "signup" ? (
-          <label htmlFor="email">
-            <span className={focus.email ? authStyle.spanAnimation : null}>
-              Email
-            </span>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={(e) => handleFocus(e)}
-              onBlur={(e) => handleBlur(e)}
-              required
-            />
-          </label>
-        ) : null}
+        <label htmlFor="email">
+          <span className={focus.email ? authStyle.spanAnimation : null}>
+            Email
+          </span>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onFocus={(e) => handleFocus(e)}
+            onBlur={(e) => handleBlur(e)}
+            required
+          />
+        </label>
 
         <label htmlFor="password">
           <span className={focus.password ? authStyle.spanAnimation : null}>
@@ -206,42 +200,23 @@ const Auth = () => {
           />
         </label>
         <label htmlFor="remember" className={authStyle.rememberBtn}>
-          <input type="checkbox" id="remember" checked={remember} onClick={handleRememeber}/>Remember me
+          <input
+            type="checkbox"
+            id="remember"
+            checked={remember}
+            onClick={handleRememeber}
+          />
+          Remember me
         </label>
 
         {error && <p className={authStyle.error}>{error}</p>}
 
-        {state === "login" ? (
-          <input
-            type="submit"
-            value="Submit"
-            onClick={handleLogin}
-            className={isLoading ? `${authStyle.disable}` : null}
-          />
-        ) : (
-          <input
-            type="submit"
-            value="Submit"
-            onClick={handleSignup}
-            className={isLoading ? `${authStyle.disable}` : null}
-          />
-        )}
-
-        {state === "login" ? (
-          <p className={authStyle.asideLink}>
-            New user?{" "}
-            <button type="button" onClick={handleState}>
-              Sign Up
-            </button>
-          </p>
-        ) : (
-          <p className={authStyle.asideLink}>
-            Already a user?{" "}
-            <button type="button" onClick={handleState}>
-              Login
-            </button>
-          </p>
-        )}
+        <input
+          type="submit"
+          value="Submit"
+          onClick={handleSignup}
+          className={isLoading ? `${authStyle.disable}` : null}
+        />
       </form>
 
       <aside
