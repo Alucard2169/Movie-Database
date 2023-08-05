@@ -23,7 +23,7 @@ const Navbar = ( ) => {
         <Image src={profilePic} alt="profile Pic" />
       </Link>
       <SearchBar />
-    
+      <button className={navbarStyle.authButton}>Sign Up</button>
     </nav>
   );
 };

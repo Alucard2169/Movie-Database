@@ -32,12 +32,7 @@
     object-fit: cover;
 }
 
-.right{
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-    position: relative;
-}
+
 
 .authButton{
     border: 2px #2CEC65 solid;

@@ -192,14 +192,16 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
               </ul>
             </article>
           </section>
-          <section className={singlePageDesign.reviews}>
-            <h2>Reviews</h2>
-            <div className={singlePageDesign.reviewContainer}>
-              {reviewsData.map((review,i) => (
-                <Reviews data={{ review, images }} key={i} />
-              ))}
-            </div>
-          </section>
+          {reviewsData.length > 0  && (
+            <section className={singlePageDesign.reviews}>
+              <h2>Reviews</h2>
+              <div className={singlePageDesign.reviewContainer}>
+                {reviewsData.map((review, i) => (
+                  <Reviews data={{ review, images }} key={i} />
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>
