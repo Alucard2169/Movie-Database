@@ -5,11 +5,13 @@
   text-decoration: none;
   list-style: none;
    font-family: 'Roboto', sans-serif;
+
 }
 
 
 body{
      background: #040e13;
+        overflow-x: hidden;
 }
 
  a, a:hover, a:focus, a:active {
