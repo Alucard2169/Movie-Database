@@ -19,7 +19,6 @@ const Auth = ({data}) => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember,setRemember] = useState(false)
 
@@ -55,7 +54,6 @@ const Auth = ({data}) => {
     setIsLoading(false)
     setPassState("password");
     setUsername("");
-    setEmail("");
     setPassword("");
     setError(null);
     setFocus({ username: false, email: false, password: false });
@@ -68,7 +66,6 @@ const Auth = ({data}) => {
       setIsLoading(true)
       const formData = {
         username,
-        email,
         password,
         remember,
       };
@@ -89,7 +86,7 @@ const Auth = ({data}) => {
         // set user context
         setUser(data.user);
         setUsername("");
-        setEmail("");
+ 
         setPassword("");
         // close the form
         handleCloseBtn();
@@ -164,21 +161,7 @@ const Auth = ({data}) => {
           />
         </label>
 
-        <label htmlFor="email">
-          <span className={focus.email ? authStyle.spanAnimation : null}>
-            Email
-          </span>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onFocus={(e) => handleFocus(e)}
-            onBlur={(e) => handleBlur(e)}
-            required
-          />
-        </label>
+    
 
         <label htmlFor="password">
           <span className={focus.password ? authStyle.spanAnimation : null}>
