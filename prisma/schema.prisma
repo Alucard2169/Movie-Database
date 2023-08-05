@@ -8,18 +8,18 @@ datasource db {
 }
 
 model movies {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  v       Int    @map("__v")
-  movieId String
-  type    String
-  userID  String
-  user   users   @relation(fields: [userID], references: [id])
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  movieId    String
+  type     String
+  userId String    @db.ObjectId
+  user   users      @relation(fields: [userId], references: [id])
 }
 
+
 model users {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  v        Int    @map("__v")
-  password String
-  username String
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  username    String @unique
+  password   String  
   movie movies[]
 }

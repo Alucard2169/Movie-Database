@@ -1,25 +1,21 @@
-import { useContext, useEffect, useState,Suspense,lazy } from "react";
-import singlePageDesign from "../../styles/SinglePage.module.css";
-import {
-  AiOutlineGlobal,
-  AiFillHeart,
-  AiFillPlayCircle,
-  AiFillCaretRight,
-} from "react-icons/ai";
-import { BiListPlus } from "react-icons/bi";
-import { userContext } from "@/context/userContext";
+import Reviews from "@/components/Reviews";
+import TrailerBox from "@/components/TrailerBox";
+
+import { getImageDetails } from "@/libs/cacheImage";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import TrailerBox from "@/components/TrailerBox";
-import Head from "next/head";
-import { getImageDetails } from "@/libs/cacheImage";
-import Reviews from "@/components/Reviews";
+import { Suspense, lazy, useState } from "react";
+import {
+  AiFillCaretRight,
+  AiFillPlayCircle
+} from "react-icons/ai";
+import singlePageDesign from "../../styles/SinglePage.module.css";
 
 const LazyBanner = lazy(()=>import('@/components/LazyBanner'))
 
 const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsData }) => {
-  const { user } = useContext(userContext);
-  const [status, setStatus] = useState(null);
+ 
   const [trailerVisibility, setTailerVisibility] = useState(false);
   const {
     id,
@@ -48,32 +44,6 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
 
-  const handleAdd = async (type) => {
-    const id = imdb_id;
-
-    const response = await fetch(`${window.location.origin}/api/addList`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id, userId: user.id, type }),
-    });
-
-    if (response.ok) {
-      setStatus("Movie Added");
-    } else {
-      const data = await response.json();
-      setStatus(data.error);
-    }
-  };
-
-  useEffect(() => {
-    if (status) {
-      setTimeout(() => {
-        setStatus(null);
-      }, 4000);
-    }
-  }, [status]);
 
   return (
     <div className={singlePageDesign.singlePage}>
@@ -148,7 +118,7 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
                   ) : null}
                 </div>
               ) : null}
-              <aside>
+              {/* <aside>
                 {status && <p className={singlePageDesign.show}>{status}</p>}
                 {user && (
                   <>
@@ -167,7 +137,7 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
                     <AiOutlineGlobal className={singlePageDesign.icons} />
                   </a>
                 )}
-              </aside>
+              </aside> */}
             </section>
 
             <div className={singlePageDesign.coreDetails}>
