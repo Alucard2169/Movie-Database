@@ -1,3 +1,4 @@
+import { useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 import Link from "next/link";
 import profilePic from "../assets/pfp.webp";
@@ -6,6 +7,10 @@ import SearchBar from "./SearchBar";
 
 const Navbar = ({data}) => {
   
+
+  const user = useUser();
+
+  console.log(user)
   const { setFormState } = data;
   
   return (

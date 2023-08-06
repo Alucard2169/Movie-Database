@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@next/font": "^13.3.0",
-
+    "@supabase/auth-helpers-nextjs": "^0.7.4",
+    "@supabase/auth-helpers-react": "^0.4.2",
+    "@supabase/supabase-js": "^2.31.0",
     "bcryptjs": "^2.4.3",
     "cookies-next": "^2.1.1",
     "dns-lookup": "^0.1.0",

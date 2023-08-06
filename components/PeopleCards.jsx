@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from 'next/link';
 
 const PeopleCard = ({ data }) => {
-console.log(data.people)
+
     const { people, images } = data;
     const { base_url, profile_sizes } = images;
     const { profile_path, id, known_for_department, name ,type} = people;

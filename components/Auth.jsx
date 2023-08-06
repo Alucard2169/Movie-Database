@@ -1,3 +1,4 @@
+import supabase from "@/libs/supabase";
 import { useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
@@ -23,7 +24,7 @@ const Auth = ({ data }) => {
   const [username, setUsername] = useState("");
   const [email,setEmail] = useState('')
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
+ 
 
   const handleFocus = (e) => {
     setFocus((prevFocusState) => ({
@@ -65,9 +66,33 @@ const Auth = ({ data }) => {
 
  
 
-  const handleRememeber = () => {
-    setRemember(!remember);
-  };
+ const handleSignUp = async (e) => {
+   e.preventDefault();
+   try {
+     let { data, error } = await supabase.auth.signUp({
+       email: email,
+       password: password,
+       options: {
+         username: username,
+       },
+     });
+
+     if (error) {
+       // Handle the error here (e.g., display an error message)
+       console.error("Error signing up:", error.message);
+     } else {
+       // Sign-up was successful
+       console.log("Sign-up successful:", data);
+
+       // Optionally, you can perform additional actions after successful signup,
+       // such as redirecting to a new page or displaying a success message to the user.
+     }
+   } catch (error) {
+     // Handle any unexpected errors that might occur during the sign-up process
+     console.error("Unexpected error during sign-up:", error.message);
+   }
+ };
+
 
   return (
     <div
@@ -75,7 +100,7 @@ const Auth = ({ data }) => {
         formState ? `${authStyle.display}` : null
       }`}
     >
-      <form>
+      <form onSubmit={handleSignUp}>
         <RxCross1 className={authStyle.icon} onClick={handleCloseBtn} />
         <h2>{formType === "login" ? "Login" : "Sign Up"}</h2>
 
@@ -104,7 +129,7 @@ const Auth = ({ data }) => {
         )}
 
         <label htmlFor="email">
-          <span className={focus.username ? authStyle.spanAnimation : null}>
+          <span className={focus.email ? authStyle.spanAnimation : null}>
             Email
           </span>
           <input
