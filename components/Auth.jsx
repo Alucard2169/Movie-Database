@@ -4,16 +4,24 @@ import { RxCross1 } from "react-icons/rx";
 import authStyle from "../styles/Auth.module.css";
 
 const Auth = ({ data }) => {
-    const { formState, setFormState } = data;
+  const { formState, setFormState } = data;
+  
+  const [formType, setFormType] = useState('signUp')
+  
+  const handleFormTypeToggle = () => {
+    setFormType(formType === 'login' ? 'signUp' : "login")
+  }
 
   const [focus, setFocus] = useState({
     username: false,
+    email: false,
     password: false,
   });
   const [passState, setPassState] = useState("password");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
+  const [email,setEmail] = useState('')
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
 
@@ -45,6 +53,7 @@ const Auth = ({ data }) => {
 
 
   const handleCloseBtn = () => {
+    setFormType('signUp')
     setIsLoading(false);
     setFormState(false);
     setPassState("password");
@@ -68,30 +77,47 @@ const Auth = ({ data }) => {
     >
       <form>
         <RxCross1 className={authStyle.icon} onClick={handleCloseBtn} />
-        <h2>Sign Up</h2>
+        <h2>{formType === "login" ? "Login" : "Sign Up"}</h2>
 
         <p className={authStyle.asideLink}>
-          Already a user?{" "}
-          <button type="button">
-            Login
+          {formType === "login" ? "New User? " : "Already a user?"}
+          <button type="button" onClick={handleFormTypeToggle}>
+            {formType === "login" ? "Sign Up" : "Login"}
           </button>
         </p>
-        <label htmlFor="username">
+        {formType === "signUp" && (
+          <label htmlFor="username">
+            <span className={focus.username ? authStyle.spanAnimation : null}>
+              Username
+            </span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onFocus={(e) => handleFocus(e)}
+              onBlur={(e) => handleBlur(e)}
+              required
+            />
+          </label>
+        )}
+
+        <label htmlFor="email">
           <span className={focus.username ? authStyle.spanAnimation : null}>
-            Username
+            Email
           </span>
           <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             onFocus={(e) => handleFocus(e)}
             onBlur={(e) => handleBlur(e)}
             required
           />
         </label>
-
 
         <label htmlFor="password">
           <span className={focus.password ? authStyle.spanAnimation : null}>
@@ -112,16 +138,7 @@ const Auth = ({ data }) => {
             className={authStyle.passIcon}
           />
         </label>
-        <label htmlFor="remember" className={authStyle.rememberBtn}>
-          <input
-            type="checkbox"
-            id="remember"
-            checked={remember}
-            onClick={handleRememeber}
-          />
-          Remember me
-        </label>
-
+        
         {error && <p className={authStyle.error}>{error}</p>}
 
         <input
@@ -131,20 +148,7 @@ const Auth = ({ data }) => {
         />
       </form>
 
-      <aside
-        className={`${authStyle.passReq} ${
-          focus.password ? authStyle.show : null
-        }`}
-      >
-        <h4>Password must have</h4>
-        <ul>
-          <li>Minimum length: 8 characters.</li>
-          <li>Include at least 1 uppercase letter.</li>
-          <li>Include at least 1 lowercase letter.</li>
-          <li>Include at least 1 number.</li>
-          <li>Include at least 1 special character.</li>
-        </ul>
-      </aside>
+      
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
+import Auth from "./Auth";
 import Navbar from "./Navbar";
-import Auth from "./SignUp";
 
 const Layout = ({ children }) => {
   const [formState,setFormState] = useState(false)
