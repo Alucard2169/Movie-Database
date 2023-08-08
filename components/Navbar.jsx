@@ -1,5 +1,4 @@
-import supabase from "@/libs/supabase";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 import Link from "next/link";
 import profilePic from "../assets/pfp.webp";
@@ -13,10 +12,18 @@ const Navbar = ({data}) => {
 
   const { setFormState } = data;
 
-  const handleLogout =async () => {
-      
- const { error } = await supabase.auth.signOut()
-    console.log(error)
+  const supabase = useSupabaseClient()
+  const handleLogout = async () => {
+    try {
+      const { error } = supabase.auth.signOut()
+      if (error) {
+        throw Error(error.message)
+      }
+
+    }
+    catch (err) {
+      console.log(err.message)
+    }
   }
   
   return (
