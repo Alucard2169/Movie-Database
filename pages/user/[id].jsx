@@ -1,16 +1,21 @@
-import profilePic from "@/assets/pfp.webp";
+import profilePic from "@/assets/userPFP.webp";
 import UserMovieCard from "@/components/UserMovieCard";
 import userStyle from '@/styles/User.module.css';
+import { useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 
 const User = () => {
+  const user = useUser()
     return (
       <div className={userStyle.userPage}>
         <div className={userStyle.topPanel}>
-          <div>
+          <div className={userStyle.imageContainer}>
             <Image src={profilePic} alt="user" />
           </div>
-          <h1>User</h1>
+          <div className={userStyle.info}>
+            <h1>{user.user_metadata.username}</h1>
+            <h3>{user.email}</h3>
+          </div>
         </div>
         <div className={userStyle.listSection}>
           <section>

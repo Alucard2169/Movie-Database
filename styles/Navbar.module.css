@@ -21,6 +21,12 @@
     object-fit: cover;
 }
 
+.right{
+    display: flex;
+    gap:1rem;
+    align-items: center;
+}
+
 .userPfp{
     justify-self: flex-end;
 }

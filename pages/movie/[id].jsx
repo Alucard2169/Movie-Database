@@ -2,19 +2,24 @@ import Reviews from "@/components/Reviews";
 import TrailerBox from "@/components/TrailerBox";
 
 import { getImageDetails } from "@/libs/cacheImage";
+import { useUser } from "@supabase/auth-helpers-react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense, lazy, useState } from "react";
 import {
   AiFillCaretRight,
-  AiFillPlayCircle
+  AiFillHeart,
+  AiFillPlayCircle,
+  AiOutlineGlobal,
 } from "react-icons/ai";
+import { BiListPlus } from 'react-icons/bi';
 import singlePageDesign from "../../styles/SinglePage.module.css";
 
 const LazyBanner = lazy(()=>import('@/components/LazyBanner'))
 
-const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsData }) => {
+const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsData }) => {
+  const user = useUser()
  
   const [trailerVisibility, setTailerVisibility] = useState(false);
   const {
@@ -118,26 +123,27 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
                   ) : null}
                 </div>
               ) : null}
-              {/* <aside>
-                {status && <p className={singlePageDesign.show}>{status}</p>}
-                {user && (
-                  <>
-                    <AiFillHeart
-                      className={singlePageDesign.icons}
-                      onClick={() => handleAdd("favorite")}
-                    />
-                    <BiListPlus
-                      className={singlePageDesign.icons}
-                      onClick={() => handleAdd("list")}
-                    />
-                  </>
-                )}
-                {homepage && (
-                  <a href={homepage} target="_blank">
-                    <AiOutlineGlobal className={singlePageDesign.icons} />
-                  </a>
-                )}
-              </aside> */}
+             
+                <aside>
+                  {user && (
+                    <>
+                      <AiFillHeart
+                        className={singlePageDesign.icons}
+                        onClick={() => handleAdd("favorite")}
+                      />
+                      <BiListPlus
+                        className={singlePageDesign.icons}
+                        onClick={() => handleAdd("list")}
+                      />
+                    </>
+                  )}
+                  {homepage && (
+                    <a href={homepage} target="_blank">
+                      <AiOutlineGlobal className={singlePageDesign.icons} />
+                    </a>
+                  )}
+                </aside>
+              
             </section>
 
             <div className={singlePageDesign.coreDetails}>
@@ -192,7 +198,7 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
               </ul>
             </article>
           </section>
-          {reviewsData.length > 0  && (
+          {reviewsData.length > 0 && (
             <section className={singlePageDesign.reviews}>
               <h2>Reviews</h2>
               <div className={singlePageDesign.reviewContainer}>
