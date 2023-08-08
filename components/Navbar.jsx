@@ -1,3 +1,4 @@
+import supabase from "@/libs/supabase";
 import { useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,11 +8,16 @@ import SearchBar from "./SearchBar";
 
 const Navbar = ({data}) => {
   
-
   const user = useUser();
-
   console.log(user)
+
   const { setFormState } = data;
+
+  const handleLogout =async () => {
+      
+ const { error } = await supabase.auth.signOut()
+    console.log(error)
+  }
   
   return (
     <nav className={navbarStyle.navbar}>
@@ -19,7 +25,15 @@ const Navbar = ({data}) => {
         <Image src={profilePic} alt="profile Pic" />
       </Link>
       <SearchBar />
-      <button className={navbarStyle.authButton} onClick={()=>setFormState(true)}>Sign Up</button>
+      {user ? <button className={navbarStyle.authButton} onClick={handleLogout}>Logout</button>: (
+        <button
+          className={navbarStyle.authButton}
+          onClick={() => setFormState(true)}
+        >
+          Sign Up
+        </button>
+      )}
+      
     </nav>
   );
 };
