@@ -393,4 +393,7 @@
     flex-direction: column;
     gap: 4rem;
   }
+}
+.added {
+  color: #2CEC65 !important;
 }/*# sourceMappingURL=SinglePage.module.css.map */

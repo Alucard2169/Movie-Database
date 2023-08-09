@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar";
 const Navbar = ({data}) => {
   const router = useRouter()
   const user = useUser();
-  console.log(user)
+
 
   const { setFormState } = data;
 

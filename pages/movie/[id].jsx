@@ -1,26 +1,27 @@
 import Reviews from "@/components/Reviews";
 import TrailerBox from "@/components/TrailerBox";
-
 import { getImageDetails } from "@/libs/cacheImage";
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import {
   AiFillCaretRight,
   AiFillHeart,
   AiFillPlayCircle,
   AiOutlineGlobal,
 } from "react-icons/ai";
-import { BiListPlus } from 'react-icons/bi';
+
 import singlePageDesign from "../../styles/SinglePage.module.css";
 
 const LazyBanner = lazy(()=>import('@/components/LazyBanner'))
 
+
 const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsData }) => {
-  const user = useUser()
- 
+  const user = useUser();
+  const supabase = useSupabaseClient();
+  const [inList, setInList] = useState(false);
   const [trailerVisibility, setTailerVisibility] = useState(false);
   const {
     id,
@@ -45,10 +46,72 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsD
     setTailerVisibility((prevData) => !prevData);
   };
 
+  const getMovies = async (id) => {
+    try {
+      // Check if the movie already exists
+      const { data: movies, error } = await supabase
+        .from("Movies")
+        .select("movie_id")
+        .eq("movie_id", id);
 
+      if (error) {
+        console.error("Error fetching data:", error);
+        return;
+      }
+
+      if (movies.length > 0) {
+        if (movies.some((obj) => Object.values(obj).includes(id))) {
+          setInList(true);
+        } else {
+          setInList(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getMovies(imdb_id);
+  }, []);
+
+
+  const handleMovieAdd = async () => {
+    try {
+      const movieData = { movie_id: imdb_id};
+
+      if (!inList) {
+        const { data, error } = await supabase
+          .from("Movies")
+          .insert([movieData]);
+
+        setInList(true)
+
+          if (error) {
+            console.error("Error inserting movie:", error);
+            return null;
+          }
+      }
+
+      else {
+
+        const { error } = await supabase
+          .from("Movies")
+          .delete()
+          .eq("movie_id", imdb_id);
+        setInList(false)
+        if (error) {
+          console.log('error',error.message)
+        }
+
+      }
+    
+    } catch (error) {
+      console.log("An error occurred:", error.message);
+    }
+  };
 
   const { base_url, backdrop_sizes, profile_sizes } = images;
-
 
   return (
     <div className={singlePageDesign.singlePage}>
@@ -123,27 +186,24 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsD
                   ) : null}
                 </div>
               ) : null}
-             
-                <aside>
-                  {user && (
-                    <>
-                      <AiFillHeart
-                        className={singlePageDesign.icons}
-                        onClick={() => handleAdd("favorite")}
-                      />
-                      <BiListPlus
-                        className={singlePageDesign.icons}
-                        onClick={() => handleAdd("list")}
-                      />
-                    </>
-                  )}
-                  {homepage && (
-                    <a href={homepage} target="_blank">
-                      <AiOutlineGlobal className={singlePageDesign.icons} />
-                    </a>
-                  )}
-                </aside>
-              
+
+              <aside>
+                {user && (
+                  <>
+                    <AiFillHeart
+                      className={`${singlePageDesign.icons} ${
+                        inList ? singlePageDesign.added : null
+                      }`}
+                      onClick={handleMovieAdd}
+                    />
+                  </>
+                )}
+                {homepage && (
+                  <a href={homepage} target="_blank">
+                    <AiOutlineGlobal className={singlePageDesign.icons} />
+                  </a>
+                )}
+              </aside>
             </section>
 
             <div className={singlePageDesign.coreDetails}>

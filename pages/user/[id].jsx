@@ -1,13 +1,80 @@
 import profilePic from "@/assets/userPFP.webp";
 import UserMovieCard from "@/components/UserMovieCard";
+import { getImageDetails } from "@/libs/cacheImage";
 import userStyle from '@/styles/User.module.css';
-import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
+import { useEffect, useState } from 'react';
 
-const User = () => {
-  const user = useUser()
-    return (
-      <div className={userStyle.userPage}>
+const User = ({ images }) => {
+ 
+ 
+  const supabase = useSupabaseClient();
+  const user = useUser();
+
+
+  const [movieList, setMovieList] = useState(null);
+
+  const getMovieIdFromDB = async () => {
+    try {
+      const { data, error } = await supabase.from("Movies").select("movie_id");
+      if (error) {
+        throw error;
+      }
+      return data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  };
+
+  const fetchMovies = async () => {
+    try {
+      const data = await getMovieIdFromDB();
+
+
+      if (data.length > 0) {
+        const moviePromises = data.map(async (movie) => {
+          try {
+            const movieResponse = await fetch(
+              `https://api.themoviedb.org/3/movie/${movie.movie_id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            );
+            const movieData = await movieResponse.json();
+            return movieData; // Return the movie data
+
+          } catch (error) {
+            console.log(error);
+            return null;
+          }
+        });
+
+        const movieResults = await Promise.all(moviePromises); // Use Promise.all to wait for all promises
+        const movies = movieResults.filter((movie) => movie !== null); // Filter out null values
+ 
+        setMovieList(movies)
+
+      } else {
+        console.log("No movies found");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+   const handleRemoveMovie = (imdb_id) => {
+     setMovieList((prevMovieList) =>
+       prevMovieList.filter((movie) => movie.imdb_id !== imdb_id)
+     );
+   };
+
+  useEffect(() => {
+    fetchMovies();
+
+  }, []); // Don't forget the dependency array
+
+  return (
+    <div className={userStyle.userPage}>
+      {user && (
         <div className={userStyle.topPanel}>
           <div className={userStyle.imageContainer}>
             <Image src={profilePic} alt="user" />
@@ -17,19 +84,34 @@ const User = () => {
             <h3>{user.email}</h3>
           </div>
         </div>
-        <div className={userStyle.listSection}>
+      )}
+      <div className={userStyle.listSection}>
+        
           <section>
             <h2>Movies</h2>
-            <div className={userStyle.movieList}>
-              <UserMovieCard />
-            </div>
+          { movieList && (<div className={userStyle.movieList}>
+            {movieList.map((movie) => (
+              <UserMovieCard data={{ movie, images }} onRemove={handleRemoveMovie} />
+            ))}
+          </div>)}
           </section>
-          <section>
-            <h2>People</h2>
-          </section>
-        </div>
+        
+        <section>
+          <h2>People</h2>
+        </section>
       </div>
-    );
+    </div>
+  );
 }
  
 export default User;
+
+export const getServerSideProps = async () => {
+  const images = await getImageDetails();
+ 
+  return {
+    props: {
+      images
+    }
+  }
+}
