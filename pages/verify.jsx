@@ -7,7 +7,7 @@ const Verify = () => {
     return (
       <div className={verifyStyle.page}>
             <div className={verifyStyle.card}>
-                <p>We've sent you a confirmation link to your email</p>
+                <p>We{`&apos`}ve sent you a confirmation link to your email</p>
           <p>
             Please verify
                 </p>

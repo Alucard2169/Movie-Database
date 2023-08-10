@@ -1,38 +1,32 @@
-import profilePic from "@/assets/userPFP.webp";
-import UserMovieCard from "@/components/UserMovieCard";
+import profilePic from '@/assets/userPFP.webp';
+import UserMovieCard from '@/components/UserMovieCard';
 import { getImageDetails } from "@/libs/cacheImage";
-import userStyle from '@/styles/User.module.css';
+import userStyle from "@/styles/User.module.css";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import Image from "next/image";
-import { useEffect, useState } from 'react';
-
+import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 const User = ({ images }) => {
- 
  
   const supabase = useSupabaseClient();
   const user = useUser();
-
-
   const [movieList, setMovieList] = useState(null);
-  
 
   const getMovieIdFromDB = async () => {
     try {
       const { data, error } = await supabase.from("Movies").select("movie_id");
       if (error) {
-        throw error;
+        throw Error(error.message);
       }
       return data;
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       return [];
     }
   };
 
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       const data = await getMovieIdFromDB();
-
 
       if (data.length > 0) {
         const moviePromises = data.map(async (movie) => {
@@ -44,7 +38,7 @@ const User = ({ images }) => {
             return movieData; // Return the movie data
 
           } catch (error) {
-            console.log(error);
+            console.log(error.message);
             return null;
           }
         });
@@ -60,20 +54,17 @@ const User = ({ images }) => {
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
-  };
-
-   const handleRemoveMovie = (imdb_id) => {
-     setMovieList((prevMovieList) =>
-       prevMovieList.filter((movie) => movie.imdb_id !== imdb_id)
-     );
-   };
+  }, [supabase]);
 
   useEffect(() => {
     fetchMovies();
+  }, [fetchMovies]);
 
-  }, []);
-
-
+  const handleRemoveMovie = (imdb_id) => {
+    setMovieList((prevMovieList) =>
+      prevMovieList.filter((movie) => movie.imdb_id !== imdb_id)
+    );
+  };
 
   return (
     <div className={userStyle.userPage}>
@@ -89,20 +80,25 @@ const User = ({ images }) => {
         </div>
       )}
       <div className={userStyle.listSection}>
-        
-          <section>
-            <h2>Movies</h2>
-          { movieList && (<div className={userStyle.movieList}>
-            {movieList.map((movie) => (
-              <UserMovieCard data={{ movie, images }} onRemove={handleRemoveMovie} />
-            ))}
-          </div>)}
-          </section>
+        <section>
+          <h2>Movies</h2>
+          {movieList && (
+            <div className={userStyle.movieList}>
+              {movieList.map((movie) => (
+                <UserMovieCard
+                  data={{ movie, images }}
+                  onRemove={handleRemoveMovie}
+                  key={movie.id}
+                />
+              ))}
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );
 }
- 
+
 export default User;
 
 export const getServerSideProps = async () => {

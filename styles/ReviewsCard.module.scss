@@ -1,7 +1,7 @@
 .card {
     border: 2px #2CEC65 solid;
     border-radius: 10px;
-    padding: 1rem;
+    padding: .5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -57,25 +57,16 @@
     }
 
     p {
-        font-size: 1rem;
-    
+        font-size: .8rem;
         letter-spacing: 1px;
         color: white;
         padding: 1rem;
         border-radius: 10px;
         line-height: 25px;
+        
     }
 
-    button {
-        background-color: #2CEC65;
-        border: none;
-        border-radius: 100px;
-        color: black;
-        font-size: 1rem;
-        padding: .5rem;
-        font-weight: 900;
-        cursor: pointer;
-    }
+    
 }
 
 

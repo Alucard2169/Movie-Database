@@ -1,9 +1,9 @@
-import themeStyle from "@/styles/Theme.module.css";
-import { useEffect, useRef, useState } from "react";
 import MovieSection from "@/components/MovieSection";
-import nameStyle from "../../../styles/Name.module.css";
-import Head from "next/head";
 import { getImageDetails } from "@/libs/cacheImage";
+import themeStyle from "@/styles/Theme.module.css";
+import Head from "next/head";
+import { useCallback, useEffect, useRef, useState } from "react";
+import nameStyle from "../../../styles/Name.module.css";
 
 const MovieByName = ({ images, initialResult, error, theme }) => {
   const [result, setResult] = useState(initialResult);
@@ -11,7 +11,7 @@ const MovieByName = ({ images, initialResult, error, theme }) => {
   const [loading, setLoading] = useState(false);
   const lastMovieRef = useRef(null);
 
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       const response = await fetch(
         `https://api.themoviedb.org/3/movie/${theme}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${page}`
@@ -23,7 +23,7 @@ const MovieByName = ({ images, initialResult, error, theme }) => {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [theme, page]); // Include theme and page in the dependency array
 
   useEffect(() => {
     const handleScroll = () => {

@@ -44,4 +44,13 @@
   color: #2CEC65;
   font-weight: bold;
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .card {
+    height: 100%;
+  }
+  .card .movieInfo aside {
+    margin-top: auto;
+  }
 }/*# sourceMappingURL=UserMovieCard.module.css.map */

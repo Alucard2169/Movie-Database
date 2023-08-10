@@ -1,15 +1,13 @@
 import Credits from "@/components/Credits";
+import { getImageDetails } from "@/libs/cacheImage";
 import peopleStyle from "@/styles/People.module.css";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-import { getImageDetails } from "@/libs/cacheImage";
 
 const PeoplePage = ({ images, peopleData, creditData }) => {
-  //   const router = useRouter();
   const [showFullBio, setShowFullBio] = useState(false);
-  //   const { id } = router.query;
-  console.log(images);
+
   const {
     name,
     biography,
@@ -98,7 +96,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
 
     return {
       props: {},

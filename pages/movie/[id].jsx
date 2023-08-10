@@ -73,7 +73,7 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsD
 
   useEffect(() => {
     getMovies(imdb_id);
-  }, []);
+  }, [imdb_id]);
 
 
   const handleMovieAdd = async () => {

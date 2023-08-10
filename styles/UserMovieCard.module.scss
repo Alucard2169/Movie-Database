@@ -59,3 +59,17 @@
         }
     }
 }
+
+
+@media only screen and (max-width: 800px) {
+    .card{
+        height: 100%;
+
+     
+        .movieInfo{
+            aside{
+                margin-top: auto;
+            }
+        }
+    }
+}
