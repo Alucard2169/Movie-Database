@@ -9,11 +9,9 @@ Welcome to the documentation for the Movie Database project. This documentation 
 4. Getting Started
 5. Usage
 6. API Integration
-7. User Authentication
-8. Database Configuration
-9. Screenshots
-10. Contributions
-11. License
+7. Screenshots
+8. Contributions
+9. License
 
 ## 1. Introduction
 The Movie Database is a web application built with Next.js that allows users to browse a list of popular movies, view movie details, watch trailers, explore cast information, and manage a personalized list of favorite movies. The application utilizes TheMovieDatabase API for fetching movie data and MongoDB for storing user information and favorite movies.
@@ -33,10 +31,7 @@ The Movie Database offers the following features:
 The following technologies are used in the Movie Database project:
 - Next.js: A React framework for server-side rendering and building web applications
 - TheMovieDatabase API: Provides movie data and trailers
-- MongoDB: A NoSQL database for storing user information and favorite movies
-- Validator: A library for input validation
-- Bcrypt: A library for password hashing
-- JSON Web Tokens (JWT): Used for authentication and authorization
+- Supabase
 
 ## 4. Getting Started
 To get started with the Movie Database project, follow these steps:
@@ -60,18 +55,9 @@ The Movie Database integrates with TheMovieDatabase API to fetch movie data and 
 1. Obtain an API key from TheMovieDatabase website (https://www.themoviedb.org/).
 2. Set the API key as an environment variable in your development environment.
 
-## 7. User Authentication
-The application provides user authentication using validator, Bcrypt, and JWT. User registration and login are available. To configure the authentication:
-1. Set up a MongoDB database connection.
-2. Set the MongoDB connection URL as an environment variable.
-3. Configure the JWT secret as an environment variable.
 
-## 8. Database Configuration
-The Movie Database uses MongoDB for storing user information and favorite movies. To configure the database:
-1. Set up a MongoDB database either locally or using a cloud-based service.
-2. Set the MongoDB connection URL as an environment variable.
 
-## 9. Screenshots
+## 7. Screenshots
 Here is a screenshot of the Movie Database application:
 
 ![Movie Database Screenshot](https://github.com/Alucard2169/Movie-Database/blob/main/screenshot1.png)
@@ -80,8 +66,8 @@ Here is a screenshot of the Movie Database application:
 
 ![Movie database screenshot](https://github.com/Alucard2169/Movie-Database/blob/main/screenshot2.png)
 
-## 10. Contributions
+## 8. Contributions
 Contributions to the Movie Database project are welcome. If you would like to contribute, please follow the guidelines outlined in the repository's CONTRIBUTING file.
 
-## 11. License
+## 9. License
 The Movie Database project is released under the [MIT License](https://opensource.org/licenses/MIT).
