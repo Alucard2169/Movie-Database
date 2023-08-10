@@ -61,7 +61,7 @@ transition: all 200ms ease-in-out;
 
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 800px) {
     .navbar{
         width: 100%;
         padding: .5rem 1rem;
@@ -70,15 +70,13 @@ transition: all 200ms ease-in-out;
     
 .right{
     
-    gap: 1rem;
+    gap: .5rem;
     
 }
 
 
 .authButton{
-
     padding: .4rem;
- 
     font-size: .7rem;
 
 }

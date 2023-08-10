@@ -9,7 +9,6 @@ const UserMovieCard = ({ data,onRemove }) => {
   const { movie, images } = data;
   const { base_url, poster_sizes } = images;
   const { imdb_id, poster_path, title, vote_average } = movie; // Change 'id' to 'imdb_id'
-  console.log(movie)
 
   const handleRemoveMovies = async (id) => {
     try {

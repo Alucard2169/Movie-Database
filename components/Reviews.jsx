@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
 import reviewCardStyle from '@/styles/ReviewsCard.module.css';
 import Image from 'next/image';
-import { BiLinkExternal } from 'react-icons/bi'
+import { useState } from 'react';
+import { BiLinkExternal } from 'react-icons/bi';
+import ReactMarkdown from 'react-markdown';
 
 const Reviews = ({ data }) => {
   const { review, images } = data;
@@ -9,7 +10,6 @@ const Reviews = ({ data }) => {
 const { author, author_details, content, url,id } = review;
 const { name, username, avatar_path } = author_details;
 const [showFullContent, setShowFullContent] = useState(false);
-
 const toggleContent = () => {
 setShowFullContent(!showFullContent);
 };
@@ -35,9 +35,7 @@ return (
       </div>
             <a href={url}><BiLinkExternal className={reviewCardStyle.link} /></a>
     </div>
-    {showFullContent ? <p>{content}</p> : <p>{content.slice(0, 250)}...</p>}
-    {!showFullContent && <button onClick={toggleContent}>Read More</button>}
-    {showFullContent && <button onClick={toggleContent}>Read Less</button>}
+   <ReactMarkdown>{content}</ReactMarkdown>
   </div>
 );
 };
