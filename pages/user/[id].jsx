@@ -14,6 +14,7 @@ const User = ({ images }) => {
 
 
   const [movieList, setMovieList] = useState(null);
+  
 
   const getMovieIdFromDB = async () => {
     try {
@@ -70,7 +71,9 @@ const User = ({ images }) => {
   useEffect(() => {
     fetchMovies();
 
-  }, []); // Don't forget the dependency array
+  }, []);
+
+
 
   return (
     <div className={userStyle.userPage}>
@@ -95,10 +98,6 @@ const User = ({ images }) => {
             ))}
           </div>)}
           </section>
-        
-        <section>
-          <h2>People</h2>
-        </section>
       </div>
     </div>
   );

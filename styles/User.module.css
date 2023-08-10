@@ -58,7 +58,7 @@
     }
 
     .listSection section {
-        width: 50%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap:2rem;
@@ -67,7 +67,7 @@
     
     .listSection section .movieList{
         display: grid;
-grid-template-columns: repeat(3,12rem);
+grid-template-columns: repeat(5,12rem);
 grid-template-rows: auto;
-        gap:1rem;
+        gap:4rem;
     }
