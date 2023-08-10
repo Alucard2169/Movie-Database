@@ -85,11 +85,13 @@ const User = ({ images }) => {
           {movieList && (
             <div className={userStyle.movieList}>
               {movieList.map((movie) => (
-                <UserMovieCard
-                  data={{ movie, images }}
-                  onRemove={handleRemoveMovie}
-                  key={movie.id}
-                />
+              
+                  <UserMovieCard
+                    data={{ movie, images }}
+                    onRemove={handleRemoveMovie}
+                    key={movie.id}
+                  />
+            
               ))}
             </div>
           )}
