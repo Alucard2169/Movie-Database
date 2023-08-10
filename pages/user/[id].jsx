@@ -1,157 +1,116 @@
-import userPfp from "@/assets/userPFP.webp";
-import MovieSection from "@/components/MovieSection";
-import { userContext } from "@/context/userContext";
+import profilePic from "@/assets/userPFP.webp";
+import UserMovieCard from "@/components/UserMovieCard";
 import { getImageDetails } from "@/libs/cacheImage";
-import userStyle from "@/styles/User.module.css";
-import Head from "next/head";
+import userStyle from '@/styles/User.module.css';
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-const Profile = ({ images }) => {
-  const router = useRouter();
-  const { user } = useContext(userContext);
-  const [choice, setChoice] = useState("favorite");
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [listMovies, setListMovies] = useState([]);
+const User = ({ images }) => {
+ 
+ 
+  const supabase = useSupabaseClient();
+  const user = useUser();
 
-  const handleMovieDeleted = (deletedMovieId) => {
-    setFavoriteMovies((prevResults) =>
-      prevResults.filter((movie) => movie._id !== deletedMovieId)
-    );
-    setListMovies((prevResults) =>
-      prevResults.filter((movie) => movie._id !== deletedMovieId)
-    );
+
+  const [movieList, setMovieList] = useState(null);
+  
+
+  const getMovieIdFromDB = async () => {
+    try {
+      const { data, error } = await supabase.from("Movies").select("movie_id");
+      if (error) {
+        throw error;
+      }
+      return data;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   };
 
-  const filterMovies = (data) => {
-    const favorite = data.filter((movie) => movie.type === "favorite");
-    setFavoriteMovies(favorite);
-    const list = data.filter((movie) => movie.type === "list");
-    setListMovies(list);
+  const fetchMovies = async () => {
+    try {
+      const data = await getMovieIdFromDB();
+
+
+      if (data.length > 0) {
+        const moviePromises = data.map(async (movie) => {
+          try {
+            const movieResponse = await fetch(
+              `https://api.themoviedb.org/3/movie/${movie.movie_id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            );
+            const movieData = await movieResponse.json();
+            return movieData; // Return the movie data
+
+          } catch (error) {
+            console.log(error);
+            return null;
+          }
+        });
+
+        const movieResults = await Promise.all(moviePromises); // Use Promise.all to wait for all promises
+        const movies = movieResults.filter((movie) => movie !== null); // Filter out null values
+ 
+        setMovieList(movies)
+
+      } else {
+        console.log("No movies found");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
+
+   const handleRemoveMovie = (imdb_id) => {
+     setMovieList((prevMovieList) =>
+       prevMovieList.filter((movie) => movie.imdb_id !== imdb_id)
+     );
+   };
 
   useEffect(() => {
-   
+    fetchMovies();
 
-    const fetchMovies = async (user) => {
-      try {
-        const response = await fetch(
-          `${window.location.origin}/api/getMovie?id=${user.id}`
-        );
-        const data = await response.json();
+  }, []);
 
-        if (data && data.length > 0) {
-          const moviePromises = data.map(async (code) => {
-            try {
-              const movieResponse = await fetch(
-                `https://api.themoviedb.org/3/find/${code.movieId}?external_source=imdb_id&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-              );
-              const movieData = await movieResponse.json();
 
-              if (
-                movieData &&
-                movieData.movie_results &&
-                movieData.movie_results.length > 0
-              ) {
-                const movieResult = movieData.movie_results[0];
-                return { ...movieResult, ...code };
-              }
-            } catch (error) {
-              console.error("Error fetching movie data:", error);
-            }
-          });
-
-          const movieResults = await Promise.allSettled(moviePromises);
-          const movies = movieResults
-            .filter((result) => result.status === "fulfilled")
-            .map((result) => result.value);
-
-          filterMovies(movies);
-        } else {
-          console.log("No movies found");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchMovies(user);
-  }, [router, user, filterMovies]);
 
   return (
     <div className={userStyle.userPage}>
-      <Head>
-        <title>Movie Database | {user && user.username}</title>
-      </Head>
-      <div className={userStyle.userDetails}>
-        <div className={userStyle.info}>
-        <Image src={userPfp} alt="user profile pic" />
-          {user ? (
-            <div>
-              <h2 className="username">{user.username}</h2>
-              <h4>{user.email}</h4>
-            </div>
-          ) : (
-            <p>Loading user data...</p>
-          )}
+      {user && (
+        <div className={userStyle.topPanel}>
+          <div className={userStyle.imageContainer}>
+            <Image src={profilePic} alt="user" />
+          </div>
+          <div className={userStyle.info}>
+            <h1>{user.user_metadata.username}</h1>
+            <h3>{user.email}</h3>
+          </div>
         </div>
-
-        <div className={userStyle.total}>
-          <p>
-            Favorite: <span>{favoriteMovies.length}</span>
-          </p>
-          <p>
-            List: <span>{listMovies.length}</span>
-          </p>
-        </div>
-      </div>
-      <div className={userStyle.list}>
-        <div className={userStyle.top}>
-          <button
-            onClick={() => setChoice("favorite")}
-            className={choice === "favorite" ? userStyle.active : null}
-          >
-            Favorite
-          </button>
-          <button
-            onClick={() => setChoice("list")}
-            className={choice === "list" ? userStyle.active : null}
-          >
-            My List
-          </button>
-        </div>
-        <div className="favorite">
-          <MovieSection
-            data={{
-              images,
-              result: choice === "favorite" ? favoriteMovies : listMovies,
-            }}
-            showDeleteButton={true}
-            onMovieDeleted={{ handleMovieDeleted }}
-          />
-        </div>
+      )}
+      <div className={userStyle.listSection}>
+        
+          <section>
+            <h2>Movies</h2>
+          { movieList && (<div className={userStyle.movieList}>
+            {movieList.map((movie) => (
+              <UserMovieCard data={{ movie, images }} onRemove={handleRemoveMovie} />
+            ))}
+          </div>)}
+          </section>
       </div>
     </div>
   );
-};
+}
+ 
+export default User;
 
-export default Profile;
-
-export const getServerSideProps = async (context) => {
-  try {
-    const images = await getImageDetails();
-
-    return {
-      props: {
-        images,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-
-    return {
-      props: {},
-    };
+export const getServerSideProps = async () => {
+  const images = await getImageDetails();
+ 
+  return {
+    props: {
+      images
+    }
   }
-};
+}

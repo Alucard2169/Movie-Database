@@ -1,25 +1,27 @@
-import { useContext, useEffect, useState,Suspense,lazy } from "react";
-import singlePageDesign from "../../styles/SinglePage.module.css";
-import {
-  AiOutlineGlobal,
-  AiFillHeart,
-  AiFillPlayCircle,
-  AiFillCaretRight,
-} from "react-icons/ai";
-import { BiListPlus } from "react-icons/bi";
-import { userContext } from "@/context/userContext";
+import Reviews from "@/components/Reviews";
+import TrailerBox from "@/components/TrailerBox";
+import { getImageDetails } from "@/libs/cacheImage";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import TrailerBox from "@/components/TrailerBox";
-import Head from "next/head";
-import { getImageDetails } from "@/libs/cacheImage";
-import Reviews from "@/components/Reviews";
+import { Suspense, lazy, useEffect, useState } from "react";
+import {
+  AiFillCaretRight,
+  AiFillHeart,
+  AiFillPlayCircle,
+  AiOutlineGlobal,
+} from "react-icons/ai";
+
+import singlePageDesign from "../../styles/SinglePage.module.css";
 
 const LazyBanner = lazy(()=>import('@/components/LazyBanner'))
 
-const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsData }) => {
-  const { user } = useContext(userContext);
-  const [status, setStatus] = useState(null);
+
+const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsData }) => {
+  const user = useUser();
+  const supabase = useSupabaseClient();
+  const [inList, setInList] = useState(false);
   const [trailerVisibility, setTailerVisibility] = useState(false);
   const {
     id,
@@ -44,36 +46,72 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
     setTailerVisibility((prevData) => !prevData);
   };
 
+  const getMovies = async (id) => {
+    try {
+      // Check if the movie already exists
+      const { data: movies, error } = await supabase
+        .from("Movies")
+        .select("movie_id")
+        .eq("movie_id", id);
 
+      if (error) {
+        console.error("Error fetching data:", error);
+        return;
+      }
 
-  const { base_url, backdrop_sizes, profile_sizes } = images;
-
-  const handleAdd = async (type) => {
-    const id = imdb_id;
-
-    const response = await fetch(`${window.location.origin}/api/addList`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id, userId: user.id, type }),
-    });
-
-    if (response.ok) {
-      setStatus("Movie Added");
-    } else {
-      const data = await response.json();
-      setStatus(data.error);
+      if (movies.length > 0) {
+        if (movies.some((obj) => Object.values(obj).includes(id))) {
+          setInList(true);
+        } else {
+          setInList(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
   useEffect(() => {
-    if (status) {
-      setTimeout(() => {
-        setStatus(null);
-      }, 4000);
+    getMovies(imdb_id);
+  }, []);
+
+
+  const handleMovieAdd = async () => {
+    try {
+      const movieData = { movie_id: imdb_id};
+
+      if (!inList) {
+        const { data, error } = await supabase
+          .from("Movies")
+          .insert([movieData]);
+
+        setInList(true)
+
+          if (error) {
+            console.error("Error inserting movie:", error);
+            return null;
+          }
+      }
+
+      else {
+
+        const { error } = await supabase
+          .from("Movies")
+          .delete()
+          .eq("movie_id", imdb_id);
+        setInList(false)
+        if (error) {
+          console.log('error',error.message)
+        }
+
+      }
+    
+    } catch (error) {
+      console.log("An error occurred:", error.message);
     }
-  }, [status]);
+  };
+
+  const { base_url, backdrop_sizes, profile_sizes } = images;
 
   return (
     <div className={singlePageDesign.singlePage}>
@@ -148,17 +186,15 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
                   ) : null}
                 </div>
               ) : null}
+
               <aside>
-                {status && <p className={singlePageDesign.show}>{status}</p>}
                 {user && (
                   <>
                     <AiFillHeart
-                      className={singlePageDesign.icons}
-                      onClick={() => handleAdd("favorite")}
-                    />
-                    <BiListPlus
-                      className={singlePageDesign.icons}
-                      onClick={() => handleAdd("list")}
+                      className={`${singlePageDesign.icons} ${
+                        inList ? singlePageDesign.added : null
+                      }`}
+                      onClick={handleMovieAdd}
                     />
                   </>
                 )}
@@ -222,14 +258,16 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData,reviewsDa
               </ul>
             </article>
           </section>
-          <section className={singlePageDesign.reviews}>
-            <h2>Reviews</h2>
-            <div className={singlePageDesign.reviewContainer}>
-              {reviewsData.map((review,i) => (
-                <Reviews data={{ review, images }} key={i} />
-              ))}
-            </div>
-          </section>
+          {reviewsData.length > 0 && (
+            <section className={singlePageDesign.reviews}>
+              <h2>Reviews</h2>
+              <div className={singlePageDesign.reviewContainer}>
+                {reviewsData.map((review, i) => (
+                  <Reviews data={{ review, images }} key={i} />
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>

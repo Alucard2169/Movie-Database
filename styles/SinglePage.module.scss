@@ -458,7 +458,6 @@
 }
 
 
-
 @media only screen and (max-width : 500px) {
     .singlePage {
 
@@ -592,18 +591,23 @@
             .reviews {
                 width: 100%;
 
-                
 
-                    .reviewContainer {
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 4rem;
-                       
 
-                    }
+                .reviewContainer {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4rem;
+
+
                 }
             }
-
         }
+
     }
+}
+
+
+.added {
+    color: #2CEC65 !important;
+}

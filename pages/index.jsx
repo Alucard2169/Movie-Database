@@ -1,12 +1,12 @@
 import Banner from "@/components/Banner";
-import homeStyle from "../styles/Home.module.css";
-import { AiFillCaretRight } from "react-icons/ai";
 import HomePageMovieSect from "@/components/HomepageMovieSect";
-import Link from "next/link";
 import Head from "next/head";
+import Link from "next/link";
+import { AiFillCaretRight } from "react-icons/ai";
 import { getImageDetails } from "../libs/cacheImage";
+import homeStyle from "../styles/Home.module.css";
 
-export default function Home({ images, result, topRatedMoviesResult }) {
+export default function Home({ images, result, topRatedMoviesResult ,trendingPeopleResult}) {
   return (
     <div className={homeStyle.home}>
       <Head>
@@ -20,7 +20,7 @@ export default function Home({ images, result, topRatedMoviesResult }) {
             <AiFillCaretRight className={homeStyle.icon} />
           </Link>
         </div>
-        <HomePageMovieSect data={{ images, result }} />
+        <HomePageMovieSect data={{ images, result }}  type="movies"/>
       </section>
       <hr />
       <section>
@@ -33,7 +33,20 @@ export default function Home({ images, result, topRatedMoviesResult }) {
             <AiFillCaretRight className={homeStyle.icon} />
           </Link>
         </div>
-        <HomePageMovieSect data={{ images, result: topRatedMoviesResult }} />
+        <HomePageMovieSect data={{ images, result: topRatedMoviesResult }}  type="movies"/>
+      </section>
+      <hr />
+      <section>
+        <div className={homeStyle.top}>
+          <h2 className={homeStyle.heading}>Trending People This Week</h2>
+          <Link
+            href={`/movie/theme/top_rated`}
+            aria-label="all Top rated movies"
+          >
+            <AiFillCaretRight className={homeStyle.icon} />
+          </Link>
+        </div>
+        <HomePageMovieSect data={{ images, result: trendingPeopleResult }} type="people" />
       </section>
     </div>
   );
@@ -57,7 +70,14 @@ export const getServerSideProps = async () => {
 
   const topRatedMoviesResult = topRatedMoviesData.results;
 
+
+  const trendingPeopleResponse = await fetch(
+    `https://api.themoviedb.org/3/trending/person/week?api_key=${process.env.API_KEY}&page=1`
+  );
+  const trendingPeopleData = await trendingPeopleResponse.json()
+  const trendingPeopleResult = trendingPeopleData.results;
+
   return {
-    props: { images, result, topRatedMoviesResult },
+    props: { images, result, topRatedMoviesResult,trendingPeopleResult},
   };
 };

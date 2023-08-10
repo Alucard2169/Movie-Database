@@ -1,0 +1,47 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.card .imageContainer {
+  width: 100%;
+  height: 100%;
+}
+.card .imageContainer img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.card .movieInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+.card .movieInfo h4 {
+  color: #2CEC65;
+}
+.card .movieInfo aside {
+  background-color: #2CEC65;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card .movieInfo aside span .icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.card .movieInfo aside span .icon:hover {
+  color: gray;
+}
+.card .movieInfo aside p span {
+  background-color: black;
+  padding: 0.2rem;
+  color: #2CEC65;
+  font-weight: bold;
+  border-radius: 10px;
+}/*# sourceMappingURL=UserMovieCard.module.css.map */

@@ -1,69 +1,62 @@
-import navbarStyle from "../styles/Navbar.module.css";
-import profilePic from "../assets/pfp.webp";
-import userPfp from "../assets/userPFP.webp";
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Image from "next/image";
 import Link from "next/link";
-import SearchBar from "./SearchBar";
-import { useContext, useState } from "react";
-import { AuthFormContext } from "@/context/authFormContext";
-import { userContext } from "@/context/userContext";
-import UserMenu from "./UserMenu";
 import { useRouter } from "next/router";
+import profilePic from "../assets/pfp.webp";
+import userPFP from '../assets/userPFP.webp';
+import navbarStyle from "../styles/Navbar.module.css";
+import SearchBar from "./SearchBar";
 
-const Navbar = () => {
-  const router = useRouter();
-  const { user, setUser } = useContext(userContext);
-  const { setFormState } = useContext(AuthFormContext);
-  const [displayState, setDisplayState] = useState(false);
+const Navbar = ({data}) => {
+  const router = useRouter()
+  const user = useUser();
 
-  const handleLoginBtn = () => {
-    setFormState(true);
-  };
 
-  const handleUserMenu = () => {
-    setDisplayState(displayState ? false : true);
-  };
+  const { setFormState } = data;
 
-  const handleLogoutBtn = async () => {
+  const supabase = useSupabaseClient()
+  const handleLogout = async () => {
     try {
-      const response = await fetch(`${window.location.origin}/api/logout`);
-      const data = await response.json();
-      if (response.ok) {
-        setUser(null);
-        router.push("/");
+      const { error } = supabase.auth.signOut()
+      if (error) {
+        throw Error(error.message)
       }
-    } catch (error) {
-      console.log(error);
+      router.replace('/')
     }
-  };
-
+    catch (err) {
+      console.log(err.message)
+    }
+  }
+  
   return (
     <nav className={navbarStyle.navbar}>
       <Link href="/" className={navbarStyle.pfpContainer}>
         <Image src={profilePic} alt="profile Pic" />
       </Link>
       <SearchBar />
-      {user === null ? (
-        <button className={navbarStyle.authButton} onClick={handleLoginBtn}>
-          Login
-        </button>
-      ) : (
+      {user ? (
         <div className={navbarStyle.right}>
-          <div className={user.images}>
-            <div className={navbarStyle.userPfp} onClick={handleUserMenu}>
-              <Image src={userPfp} alt="user profile pic" />
-            </div>
+          <div className={navbarStyle.userPfp}>
+            <Link href={`/user/${user.id}`}>
+              <Image
+                src={userPFP}
+                width={100}
+                height={100}
+                alt={user.user_metadata.username}
+              />
+            </Link>
           </div>
-          <button className={navbarStyle.authButton} onClick={handleLogoutBtn}>
+          <button className={navbarStyle.authButton} onClick={handleLogout}>
             Logout
-          </button>
-
-          <UserMenu
-            state={displayState}
-            stateHandle={setDisplayState}
-            logoutFnc={handleLogoutBtn}
-          />
+          </button>{" "}
         </div>
+      ) : (
+        <button
+          className={navbarStyle.authButton}
+          onClick={() => setFormState(true)}
+        >
+          Sign Up
+        </button>
       )}
     </nav>
   );
