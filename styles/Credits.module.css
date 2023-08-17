@@ -146,4 +146,10 @@
   .creditsContainer .crew .container .card a .actorSect:hover {
     opacity: 1;
   }
+}
+@media only screen and (max-width: 800px) {
+  .creditsContainer .cast .container,
+  .creditsContainer .crew .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }/*# sourceMappingURL=Credits.module.css.map */
