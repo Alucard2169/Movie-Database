@@ -3,7 +3,22 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ["image.tmdb.org", "imgs.search.brave.com"],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "image.tmdb.org",
+        pathname: "/t/p/**",
+      },
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+        pathname: "/t/p/**",
+      },
+      {
+        protocol: "https",
+        hostname: "imgs.search.brave.com",
+      },
+    ],
     unoptimized: true,
   },
 };

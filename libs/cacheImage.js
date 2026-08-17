@@ -1,35 +1,23 @@
-// imageData.js
+const { fetchWithRetry } = require("./fetchWithRetry");
 
-// Function to fetch image details from the API
 const fetchImageDetails = async () => {
-  const imageResponse = await fetch(
-    `https://api.themoviedb.org/3/configuration?api_key=${process.env.API_KEY}`
+  const data = await fetchWithRetry(
+    `https://api.themoviedb.org/3/configuration?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
-  const imageData = await imageResponse.json();
-
-  const images = imageData.images;
+  if (!data?.images) return null;
+  // Use secure_base_url (https) instead of base_url (http) to avoid mixed content
+  const images = data.images;
+  images.base_url = images.secure_base_url || images.base_url;
   return images;
 };
 
-// Cache for storing the image details
 let imageDetailsCache = null;
 
-// Function to get the image details
 const getImageDetails = async () => {
-  // If image details are already cached, return them
-  if (imageDetailsCache) {
-    return imageDetailsCache;
-  }
-
-  // Fetch the image details from the API
+  if (imageDetailsCache) return imageDetailsCache;
   const imageDetails = await fetchImageDetails();
-
-  // Cache the image details
   imageDetailsCache = imageDetails;
-
   return imageDetails;
 };
 
-module.exports = {
-  getImageDetails,
-};
+module.exports = { getImageDetails };

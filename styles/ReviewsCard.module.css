@@ -1,62 +1,137 @@
 .card {
-  border: 2px #2CEC65 solid;
-  border-radius: 10px;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 100%;
+background: var(--glass);
+border: 1px solid var(--glass-border);
+border-radius: var(--radius);
+padding: 1.5rem;
+display: flex;
+flex-direction: column;
+gap: 1rem;
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+transition: border-color var(--transition);
 }
+
+.card:hover {
+border-color: rgba(44, 236, 101, 0.3);
+}
+
 .card .top {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
+display: flex;
+gap: 1rem;
+justify-content: space-between;
+align-items: center;
 }
+
 .card .top .name {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+display: flex;
+gap: 0.8rem;
+align-items: center;
 }
+
 .card .top .name .img {
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
-  border-radius: 100px;
+width: 2.8rem;
+height: 2.8rem;
+overflow: hidden;
+border-radius: 100px;
+border: 2px solid var(--glass-border);
+flex-shrink: 0;
 }
+
 .card .top .name .img img {
-  -o-object-fit: cover;
-     object-fit: cover;
-  width: 100%;
-  height: 100%;
+object-fit: cover;
+width: 100%;
+height: 100%;
 }
+
 .card .top .name div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+display: flex;
+flex-direction: column;
+gap: 0.15rem;
 }
+
 .card .top .name div h3 {
-  color: white;
+color: var(--text-primary);
+font-size: 0.95rem;
+font-weight: 600;
 }
+
 .card .top .name div span {
-  color: #2CEC65;
-  font-size: 0.9rem;
+color: var(--accent);
+font-size: 0.8rem;
+font-weight: 500;
 }
+
 .card .top .link {
-  color: #2CEC65;
-  width: 1.5rem;
-  height: 1.5rem;
+color: var(--text-muted);
+width: 1.3rem;
+height: 1.3rem;
+transition: color var(--transition);
+flex-shrink: 0;
 }
-.card p {
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  color: white;
-  padding: 1rem;
-  border-radius: 10px;
-  line-height: 25px;
+
+.card .top .link:hover {
+color: var(--accent);
+}
+
+.card .content {
+display: flex;
+flex-direction: column;
+gap: 0.8rem;
+}
+
+.card .content p {
+font-size: 0.88rem;
+color: rgba(255, 255, 255, 0.8);
+line-height: 1.65;
+letter-spacing: 0.2px;
+}
+
+.card .content h1,
+.card .content h2,
+.card .content h3,
+.card .content h4 {
+color: var(--text-primary);
+font-size: 1rem;
+margin-top: 0.3rem;
+}
+
+.card .content a {
+color: var(--accent);
+text-decoration: underline;
+}
+
+.card .content blockquote {
+border-left: 3px solid var(--accent);
+padding-left: 1rem;
+margin: 0.5rem 0;
+color: var(--text-muted);
+font-style: italic;
+}
+
+.card .content em {
+color: var(--text-muted);
+}
+
+.toggle {
+background: none;
+border: 1px solid var(--glass-border);
+color: var(--accent);
+padding: 0.4rem 1rem;
+border-radius: 6px;
+font-size: 0.82rem;
+font-weight: 600;
+cursor: pointer;
+width: fit-content;
+transition: all var(--transition);
+}
+
+.toggle:hover {
+background: var(--accent);
+color: var(--bg-primary);
+border-color: var(--accent);
 }
 
 @media only screen and (max-width: 500px) {
-  .card p {
-    font-size: 0.9rem;
-  }
-}/*# sourceMappingURL=ReviewsCard.module.css.map */
+.card { padding: 1rem; }
+.card .content p { font-size: 0.85rem; }
+}

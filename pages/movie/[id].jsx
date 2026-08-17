@@ -1,11 +1,12 @@
 import Reviews from "@/components/Reviews";
 import TrailerBox from "@/components/TrailerBox";
 import { getImageDetails } from "@/libs/cacheImage";
+import { fetchWithRetry } from "@/libs/fetchWithRetry";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AiFillCaretRight,
   AiFillHeart,
@@ -14,8 +15,7 @@ import {
 } from "react-icons/ai";
 
 import singlePageDesign from "../../styles/SinglePage.module.css";
-
-const LazyBanner = lazy(()=>import('@/components/LazyBanner'))
+import LazyBanner from "@/components/LazyBanner";
 
 
 const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsData }) => {
@@ -111,12 +111,14 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsD
     }
   };
 
-  const { base_url, backdrop_sizes, profile_sizes } = images;
+  const base_url = images?.base_url ?? '';
+  const backdrop_sizes = images?.backdrop_sizes ?? ['', '', '', '/original'];
+  const profile_sizes = images?.profile_sizes ?? ['', '/w185'];
 
   return (
     <div className={singlePageDesign.singlePage}>
       <Head>
-        <title>Movie Database | {title}</title>
+        <title>{`Movie Database | ${title}`}</title>
       </Head>
       {!backdrop_path && (
         <div className={singlePageDesign.notAvailable}>
@@ -125,22 +127,14 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsD
       )}
       {backdrop_path && (
         <div className={singlePageDesign.moviePoster}>
-          <Suspense
-            fallback={
-              <div>
-                <p>Loading...</p>
-              </div>
-            }
-          >
-            <LazyBanner
-              data={{
-                src: `${base_url}${backdrop_sizes[3]}${backdrop_path}`,
-                alt: title,
-                width: 3800,
-                height: 2200,
-              }}
-            />
-          </Suspense>
+          <LazyBanner
+            data={{
+              src: `${base_url}${backdrop_sizes[3]}${backdrop_path}`,
+              alt: title,
+              width: 3800,
+              height: 2200,
+            }}
+          />
         </div>
       )}
       <div className={singlePageDesign.movieDetails}>
@@ -276,50 +270,39 @@ const SingleMoviePage = ({ data, images, castResult, crew, trailerData, reviewsD
 
 export default SingleMoviePage;
 
-export const getServerSideProps = async (context) => {
-  const { id } = context.query;
+export const getStaticPaths = async () => {
+  return { paths: [], fallback: 'blocking' };
+};
 
-  // get people
-  const peopleResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-  );
-
-  const peopleData = await peopleResponse.json();
-  const cast = peopleData.cast;
-  const castResult = cast.splice(0, 5);
-  const crew = peopleData.crew;
+export const getStaticProps = async (context) => {
+  const { id } = context.params;
 
   const images = await getImageDetails();
 
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-  );
-  const data = await response.json();
+  const [peopleData, data, trailerD, reviewsD] = await Promise.all([
+    fetchWithRetry(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`),
+    fetchWithRetry(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`),
+    fetchWithRetry(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
+    fetchWithRetry(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
+  ]);
 
-  // get the trailer
-  const trailerResponse = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-  );
+  if (!data || !data.id) {
+    return { notFound: true };
+  }
 
-  const trailerD = await trailerResponse.json();
-  const trailerData = trailerD.results;
-
-
-
-  //get reviews
-  const reviewsResponse = await fetch(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.NEXT_PUBLIC_API_KEY}`);
-  const reviewsD = await reviewsResponse.json();
-  const reviewsData = reviewsD.results;
+  const cast = peopleData?.cast ?? [];
+  const castResult = cast.splice(0, 5);
+  // Only pass directors — the full crew array bloats page data past 128kB
+  const crew = (peopleData?.crew ?? []).filter((p) => p.job === "Director");
+  const trailerData = (trailerD?.results ?? []).filter((v) => v.type === "Trailer").slice(0, 3);
+  // Limit reviews to 10 and trim content length to keep page data lean
+  const reviewsData = (reviewsD?.results ?? []).slice(0, 10).map((r) => ({
+    ...r,
+    content: r.content?.length > 2000 ? r.content.slice(0, 2000) + '...' : r.content,
+  }));
 
   return {
-    props: {
-      data,
-      images,
-      castResult,
-      crew,
-      trailerData,
-      id,
-      reviewsData,
-    },
+    props: { data, images, castResult, crew, trailerData, id, reviewsData },
+    revalidate: 86400,
   };
 };

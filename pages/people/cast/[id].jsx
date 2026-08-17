@@ -1,6 +1,7 @@
 import casteStyle from "@/styles/Cast.module.css";
 import Credits from "@/components/Credits";
 import { getImageDetails } from "@/libs/cacheImage";
+import { fetchWithRetry } from "@/libs/fetchWithRetry";
 
 const FullCast = ({ images, cast, crew }) => {
   return (
@@ -12,25 +13,24 @@ const FullCast = ({ images, cast, crew }) => {
 
 export default FullCast;
 
-export const getServerSideProps = async (context) => {
-  const { id } = context.query;
+export const getStaticPaths = async () => {
+  return { paths: [], fallback: 'blocking' };
+};
 
+export const getStaticProps = async (context) => {
+  const { id } = context.params;
   const images = await getImageDetails();
 
-  // get people
-  const peopleResponse = await fetch(
+  const peopleData = await fetchWithRetry(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
   );
-
-  const peopleData = await peopleResponse.json();
-  const cast = peopleData.cast;
-  const crew = peopleData.crew;
 
   return {
     props: {
       images,
-      cast,
-      crew,
+      cast: peopleData?.cast ?? [],
+      crew: peopleData?.crew ?? [],
     },
+    revalidate: 86400,
   };
 };

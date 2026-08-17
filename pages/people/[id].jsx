@@ -1,5 +1,6 @@
 import Credits from "@/components/Credits";
 import { getImageDetails } from "@/libs/cacheImage";
+import { fetchWithRetry } from "@/libs/fetchWithRetry";
 import peopleStyle from "@/styles/People.module.css";
 import Head from "next/head";
 import Image from "next/image";
@@ -30,7 +31,7 @@ const PeoplePage = ({ images, peopleData, creditData }) => {
   return (
     <div className={peopleStyle.peoplePage} key={id || imdb_id}>
       <Head>
-        <title>Movie Database | {name}</title>
+        <title>{`Movie Database | ${name}`}</title>
       </Head>
       <div className={peopleStyle.top}>
         <div className={peopleStyle.imageSect}>
@@ -71,35 +72,25 @@ const PeoplePage = ({ images, peopleData, creditData }) => {
 
 export default PeoplePage;
 
-export const getServerSideProps = async (context) => {
-  const { id } = context.query;
-  try {
-    const images = await getImageDetails();
+export const getStaticPaths = async () => {
+  return { paths: [], fallback: 'blocking' };
+};
 
-    // get people data
-    const peopleResponse = await fetch(
-      `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-    );
-    const peopleData = await peopleResponse.json();
+export const getStaticProps = async (context) => {
+  const { id } = context.params;
+  const images = await getImageDetails();
 
-    // get credits
-    const creditResponse = await fetch(
-      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-    );
-    const creditData = await creditResponse.json();
+  const [peopleData, creditData] = await Promise.all([
+    fetchWithRetry(`https://api.themoviedb.org/3/person/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
+    fetchWithRetry(`https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}`),
+  ]);
 
-    return {
-      props: {
-        images,
-        peopleData,
-        creditData,
-      },
-    };
-  } catch (error) {
-    console.error(error.message);
-
-    return {
-      props: {},
-    };
+  if (!peopleData) {
+    return { notFound: true };
   }
+
+  return {
+    props: { images, peopleData, creditData: creditData ?? { cast: [], crew: [] } },
+    revalidate: 86400,
+  };
 };

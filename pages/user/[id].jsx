@@ -71,7 +71,7 @@ const User = ({ images }) => {
       {user && (
         <div className={userStyle.topPanel}>
           <div className={userStyle.imageContainer}>
-            <Image src={profilePic} alt="user" />
+            <Image src={profilePic} alt="user" priority />
           </div>
           <div className={userStyle.info}>
             <h1>{user.user_metadata.username}</h1>
@@ -103,12 +103,28 @@ const User = ({ images }) => {
 
 export default User;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
+  const { createPagesServerClient } = require("@supabase/auth-helpers-nextjs");
+  const supabase = createPagesServerClient(context);
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   const images = await getImageDetails();
- 
+
   return {
     props: {
-      images
-    }
-  }
+      images,
+    },
+  };
 }

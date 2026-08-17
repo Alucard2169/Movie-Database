@@ -1,84 +1,78 @@
-.navbar{
-    display: flex;
-    padding: .5rem 2rem;
-    align-items: center;
-    justify-content: space-between;
-    background-color: transparent;
+.navbar {
+  display: flex;
+  padding: 0.7rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(4, 14, 19, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: background var(--transition);
 }
 
-.pfpContainer,.userPfp{
-    width: 2rem;
-    height: 2rem;
-    border-radius: 100px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px #2CEC65 solid;
+.pfpContainer, .userPfp {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 100px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid var(--accent);
+  transition: box-shadow var(--transition), transform var(--transition);
 }
 
-.pfpContainer img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.pfpContainer:hover, .userPfp:hover {
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: scale(1.08);
 }
 
-.right{
-    display: flex;
-    gap:1rem;
-    align-items: center;
+.pfpContainer img, .userPfp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.userPfp{
-    justify-self: flex-end;
+.right {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
-.userPfp img{
-    width: 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.userPfp {
+  justify-self: flex-end;
 }
 
-
-
-.authButton{
-    border: 2px #2CEC65 solid;
-    padding: .4rem 1rem;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #2CEC65;
-    cursor: pointer;
-    font-size: .9rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-transition: all 200ms ease-in-out;
+.authButton {
+  border: 2px var(--accent) solid;
+  padding: 0.45rem 1.2rem;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: all var(--transition);
 }
 
-
-.authButton:hover{
-    background-color: #2CEC65;
-    color: white;
+.authButton:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  box-shadow: 0 4px 20px var(--accent-glow);
+  transform: translateY(-1px);
 }
-
-
 
 @media only screen and (max-width: 800px) {
-    .navbar{
-        width: 100%;
-        padding: .5rem 1rem;
-    }
-
-    
-.right{
-    
-    gap: .5rem;
-    
-}
-
-
-.authButton{
-    padding: .4rem;
-    font-size: .7rem;
-
-}
-
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+  .right {
+    gap: 0.5rem;
+  }
+  .authButton {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.7rem;
+  }
 }

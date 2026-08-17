@@ -1,3 +1,10 @@
-.castPage{
-    padding: 2rem;
+.castPage {
+  padding: 2rem;
+  background-color: var(--bg-secondary);
+  min-height: 100vh;
+  animation: fadeUp 500ms ease-out both;
+}
+
+@media only screen and (max-width: 500px) {
+  .castPage { padding: 1rem; }
 }

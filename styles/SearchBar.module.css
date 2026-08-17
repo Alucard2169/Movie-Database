@@ -1,49 +1,63 @@
-.searchBar{
-    width: 10rem;
+.searchBar {
+  width: 14rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: width var(--transition);
 }
 
-.searchBar{
-    display: flex;
-    align-items: center;
-    position: relative;
+.searchBar:focus-within {
+  width: 20rem;
 }
 
-.searchBar label{
-    position: absolute;
-    top:.4rem;
-    font-size: 1.5rem;
-    padding-left: .3rem;
+.searchBar label {
+  position: absolute;
+  top: 0.45rem;
+  font-size: 1.3rem;
+  padding-left: 0.5rem;
+  color: var(--bg-primary);
+  z-index: 1;
+  pointer-events: none;
+  transition: color var(--transition);
 }
 
-.searchBar  input{
-    background-color: #2CEC65;
-    padding: .5rem 1rem .5rem 2.2rem;
-    font-size: 1rem;
-    border: none;
-    color: #05161e;
-    letter-spacing: 1px;
-    border-radius: 100px;
-    font-weight: 500;
-    transition: all 100ms ease-in-out;
+.searchBar:focus-within label {
+  color: var(--accent);
 }
 
+.searchBar input {
+  width: 100%;
+  background-color: rgba(44, 236, 101, 0.15);
+  padding: 0.55rem 1rem 0.55rem 2.4rem;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  border-radius: 100px;
+  font-weight: 500;
+  transition: all var(--transition);
+}
 
+.searchBar input::placeholder {
+  color: var(--text-muted);
+}
 
-
-.searchBar  input:focus-visible{
-    color: #2CEC65;
-    background-color: transparent;
-    outline: 1px #2CEC65 solid;
+.searchBar input:focus-visible {
+  color: var(--text-primary);
+  background-color: var(--glass);
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 @media only screen and (max-width: 500px) {
-    .searchBar{
-    width: 12rem;
-
-    border-radius: 1px red solid;
-}
-
-.searchBar input{
+  .searchBar {
+    width: 10rem;
+  }
+  .searchBar:focus-within {
+    width: 14rem;
+  }
+  .searchBar input {
     width: 100%;
-}
+  }
 }

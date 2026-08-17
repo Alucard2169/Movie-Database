@@ -1,181 +1,151 @@
 .backdrop {
-  z-index: 9999;
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
   display: none;
   justify-content: center;
   align-items: center;
-}
-.backdrop form {
-  position: relative;
-  padding: 3rem;
-  width: 25%;
-  border-radius: 10px;
-  min-height: 60%;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  gap: 1.5rem;
-}
-.backdrop form .icon {
-  position: absolute;
-  top: 5%;
-  right: 2rem;
-  cursor: pointer;
-}
-.backdrop form label {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.backdrop form label span {
-  position: absolute;
-  font-size: 0.9rem;
-  color: gray;
-  top: 1rem;
-  left: 1rem;
-  transition: all 200ms ease-in-out;
-}
-.backdrop form label input {
-  width: 100%;
-  border-radius: 100px;
-  padding: 1rem;
-  border: none;
-  background-color: #f6f7f8;
-}
-.backdrop form label input:focus {
-  background-color: none;
-  border: none;
-  outline: 1px gray solid;
-}
-.backdrop form label .passIcon {
-  position: absolute;
-  top: 30%;
-  right: 5%;
-  cursor: pointer;
-}
-.backdrop form .rememberBtn {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.9rem;
-  color: black;
-}
-.backdrop form .rememberBtn input {
-  width: 1rem;
-  height: 1rem;
-}
-.backdrop form p {
-  width: 100%;
-  text-align: left;
-  font-size: 0.8rem;
-}
-.backdrop form input[type=submit] {
-  border: none;
-  border-radius: 100px;
-  padding: 0.8rem;
-  color: white;
-  background-color: #2CEC65;
-  font-weight: 800;
-  cursor: pointer;
-}
-.backdrop form .signBtn:disabled {
-  background-color: #e68764;
-}
-.backdrop .passReq {
-  display: none;
-  position: absolute;
-  padding: 1rem;
-  background-color: white;
-  right: 15%;
-  border-radius: 10px;
-}
-.backdrop .passReq h4 {
-  font-size: 1rem;
-  margin-bottom: 5%;
-}
-.backdrop .passReq ul {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0 1rem;
-}
-.backdrop .passReq ul li {
-  list-style: circle;
-}
-
-.error {
-  margin-top: 5%;
-  color: red;
-  font-size: 0.8rem;
-}
-
-.asideLink {
-  margin-top: 1rem;
-  font-size: 0.8rem;
-}
-.asideLink button {
-  border: none;
-  background-color: transparent;
-  color: #0079d3;
-  font-weight: 700;
-  text-decoration: underline;
-  text-decoration-color: #0079d3;
-  cursor: pointer;
-}
-
-.spanAnimation {
-  top: 0.3rem !important;
-  font-size: 0.6rem !important;
-}
-
-.show {
-  display: flex !important;
-  flex-direction: column;
 }
 
 .display {
   display: flex;
 }
 
-@media only screen and (max-width: 800px) {
-  .backdrop form {
-    width: 50%;
-  }
+.backdrop form {
+  width: 24rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  animation: fadeUp 300ms ease-out both;
 }
-@media only screen and (max-width: 500px) {
-  .backdrop {
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-  }
-  .backdrop form {
-    width: 80%;
-    padding: 2rem;
-    min-height: 50%;
-  }
-  .backdrop .passReq {
-    position: relative;
-    margin-inline: auto;
-    margin-left: 25%;
-    width: 80%;
-    padding: 0.8rem;
-  }
-  .backdrop .passReq h4 {
-    font-size: 0.9rem;
-  }
-  .backdrop .passReq ul {
-    gap: 0.5rem;
-  }
-  .backdrop .passReq ul li {
-    font-size: 0.8rem;
-  }
+
+.backdrop form h2 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
+
+.asideLink {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.asideLink button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.asideLink button:hover {
+  text-decoration: underline;
+}
+
+.backdrop form label {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.backdrop form label span {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  position: absolute;
+  top: 0.75rem;
+  left: 0.8rem;
+  transition: all var(--transition);
+  pointer-events: none;
+}
+
+.spanAnimation {
+  transform: translateY(-1.6rem) scale(0.85);
+  color: var(--accent) !important;
+}
+
+.backdrop form label input {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: border-color var(--transition);
+}
+
+.backdrop form label input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.passIcon {
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color var(--transition);
+}
+
+.icon:hover {
+  color: var(--text-primary);
+}
+
+.error {
+  color: rgb(220, 80, 80);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(220, 80, 80, 0.1);
+  border-radius: 6px;
+}
+
+.backdrop form input[type="submit"] {
+  background: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.backdrop form input[type="submit"]:hover {
+  box-shadow: 0 4px 20px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
 .disable {
-  background-color: #0079d3 !important;
-  pointer-events: none !important;
-}/*# sourceMappingURL=Auth.module.css.map */
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 500px) {
+  .backdrop form {
+    width: 90%;
+    padding: 1.5rem;
+  }
+}
